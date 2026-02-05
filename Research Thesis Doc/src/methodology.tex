@@ -186,6 +186,8 @@ To evaluate the robustness of collaborative SLAM architectures under adverse com
 
 Impairments are applied in a controlled and repeatable manner by a network emulation layer at message send time. For a given impairment configuration $\mathcal{I}$, the same impairment parameters are applied across both architectures to ensure architectural fairness.
 
+In practice, the impairment mechanism supports different \emph{application modes} depending on which communication edges are being studied: impairments can be applied to (i) the factor-publisher uplink (constraint availability), (ii) backend-internal communication (decentralised peer-to-peer interface exchange and/or centralised map downlink), or (iii) both. Fair comparisons therefore condition on a fixed impairment mode and parameter set, and results are interpreted accordingly.
+
 By combining the communication models of Section~\ref{sec:comm_model} with the impairment levels defined here, the experimental framework systematically explores how architectural choices ($\mathcal{A}$) interact with QoS settings ($\mathcal{Q}$) and network impairments ($\mathcal{I}$) in terms of latency, communication load, scalability, and estimation accuracy.
 
 \section{Performance Metrics}
@@ -199,11 +201,12 @@ For each experimental configuration in the design space $\mathcal{D}$, a set of 
 Timing metrics quantify (i) how quickly a backend incorporates newly ingested constraints and (ii) how quickly corrections become visible to the team. To make compute time and dissemination time comparable across architectures, we distinguish backend solve latency from (optional) update broadcast latency.
 
 \paragraph{Ingest-to-optimisation latency $L_{\text{opt}}$.}
-This metric captures backend compute latency as the elapsed time between ingestion of a constraint batch and completion of the corresponding optimisation update:
+For the centralised backend, where each ingest event corresponds to a clearly defined server-side batch, we additionally report the elapsed time between ingestion of a constraint batch and completion of the corresponding optimisation update:
 \begin{equation}
 	L_{\text{opt}}(b) = t_{\text{optimization\_end}}(b) - t_{\text{ingest}}(b),
 \end{equation}
 where $t_{\text{ingest}}(b)$ is the timestamp at which the backend accepts batch $b$ and $t_{\text{optimization\_end}}(b)$ is the timestamp at which the optimisation update that incorporates $b$ completes.
+For decentralised runs there is no single, architecture-agnostic notion of ``backend ingest of batch $b$'' because each agent ingests both local factors and asynchronous peer updates; in this thesis we therefore treat ingest-to-optimisation as architecture-specific and rely on $D_{\text{opt}}$ as the cross-architecture compute indicator.
 
 \paragraph{Ingest-to-broadcast latency $L_{\text{global}}$ (centralised runs).}
 For the centralised architecture, the server may additionally publish a global update (map downlink) to make the updated state available to robots. The corresponding dissemination latency is defined as
@@ -217,7 +220,7 @@ Several timing KPIs require a backend-agnostic notion of ``the estimate has sett
 \begin{equation}
 	\Delta t_{\max}^{(u)} = \max_i \left\| \mathbf{t}_i^{(u)} - \mathbf{t}_i^{(u-1)} \right\|_2.
 \end{equation}
-Unless stated otherwise, stabilisation is declared when $\Delta t_{\max}^{(u)} \le \epsilon$ for $S$ consecutive updates, with $\epsilon = 10^{-3}$ and $S = 5$.
+Unless stated otherwise, stabilisation is declared when $\Delta t_{\max}^{(u)} \le \epsilon$ for $S$ consecutive updates, with $\epsilon = 10^{-3}$ and $S = 3$.
 
 \paragraph{Loop-closure correction time $T_{\text{LC}}$.}
 This metric measures how long it takes for an inter-robot loop closure to be reflected in a stable estimate. For a loop-closure event $c$:
@@ -231,7 +234,7 @@ For long runs, we measure the time required for the system to reach a globally s
 \begin{equation}
 	T_{\text{conv}} = t(u^\star) - t_{\text{start}},
 \end{equation}
-where $t(u^\star)$ is the timestamp of the first stable update and $t_{\text{start}}$ is the start time of the run. Unless stated otherwise, we use $\epsilon_{\text{conv}} = 10^{-3}$ and $S = 5$ to match the KPI derivation implemented in Chapter~\ref{ch:implementation}.
+where $t(u^\star)$ is the timestamp of the first stable update and $t_{\text{start}}$ is the start time of the run. Unless stated otherwise, we use $\epsilon_{\text{conv}} = 10^{-3}$ and $S = 3$ to match the KPI derivation implemented in Chapter~\ref{ch:implementation}.
 
 \subsection{Accuracy Metrics}
 \label{sec:accuracy_metrics}

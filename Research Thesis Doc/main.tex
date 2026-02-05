@@ -1,0 +1,65 @@
+%Options
+% FhD -> Changes the template for Univesity of dormtund
+% HSHL -> Changes the template for Univesity of Lippstadt
+% These change the type accordingly
+% ProjectWork  
+% BachelorThesis 
+% MasterThesis 
+% ResearchThesis 
+
+\documentclass[FhD, ResearchThesis]{teamhenkler}
+\title{A Comparative Analysis of System Architectures for Collaborative SLAM}
+\author{Aditya Kumar}
+\supervisor{Prof. Dr. Stefan Henkler}
+\cosupervisor{You Co-Supervisor(s)}
+\graddate{\today}
+\matriculationnumber{7219675}
+
+
+%Change this if you are doing it with a company
+%\companyname{Company Name}
+%\companylogo{\logopath} %replace \logopath with the company logo, comment it out if you dont want any logo
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Collaborative Simultaneous Localisation and Mapping (C-SLAM) enables teams of robots to construct a shared environment map while estimating their trajectories. As multi-robot systems move toward larger deployments in dynamic settings, the backend architecture becomes a primary determinant of end-to-end performance. However, experimentally controlled comparisons between different C-SLAM architectures with similar frontend-backend processing under realistic network effects remain scarce.
+	
+This research thesis presents a systematic, implementation-grounded comparison of two representative backend paradigms within a unified evaluation framework. A centralised incremental pose-graph optimiser and a decentralised DDF-style distributed optimiser. To ensure architectural fairness, both backends consume identical pre-computed factor streams from the COSMO-Bench dataset and are evaluated using a fully automated ROS 2 testbed that can apply packet loss, transmission delay, and bandwidth limitations in a controlled manner. Performance is quantified using localisation accuracy, latency and convergence behaviour, communication bandwidth, and computational resource utilisation.   
+	
+The centralised backend provides more dependable global consistency and convergence across the investigated setups, especially as team size grows. However, it results in significantly higher uplink communication and concentrates processing at the server. Although the decentralised backend achieves quick local update responsiveness and much reduced communication requirements, it is more sensitive to impaired peer-to-peer information transmission and coordination overhead at scale. 
+
+Overall, neither centralised nor decentralised C-SLAM paradigms are universally optimal. Their effectiveness depends on specific application needs. Centralised C-SLAM is preferable when infrastructure is stable, precision and global consistency are important, robots have limited hardware, and team sizes are small to medium. Decentralised C-SLAM, on the other hand, is appropriate for inconsistent connectivity, critical scalability, strict fault tolerance, and situations requiring more autonomy.
+\end{abstract}
+
+
+\makedeclaration
+\maketoc
+
+\input{src/introduction}
+\input{src/fundamentals}
+%\input{src/funda}
+\input{src/state_art}
+%\input{src/rough}
+\input{src/methodology}
+\input{src/implementation}
+%\input{src/imple}
+%\input{src/evaluation}
+%\input{src/evaluationx}
+\input{src/rough}
+\input{src/conclusion}
+
+%\input{src/conclusionx~}
+%\input{src/best_practices}
+%\input{src/preliminaries}
+
+\bibliographystyle{plain}
+\bibliography{src/bib} 
+
+\appendix
+
+\input{src/A1_Appendix}
+
+\end{document}

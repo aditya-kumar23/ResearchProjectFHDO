@@ -1,0 +1,21 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Comparison of centralised and decentralised C-SLAM architectures. These trends are consistent across visual, LiDAR, and multi-modal systems.\relax }}{17}{table.caption.9}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Repository layout of the experimental framework.\relax }}{31}{table.caption.10}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Operationalisation of the design space into concrete runtime knobs.\relax }}{32}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Baseline comparison for the reference team size (r3) under the dataset-native networking regimes. $t_{\mathrm {global}}$ is a centralised dissemination proxy (time until last global map broadcast). ``Corr.\ p95'' is a correction-latency indicator: for centralised runs it reports loop-closure correction latency (p95), while for decentralised runs it reports interface correction stabilisation latency (p95). These timing indicators are architecture-specific; strict cross-architecture convergence comparisons should use the shared stabilisation proxy $T_{\mathrm {conv}}^{(\mathrm {team})}$ (Section~\ref {sec:eval_semantics}).\relax }}{47}{table.caption.17}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Decentralised diagnostic counts in the baseline sweep: number of inter-robot loop-closure constraints (Between factors whose endpoint keys belong to different robot symbols) and number of interface correction updates (count of stabilised interface-correction events). Values are mean $\pm $ 95\% CI over repeats ($R=5$).\relax }}{48}{table.caption.21}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Baseline scalability trend across team sizes (r3--r5). Backend: C=centralised, D=decentralised. ``Time'' denotes $t_{\mathrm {global}}$ for centralised runs (dissemination proxy) and Corr.\ p95 for decentralised runs (correction-propagation proxy). The shared convergence proxy $T_{\mathrm {conv}}^{(\mathrm {team})}$ is reported as the comparison anchor (mean $\pm $ 95\% CI across repeats; ``$\ge $'' indicates right-censoring when stabilisation is not observed). Rows marked \texttt {fail} were excluded from trend interpretation.\relax }}{53}{table.caption.22}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces QoS sensitivity at r3. Two alternate profiles are evaluated: BT-TL-10 and BT-TL-50, which use best-effort reliability and transient-local durability with history depth 10 and 50, respectively. Baseline (RV-20) results are reported in Table~\ref {tab:eval_baseline_r3}. ``Time'' denotes $t_{\mathrm {global}}$ for centralised runs and Corr.\ p95 for decentralised runs. $T_{\mathrm {conv}}^{(\mathrm {team})}$ is the shared stabilisation proxy (mean $\pm $ 95\% CI; ``$\ge $'' indicates right-censoring). Rows marked \texttt {fail} indicate at least one repeat crashed.\relax }}{54}{table.caption.23}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Impact of representative network impairments on the centralised backend. Bandwidth caps of 1--3\,Mbps were near-identical to baseline and are omitted here; only the most restrictive cap (0.25\,Mbps) is shown.\relax }}{56}{table.caption.25}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Impact of representative network impairments on the decentralised backend (DDF-style). ``Iface p95'' is interface correction stabilisation latency (p95). Rows marked \texttt {fail} indicate runs where at least one agent crashed.\relax }}{57}{table.caption.26}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Runs that did not complete successfully and were excluded from quantitative comparisons.\relax }}{57}{table.caption.28}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 
+\contentsfinish 

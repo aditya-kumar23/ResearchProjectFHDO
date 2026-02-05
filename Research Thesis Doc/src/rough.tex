@@ -1,0 +1,380 @@
+\chapter{Evaluation}
+\label{ch:evaluation}
+
+This chapter evaluates the collaborative SLAM backends defined in Chapter~\ref{ch:methodology} and realised in Chapter~\ref{ch:implementation}. Following the experimental design space $\mathcal{D}=\mathcal{A}\times\mathcal{N}\times\mathcal{Q}\times\mathcal{I}$ introduced in Section~\ref{sec:research_design}, the evaluation varies (i) backend architecture $\mathcal{A}$ (centralised vs.\ decentralised), (ii) team size $\mathcal{N}$ (r3--r5), (iii) ROS\,2 QoS policy $\mathcal{Q}$, and (iv) injected network impairments $\mathcal{I}$. All runs are analysed with the KPI pipeline described in Section~\ref{sec:metrics_implementation}, producing accuracy, timing, communication, and resource metrics consistent with Section~\ref{sec:metrics}.
+
+\paragraph{Research-question coverage.}
+The chapter is organised to explicitly answer the research questions stated in Chapter~\ref{chap:introduction}.
+Research Question~1 (latency and convergence) is addressed through architecture-specific timing indicators and a shared stabilisation proxy (Section~\ref{sec:eval_semantics}).
+Research Question~2 (effect of team size) is addressed through the r3--r5 baseline scalability sweep (Section~\ref{subsec:eval_scalability}).
+Research Question~3 (compute and bandwidth under network constraints) is addressed via traffic, delivery, and resource metrics under QoS and impairments (Sections~\ref{sec:eval_qos} and~\ref{sec:eval_impair}).
+Research Question~4 (robustness) is addressed through impairment behaviour and unsupported configurations (Section~\ref{sec:eval_robustness}).
+
+\section{Experimental protocol and reporting conventions}
+\label{sec:eval_protocol}
+
+\subsection{Protocol and design-space instantiation}
+\label{subsec:eval_protocol}
+Each experiment is a deterministic dataset replay (Section~\ref{sec:dataset_frontend}) executed for both backends under identical frontend inputs and identical factor streams. The dataset provides two native networking regimes---\emph{WiFi} and \emph{ProRadio}---which differ in the recorded factor-stream characteristics; these are treated as environmental conditions of the protocol rather than tunable parameters.
+
+The baseline configuration uses the reference ROS\,2 QoS profile RV-20 (reliable reliability, volatile durability, history depth 20) and applies no synthetic network impairment. QoS experiments modify only $\mathcal{Q}$ while keeping the dataset regime unchanged, and impairment experiments modify only $\mathcal{I}$ using the impairment mechanism described in Section~\ref{sec:network_impairment_qos}. For fairness, comparisons are organised around matched tuples $(\mathcal{A},\mathcal{N},\text{regime})$ and then one factor is changed at a time. Concretely, the evaluation proceeds as follows: (i) an ``apples-to-apples'' baseline comparison at r3 under each regime, contrasting the two backends with identical RV-20 QoS and without impairments; (ii) a scalability sweep by repeating the baseline at r4 and r5; (iii) a QoS sensitivity study at r3 (alternate QoS profiles, no impairments); and (iv) an impairment sensitivity study at r3 and r5 (bandwidth caps and blackouts).
+Unless stated otherwise, the impairment sweep reported in Section~\ref{sec:eval_impair} applies impairments at the factor publishers (uplink/factor-stream degradation), which isolates the effect of constrained constraint availability from backend-internal communication impairments.
+
+Repeat counts depend on the sweep: baseline, QoS, and impairment configurations are repeated five times ($R=5$). While deterministic replay reduces environmental variance, asynchronous scheduling and ROS\,2 buffering can still introduce run-to-run variation in timing and delivery-related KPIs; this is treated explicitly in the aggregation conventions below.
+
+\paragraph{Result provenance (run outputs).}
+All numeric results and failure statuses in this chapter are taken from the experiment output folders under \texttt{new\_eval/out/}: baseline/scalability \texttt{baseline\_20260204\_180031}, QoS \texttt{qos\_20260205\_081932}, and impairments \texttt{impair\_20260204\_191738}.
+
+\subsection{Reporting conventions}
+\label{subsec:eval_reporting}
+To avoid ambiguity in how results are aggregated, the chapter follows the reporting rules below.
+
+\paragraph{Repeats.}
+For each configuration, KPIs are first computed per run and then averaged over repeats ($R$ runs, as specified in Section~\ref{subsec:eval_protocol}). Where ``[min,max]'' ranges are reported, they are computed after averaging the relevant per-robot KPI over repeats.
+
+\paragraph{Shared convergence proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$.}
+Where tables present results for both architectures, a shared convergence proxy is reported as $T_{\mathrm{conv}}^{(\mathrm{team})}$ following Section~\ref{sec:timing_metrics}. In tables, this is summarised as mean $\pm$ half-width of the 95\% CI across repeats. If the stabilisation window is not observed within a run, the value is right-censored at the run end and reported as a lower bound (``$\ge$'').
+
+\paragraph{KPI naming convention.}
+To avoid confusing architecture-comparable stabilisation metrics with event-semantic proxies, this chapter uses the following naming convention in the discussion: \texttt{stable\_*} for stabilisation-window metrics (e.g., $T_{\mathrm{conv}}^{(\mathrm{team})}$ and stabilised correction times), \texttt{event\_*} for event-defined proxies (e.g., time-to-last-broadcast), and \texttt{term\_*} for termination/stop-condition times (e.g., DDF stop time).
+
+\paragraph{Statistical treatment (run-level uncertainty).}
+The experimental unit is a single run (one repeat folder \texttt{\_\_rXX}). Unless stated otherwise, uncertainty is summarised across repeats using 95\% confidence intervals (CI) computed over run-level KPIs.
+Where comparisons are naturally matched (e.g., centralised vs.\ decentralised on the same dataset repeat index, or impairment vs.\ baseline under the same regime), paired differences are preferred and CIs are computed over the paired run-to-run deltas to reduce sensitivity to shared environmental noise.
+
+\paragraph{Robot/team aggregation.}
+Where a KPI is naturally per-robot (e.g., ATE), it is computed per robot and then summarised at team level. In tables, \emph{ATE mean} denotes the team mean across robots. When an \emph{ATE RMSE [min,max]} range is reported, the bracket denotes the minimum and maximum across robots of the repeat-mean per-robot ATE.
+
+\paragraph{Traffic and delivery.}
+Traffic (MiB) denotes the total transmitted payload volume aggregated across all participating nodes in the backend under that scenario. For centralised runs, uplink/downlink splits are reported to highlight the broadcast structure. Factor delivery denotes the fraction of expected factor messages received/processed by the backend; \emph{delivery min} reports the worst-case robot (minimum across robots) after averaging over repeats.
+
+\paragraph{Compute and memory.}
+CPU mean and RSS mean are taken from the process-monitor signals exported by the KPI pipeline (Section~\ref{sec:metrics_implementation}) and averaged over time and repeats. For centralised runs, these values are dominated by the server-side optimisation process; for decentralised runs they reflect the distributed agent processes.
+
+\subsection{Timing semantics and convergence definitions}
+\label{sec:eval_semantics}
+Timing metrics are interpreted with an explicit separation between \emph{dissemination} and \emph{estimate stabilisation}. The centralised backend exposes an unambiguous dissemination event: the server emits global map/pose broadcasts to robots. We therefore report $t_{\mathrm{global}}$ as a \emph{broadcast/dissemination} proxy (time until the final broadcast observed in the run).
+
+To characterise correction latency in the centralised pipeline, we additionally report loop-closure correction latency (p95), denoted ``Corr.\ p95'' in the tables.
+
+Across both backends, ``Opt.\ p95'' denotes the p95 of the backend-measured optimisation update duration (compute-only) over all solver updates in a run.
+
+In contrast, the decentralised backend has no single broadcaster and therefore no direct analogue of ``last map broadcast''. For decentralised runs, ``Corr.\ p95'' refers to interface correction stabilisation latency (p95) and acts as a \emph{correction-propagation} proxy. These timing indicators are architecture-specific and must not be compared as if they were the same notion of convergence.
+
+Where a cross-architecture convergence comparison is required, convergence is defined via a shared stabilisation proxy based on receiver-side settling: a per-robot stabilisation time $T_{\mathrm{conv}}^{(r)}$ and a conservative team statistic $T_{\mathrm{conv}}^{(\mathrm{team})}=\max_r T_{\mathrm{conv}}^{(r)}$ (Section~\ref{sec:timing_metrics}). In this chapter, architecture-specific timing indicators are reported alongside accuracy and communication metrics to characterise operational behaviour, while timing-related cross-architecture interpretations are stated conservatively.
+
+\section{Results overview}
+\label{sec:eval_overview}
+The evaluation yields four consistent high-level patterns that guide the detailed discussion in the subsequent sections. First, in the nominal baseline runs, the centralised backend achieves lower ATE than the decentralised backend across both dataset regimes. Second, communication semantics differ structurally: centralised operation is dominated by downlink global broadcasts, whereas decentralised operation is dominated by uplink peer-to-peer interface and factor exchanges. Third, QoS variations have negligible effect on centralised outcomes in the evaluated settings, but modulate decentralised bandwidth through buffering depth without materially changing accuracy in the nominal regime. Finally, in the uplink-only impairment mode used here, severe bandwidth caps delay when information becomes available to the backend and thereby delay centralised dissemination (increasing $t_{\mathrm{global}}$ with essentially constant traffic), while blackouts reduce factor delivery and can trigger instability or failure in some decentralised configurations.
+
+\section{Baseline comparison under native dataset networking}
+\label{sec:eval_baseline}
+The baseline establishes a reference operating point for both architectures under the two dataset-native networking regimes, using identical frontend outputs and the same RV-20 QoS profile. Beyond serving as the main architecture comparison, the baseline anchors the subsequent sensitivity studies (QoS and impairments) by providing a common reference for each $(\mathcal{N},\text{regime})$.
+
+\subsection{Reference r3 baseline: centralised vs.\ decentralised}
+\label{subsec:eval_r3_baseline}
+Table~\ref{tab:eval_baseline_r3} summarises the r3 baseline. Across both networking regimes, the centralised backend achieves lower trajectory error than the decentralised backend. Under WiFi, the centralised ATE is 2.27\,m (range 2.23--2.30\,m), compared to 3.58\,m (2.77--4.68\,m) for the decentralised backend. Under ProRadio, the same pattern holds: 2.16\,m (2.12--2.24\,m) vs.\ 3.82\,m (2.89--5.51\,m).
+
+The timing metrics reflect the different event semantics of the two architectures. For the centralised backend, $t_{\mathrm{global}}$ is a dissemination proxy (time until the last global map broadcast), and Corr.\ p95 reports loop-closure correction latency (p95). For the decentralised backend, Corr.\ p95 reports interface correction stabilisation latency (p95) as a correction-propagation proxy. These are reported side-by-side to characterise each pipeline; any strict convergence comparison should be grounded in the shared proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$ (Section~\ref{sec:eval_semantics}).
+
+The baseline exposes the dominant communication patterns. In the centralised WiFi run, downlink map broadcast accounts for 89.8\% of the total traffic (49.4\,MiB of 55.0\,MiB), whereas the decentralised backend transmits almost exclusively uplink interface and factor updates. Under ProRadio, the same qualitative picture remains, with map broadcast constituting 86.5\% of the centralised traffic. These structural differences explain why the decentralised backend is more bandwidth-efficient on WiFi at r3 (28.7\,MiB vs.\ 55.0\,MiB total), but not necessarily on ProRadio (32.2\,MiB vs.\ 30.3\,MiB total, albeit in different directions).
+
+Compute and resource usage align with the architectural split. The centralised backend concentrates computation on the server node (single dominant process), whereas the decentralised backend distributes the optimisation effort across agents (multiple processes). Per-process CPU utilisation is comparable in magnitude, but the decentralised backend incurs a higher \emph{total} CPU demand when summing across agents, and a higher aggregate memory footprint when considering all agent processes. Consistent with the solver structure described in Section~\ref{sec:impl_centralised_backend} and Section~\ref{sec:impl_decentralised_backend}, the decentralised optimisation step is shorter (lower p95 optimisation duration) but requires additional time for interface-level corrections to propagate and stabilise.
+To express efficiency in a normalised way, the evaluation also reports \emph{CPU-seconds per optimisation step}: the time-integral of process CPU utilisation (CPU\% over time) divided by the number of solver optimisation steps in the run.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.75\linewidth]{src/img/main/eval_efficiency_cpu_s_per_step.pdf}
+	\caption{Efficiency-normalised metric for the r3 baseline: CPU-seconds per optimisation step. Bars show mean over repeats ($R=5$); error bars denote 95\% CI across repeats, with individual repeats overlaid. Lower values indicate less compute time spent per solver update.}
+	\label{fig:eval_efficiency_cpu_s_per_step}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_r3_summary.pdf}
+	\caption{Compact summary of the r3 baseline (Table~\ref{tab:eval_baseline_r3}): ATE RMSE and total traffic with uplink/downlink split. Bars show mean over repeats ($R=5$); error bars denote 95\% CI across repeats.}
+	\label{fig:eval_r3_summary}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_resources_timeseries.pdf}
+	\caption{Resource traces over time for the r3 baseline: centralised CPU/RSS of the server process vs.\ decentralised CPU/RSS aggregated across agents (sum over per-agent processes). Time is aligned to the start of each run. These traces support diagnosis of stability issues (e.g., monotonic RSS growth preceding agent crashes) and complement the aggregate means reported in Table~\ref{tab:eval_baseline_r3}.}
+	\label{fig:eval_resources_timeseries}
+\end{figure}
+
+\begin{table}[t]
+	\centering
+	\caption{Baseline comparison for the reference team size (r3) under the dataset-native networking regimes. $t_{\mathrm{global}}$ is a centralised dissemination proxy (time until last global map broadcast). ``Corr.\ p95'' is a correction-latency indicator: for centralised runs it reports loop-closure correction latency (p95), while for decentralised runs it reports interface correction stabilisation latency (p95). These timing indicators are architecture-specific; strict cross-architecture convergence comparisons should use the shared stabilisation proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$ (Section~\ref{sec:eval_semantics}).}
+	\label{tab:eval_baseline_r3}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llcccccccc}
+		\toprule
+		Link & Backend & ATE RMSE(m) & $t_{\mathrm{global}}$ (s) & Corr.\ p95 (s) & $T_{\mathrm{conv}}^{(\mathrm{team})}$ (s) & Opt.\ p95 (s) & Traffic (MiB) & CPU mean (\%) & RSS mean (MiB) \\
+		\midrule
+		PrRa & Centralised & 2.164 $\pm$ 0.000 & 11.5 & 0.096 & 0.01 $\pm$ 0.00 & 0.030 & 30.3 (up 4.1 / down 26.2) & 32.0 & 123.9 \\
+		PrRa & Decentralised & 3.821 $\pm$ 0.072 & -- & 14.37 & $\ge 21.33 \pm 5.94$ & 0.020 & 32.2 (up 32.2 / down 0.0) & 37.9 & 108.3 \\
+		WiFi & Centralised & 2.270 $\pm$ 0.002 & 16.4 & 0.126 & 0.12 $\pm$ 0.00 & 0.043 & 55.0 (up 5.6 / down 49.4) & 45.4 & 136.4 \\
+		WiFi & Decentralised & 3.581 $\pm$ 0.035 & -- & 4.79 & 15.19 $\pm$ 3.53 & 0.026 & 28.7 (up 28.7 / down 0.0) & 38.5 & 113.0 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Scalability trend (r3--r5)}
+\label{subsec:eval_scalability}
+Scalability is assessed by repeating the baseline protocol at r4 and r5. Table~\ref{tab:eval_baseline_scalability} reports the resulting trends.
+For the decentralised backend, Figure~\ref{fig:eval_ddf_ate_vs_stop_time} visualises how final accuracy relates to DDF termination time as team size increases, and Table~\ref{tab:eval_diag_loops_iface_counts} provides diagnostic counts of inter-robot loop-closure constraints and interface update activity per team size.
+
+For the centralised backend, total traffic grows with team size primarily because the global map broadcast must serve more robots and the map itself grows as more trajectories contribute constraints. This is most visible under WiFi, where traffic increases from 55.0\,MiB (r3) to 69.0\,MiB (r4) and 91.0\,MiB (r5). Under ProRadio, the same monotonic growth is observed (30.3\,MiB to 74.4\,MiB to 86.8\,MiB), and $t_{\mathrm{global}}$ increases accordingly, reflecting a longer tail of late map broadcasts.
+
+For the decentralised backend, scalability is driven by peer-to-peer interface exchange frequency and the size of shared summaries. On WiFi, decentralised traffic grows from 28.7\,MiB (r3) to 41.4\,MiB (r4) and 66.9\,MiB (r5), and accuracy degrades at r5 (ATE RMSE 6.66\,m with a maximum of 17.04\,m), suggesting that interface coordination becomes a limiting factor for maintaining global consistency at this team size under the given dataset regime.
+
+Under ProRadio, decentralised performance is comparatively stable across team sizes: ATE RMSE is 3.82\,m (r3), 2.72\,m (r4), and 2.90\,m (r5), while traffic grows from 32.2\,MiB to 36.1\,MiB and 47.4\,MiB. This indicates that, for the evaluated ProRadio sequences, increased team size primarily increases interface-traffic volume without inducing the same r5 accuracy collapse observed under WiFi.
+Figure~\ref{fig:eval_pareto_ate_vs_traffic} complements this trend view by showing the per-repeat ATE--traffic dispersion and the resulting trade-off frontier.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_scalability.pdf}
+	\caption{Scalability trend in the baseline sweep (Table~\ref{tab:eval_baseline_scalability}): ATE RMSE and traffic vs.\ team size (r3--r5) for WiFi and ProRadio. Lines show mean over repeats ($R=5$); error bars denote 95\% CI across repeats. Failed runs are marked.}
+	\label{fig:eval_scalability}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.90\linewidth]{src/img/main/eval_pareto_ate_vs_traffic.pdf}
+	\caption{Pareto view of baseline trade-offs across team sizes (r3--r5): ATE RMSE vs.\ total traffic for each successful repeat. This visualisation complements Figure~\ref{fig:eval_scalability} by showing per-run dispersion and the accuracy--bandwidth frontier for each architecture.}
+	\label{fig:eval_pareto_ate_vs_traffic}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_ddf_ate_vs_stop_time.pdf}
+	\caption{Decentralised diagnostic for RQ2: ATE mean vs.\ DDF termination time. The x-axis reports $T_{\mathrm{stop}}^{(\mathrm{team})}$ (time from \texttt{input\_end} until all agents emit \texttt{ddf\_stop}, team statistic = max over robots). Error bars denote 95\% CI over repeats ($R=5$).}
+	\label{fig:eval_ddf_ate_vs_stop_time}
+\end{figure}
+
+\begin{table}[t]
+	\centering
+	\caption{Decentralised diagnostic counts in the baseline sweep: number of inter-robot loop-closure constraints (Between factors whose endpoint keys belong to different robot symbols) and number of interface correction updates (count of stabilised interface-correction events). Values are mean $\pm$ 95\% CI over repeats ($R=5$).}
+	\label{tab:eval_diag_loops_iface_counts}
+	\small
+	\setlength{\tabcolsep}{5pt}
+	\begin{tabular}{lccc}
+		\toprule
+		Link & Team & Inter-robot loop closures (count) & Interface updates (count) \\
+		\midrule
+		WiFi & r3 & 390 & 19510 $\pm$ 1870 \\
+		WiFi & r4 & 609 & 26231 $\pm$ 3223 \\
+		WiFi & r5 & 843 & 34644 $\pm$ 2990 \\
+		ProRadio & r3 & 407 & 22858 $\pm$ 5315 \\
+		ProRadio & r4 & 480 & 24055 $\pm$ 2408 \\
+		ProRadio & r5 & 568 & 25570 $\pm$ 5564 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[t]
+	\centering
+	\caption{Baseline scalability trend across team sizes (r3--r5). Backend: C=centralised, D=decentralised. ``Time'' denotes $t_{\mathrm{global}}$ for centralised runs (dissemination proxy) and Corr.\ p95 for decentralised runs (correction-propagation proxy). The shared convergence proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$ is reported as the comparison anchor (mean $\pm$ 95\% CI across repeats; ``$\ge$'' indicates right-censoring when stabilisation is not observed). Rows marked \texttt{fail} were excluded from trend interpretation.}
+	\label{tab:eval_baseline_scalability}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llllccccccc}
+		\toprule
+		Link & Team & B/E & Status & ATE RMSE (m) & Time (s) & $T_{\mathrm{conv}}^{(\mathrm{team})}$ (s) & Opt.\ p95 (s) & Traffic (MiB) & CPU mean (\%) & RSS mean (MiB) \\
+		\midrule
+		ProRadio & r3 & C & ok & 2.164 $\pm$ 0.000 & 11.5 & 0.01 $\pm$ 0.00 & 0.030 & 30.3 & 32.0 & 123.9 \\
+		ProRadio & r4 & C & ok & 2.526 $\pm$ 0.000 & 21.6 & 0.12 $\pm$ 0.01 & 0.055 & 74.4 & 52.7 & 151.4 \\
+		ProRadio & r5 & C & ok & 1.985 $\pm$ 0.013 & 25.0 & 0.17 $\pm$ 0.00 & 0.058 & 86.8 & 55.8 & 155.6 \\
+		ProRadio & r3 & D & ok & 3.821 $\pm$ 0.072 & 14.4 & $\ge 21.33 \pm 5.94$ & 0.020 & 32.2 & 37.9 & 108.3 \\
+		ProRadio & r4 & D & ok & 2.721 $\pm$ 0.030 & 8.3 & 12.58 $\pm$ 1.20 & 0.026 & 36.1 & 35.0 & 113.7 \\
+		ProRadio & r5 & D & ok & 2.898 $\pm$ 0.028 & 6.0 & $\ge 20.34 \pm 10.35$ & 0.026 & 47.4 & 30.4 & 113.0 \\
+		WiFi & r3 & C & ok & 2.270 $\pm$ 0.002 & 16.4 & 0.12 $\pm$ 0.00 & 0.043 & 55.0 & 45.4 & 136.4 \\
+		WiFi & r4 & C & ok & 2.151 $\pm$ 0.000 & 20.6 & 0.13 $\pm$ 0.00 & 0.059 & 69.0 & 51.7 & 150.8 \\
+		WiFi & r5 & C & ok & 1.885 $\pm$ 0.031 & 26.3 & 0.15 $\pm$ 0.01 & 0.062 & 91.0 & 57.2 & 159.2 \\
+		WiFi & r3 & D & ok & 3.581 $\pm$ 0.035 & 4.8 & 15.19 $\pm$ 3.53 & 0.026 & 28.7 & 38.5 & 113.0 \\
+		WiFi & r4 & D & ok & 3.274 $\pm$ 0.030 & 4.9 & 11.53 $\pm$ 0.45 & 0.026 & 41.4 & 35.4 & 114.2 \\
+		WiFi & r5 & D & ok & 6.656 $\pm$ 0.635 & 6.2 & 23.85 $\pm$ 1.55 & 0.028 & 66.9 & 33.2 & 114.8 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\section{Sensitivity to ROS\,2 QoS policy}
+\label{sec:eval_qos}
+The QoS study isolates factor $\mathcal{Q}$ by changing only the ROS\,2 communication profile while keeping the dataset regime and all other parameters fixed. Two alternate profiles are evaluated: BT-TL-10 and BT-TL-50, which use best-effort reliability and transient-local durability with history depth 10 and 50, respectively (artifact labels: \texttt{best\_effort\_tl\_d10} and \texttt{best\_effort\_tl\_d50} in the run output folders). This tests whether relaxing delivery guarantees (best-effort) and modifying buffering (depth) alter dissemination/correction timing, bandwidth, or estimation quality.
+
+Table~\ref{tab:eval_qos_r3} shows the r3 results. For the centralised backend, QoS changes are negligible: ATE and traffic remain unchanged within rounding and $t_{\mathrm{global}}$ remains close to the baseline values. In this implementation, the centralised pipeline is dominated by server-side optimisation cadence and periodic broadcast behaviour, and the evaluated QoS variations do not materially change the produced byte volume nor the server broadcast schedule under deterministic replay.
+Because $t_{\mathrm{global}}$ is defined as the time until the \emph{last} map broadcast, it remains a dissemination-tail indicator rather than a strict convergence instant. Consequently, centralised QoS sensitivity is primarily assessed through accuracy and traffic, while timing-related cross-architecture comparisons are grounded in the shared stabilisation proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$ (Section~\ref{sec:eval_semantics}).
+
+For the decentralised backend, QoS mainly influences bandwidth through history depth. On WiFi r3, BT-TL-50 increases total traffic by about 35.5\% relative to BT-TL-10 (33.6\,MiB vs.\ 24.8\,MiB). Despite this shift in communication volume, the ATE change remains small (within about 0.02\,m), suggesting that the evaluated QoS settings affect buffering overhead more than estimation quality in the nominal regime for the successful WiFi r3 runs.
+
+One decentralised QoS configuration (ProRadio r3 under BT-TL-10) does not complete successfully due to an agent crash (Table~\ref{tab:eval_excluded_runs}). This point is treated as an unsupported configuration in the current implementation and bounds conclusions about QoS sensitivity under that regime/profile pair.
+
+\begin{table}[t]
+	\centering
+	\caption{QoS sensitivity at r3. Two alternate profiles are evaluated: BT-TL-10 and BT-TL-50, which use best-effort reliability and transient-local durability with history depth 10 and 50, respectively. Baseline (RV-20) results are reported in Table~\ref{tab:eval_baseline_r3}. ``Time'' denotes $t_{\mathrm{global}}$ for centralised runs and Corr.\ p95 for decentralised runs. $T_{\mathrm{conv}}^{(\mathrm{team})}$ is the shared stabilisation proxy (mean $\pm$ 95\% CI; ``$\ge$'' indicates right-censoring). Rows marked \texttt{fail} indicate at least one repeat crashed.}
+	\label{tab:eval_qos_r3}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llllcccc}
+		\toprule
+		Link & B/E & QoS profile & Status & ATE mean (m) & Traffic (MiB) & Time (s) & $T_{\mathrm{conv}}^{(\mathrm{team})}$ (s) \\
+		\midrule
+		WiFi & C & BT-TL-10 & ok & 2.272 $\pm$ 0.000 & 55.0 & 16.4 & 0.12 $\pm$ 0.00 \\
+		WiFi & C & BT-TL-50 & ok & 2.272 $\pm$ 0.000 & 55.0 & 16.4 & 0.12 $\pm$ 0.00 \\
+		WiFi & D & BT-TL-10 & ok & 3.598 $\pm$ 0.032 & 24.8 & 7.0 & 17.12 $\pm$ 1.45 \\
+		WiFi & D & BT-TL-50 & ok & 3.578 $\pm$ 0.030 & 33.6 & 4.4 & 13.49 $\pm$ 1.08 \\
+		ProRadio & C & BT-TL-10 & ok & 2.164 $\pm$ 0.000 & 30.3 & 11.7 & 0.01 $\pm$ 0.00 \\
+		ProRadio & C & BT-TL-50 & ok & 2.164 $\pm$ 0.000 & 30.3 & 11.7 & 0.01 $\pm$ 0.00 \\
+		ProRadio & D & BT-TL-10 & fail & -- & -- & -- & -- \\
+		ProRadio & D & BT-TL-50 & ok & 3.859 $\pm$ 0.038 & 37.2 & 12.7 & $\ge 24.54 \pm 1.09$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\noindent Figure~\ref{fig:eval_qos_sensitivity_slopes} provides a compact visual summary of these QoS shifts in accuracy and bandwidth relative to baseline.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_qos_sensitivity_slopes.pdf}
+	\caption{QoS sensitivity (r3): slope-chart style summary of how ATE and traffic shift from the baseline profile (RV-20) under BT-TL-10 and BT-TL-50. Lines show mean over repeats ($R=5$); error bars denote 95\% CI across repeats. Failed configurations are marked.}
+	\label{fig:eval_qos_sensitivity_slopes}
+\end{figure}
+
+\section{Sensitivity to synthetic network impairments}
+\label{sec:eval_impair}
+The impairment study varies factor $\mathcal{I}$ by injecting controlled network degradations on top of the dataset-native regime, using the impairment configuration mechanism described in Section~\ref{sec:network_impairment_qos}. In the current sweep, impairments are applied only to the \textbf{factor publishing agents} and therefore model \textbf{uplink/factor-stream degradation} (constrained factor throughput and temporary robot-side outages), rather than a symmetric impairment of all backend-internal communication. Two impairment families are considered: bandwidth caps (0.25--3.0\,Mbps; artifact labels such as \texttt{bwcap\_0p25mbps}) and periodic blackouts (\texttt{blackout\_2x}). The objective is to determine how each backend degrades under constrained factor throughput and intermittent factor availability, and whether the dominant failure mode is delayed dissemination/correction propagation, reduced message delivery, or estimator instability.
+
+\subsection{Centralised backend under impairments}
+For the centralised backend, bandwidth caps on the factor stream have an intuitive effect: they do not change the total information volume (bytes transmitted remains essentially constant), but they delay when batches arrive at the server and therefore extend the map-broadcast tail. With the most restrictive cap (0.25\,Mbps), $t_{\mathrm{global}}$ increases by factors of 9.6$\times$ (WiFi r3) and 10.3$\times$ (ProRadio r3), and by 8.0$\times$ (WiFi r5) and 8.1$\times$ (ProRadio r5). In contrast, caps of 1--3\,Mbps are nearly indistinguishable from baseline in both timing and accuracy for the evaluated datasets.
+
+Blackout impairments primarily affect delivery rather than throughput. In the centralised pipeline, publisher-side blackouts reduce factor-stream delivery rates and can change estimation error when critical constraints are missed or delayed (e.g., WiFi r3 shows an ATE increase), but runs can still complete because the optimiser continues to operate on the received subset of factors and periodically broadcasts the map.
+
+\begin{table}[t]
+	\centering
+	\caption{Impact of representative network impairments on the centralised backend. Bandwidth caps of 1--3\,Mbps were near-identical to baseline and are omitted here; only the most restrictive cap (0.25\,Mbps) is shown.}
+	\label{tab:eval_impair_centralised}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llcccc}
+		\toprule
+		Scenario & Impairment & $t_{\mathrm{global}}$ (s) & ATE mean (m) & Factor delivery min & Traffic (MiB) \\
+		\midrule
+		WiFi r3 & none & 16.4 & 2.270 $\pm$ 0.002 & 1.000 & 55.0 \\
+		WiFi r3 & bwcap 0.25 Mbps & 158.1 & 2.272 $\pm$ 0.000 & 1.000 & 55.0 \\
+		WiFi r3 & blackout 2x & 10.2 & 3.192 $\pm$ 0.243 & 0.499 & 24.3 \\
+		WiFi r5 & none & 26.3 & 1.885 $\pm$ 0.031 & 1.000 & 91.0 \\
+		WiFi r5 & bwcap 0.25 Mbps & 210.6 & 1.902 $\pm$ 0.000 & 1.000 & 90.9 \\
+		WiFi r5 & blackout 2x & 7.9 & 1.765 $\pm$ 0.058 & 0.263 & 22.8 \\
+		ProRadio r3 & none & 11.5 & 2.164 $\pm$ 0.000 & 1.000 & 30.3 \\
+		ProRadio r3 & bwcap 0.25 Mbps & 118.4 & 2.164 $\pm$ 0.000 & 1.000 & 30.3 \\
+		ProRadio r3 & blackout 2x & 11.7 & 1.722 $\pm$ 0.093 & 0.742 & 26.9 \\
+		ProRadio r5 & none & 25.0 & 1.985 $\pm$ 0.013 & 1.000 & 86.8 \\
+		ProRadio r5 & bwcap 0.25 Mbps & 202.0 & 1.990 $\pm$ 0.000 & 1.000 & 86.8 \\
+		ProRadio r5 & blackout 2x & 21.2 & 1.652 $\pm$ 0.028 & 0.400 & 74.1 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Decentralised backend under impairments}
+For the decentralised backend, impairment response is more regime-dependent. Because the current sweep impairs only factor publication, the peer-to-peer interface exchange is \emph{not} directly impaired; instead, bandwidth caps and blackouts change the \emph{availability and timing of new constraints} at each agent. Under WiFi, the evaluated blackout condition leads to agent failures (Table~\ref{tab:eval_excluded_runs}), while bandwidth caps produce only modest changes in ATE and traffic for the successful runs. Under ProRadio, the strict 0.25\,Mbps cap increases interface correction stabilisation latency (p95) and increases ATE at r3, indicating sensitivity to delayed constraint ingestion and slower correction settling under reduced factor throughput. Blackouts are survivable at r3 but still trigger agent failures at r4 and r5.
+
+\begin{table}[t]
+	\centering
+	\caption{Impact of representative network impairments on the decentralised backend (DDF-style). ``Iface p95'' is interface correction stabilisation latency (p95). Rows marked \texttt{fail} indicate runs where at least one agent crashed.}
+	\label{tab:eval_impair_decentralised}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{lllcccc}
+		\toprule
+		Scenario & Impairment & Status & ATE mean (m) & Iface p95 (s) & Factor delivery min & Traffic (MiB) \\
+		\midrule
+		WiFi r3 & none & ok & 3.581 $\pm$ 0.035 & 4.8 & 0.995 & 28.7 \\
+		WiFi r3 & bwcap 0.25 Mbps & ok & 3.465 $\pm$ 0.024 & 9.5 & 0.989 & 28.0 \\
+		WiFi r3 & blackout 2x & fail & -- & -- & -- & -- \\
+		WiFi r5 & none & ok & 6.656 $\pm$ 0.635 & 6.2 & 0.998 & 66.9 \\
+		WiFi r5 & bwcap 0.25 Mbps & ok & 7.603 $\pm$ 0.000 & 1.6 & 0.944 & 64.2 \\
+		WiFi r5 & blackout 2x & fail & -- & -- & -- & -- \\
+		ProRadio r3 & none & ok & 3.821 $\pm$ 0.072 & 14.4 & 1.000 & 32.2 \\
+		ProRadio r3 & bwcap 0.25 Mbps & ok & 4.297 $\pm$ 0.044 & 22.7 & 0.990 & 28.9 \\
+		ProRadio r3 & blackout 2x & ok & 2.768 $\pm$ 0.031 & 10.3 & 0.722 & 29.7 \\
+		ProRadio r5 & none & ok & 2.898 $\pm$ 0.028 & 6.0 & 1.000 & 47.4 \\
+		ProRadio r5 & bwcap 0.25 Mbps & ok & 4.876 $\pm$ 0.000 & 1.4 & 0.980 & 41.8 \\
+		ProRadio r5 & blackout 2x & fail & -- & -- & -- & -- \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_impairment_degradation.pdf}
+	\caption{Normalised impairment sensitivity (slowdown vs.\ baseline) under uplink-only (publisher-impaired) degradations (Tables~\ref{tab:eval_impair_centralised} and~\ref{tab:eval_impair_decentralised}): centralised $t_{\mathrm{global}}/t_{\mathrm{base}}$ and decentralised Iface p95$/\mathrm{base}$ across bandwidth caps and blackouts. Points show mean over repeats ($R=5$); error bars denote 95\% CI across repeats. Failed runs are marked.}
+	\label{fig:eval_impairment_degradation}
+\end{figure}
+
+\section{Robustness and unsupported configurations}
+\label{sec:eval_robustness}
+Table~\ref{tab:eval_excluded_runs} lists runs that did not complete successfully and were excluded from quantitative comparisons. These outcomes are treated as \emph{unsupported configurations} in the current implementation, and they bound the generality of scalability, QoS, and impairment conclusions for the affected scenarios.
+
+The dominant failure mode is an agent crash in the decentralised backend under intermittent or delayed delivery, observed in one QoS configuration (ProRadio r3 under BT-TL-10) and under multiple impairment conditions (notably blackout cases across WiFi and ProRadio, and one WiFi r3 bandwidth-cap configuration). Centralised runs complete across all evaluated scenarios, including blackouts, albeit with reduced delivery and, in some cases, increased ATE.
+Figure~\ref{fig:eval_robustness_matrix} summarises this support status across the full design space.
+
+\begin{table}[t]
+	\centering
+	\caption{Runs that did not complete successfully and were excluded from quantitative comparisons.}
+	\label{tab:eval_excluded_runs}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{lllll}
+		\toprule
+		Scenario & Study & B/E & Condition & Failure mode \\
+		\midrule
+		proradio-r3-proradio & qos & D & best\_effort\_tl\_d10 & agent c crashed \\
+		proradio-r4-proradio & impair & D & blackout\_2x & agent d crashed \\
+		proradio-r5-proradio & impair & D & blackout\_2x & agent e crashed \\
+		wifi-r3-wifi & impair & D & blackout\_2x & agent c crashed \\
+		wifi-r3-wifi & impair & D & bwcap\_3p0mbps & agent c crashed \\
+		wifi-r4-wifi & impair & D & bwcap\_0p25mbps & agent b crashed \\
+		wifi-r4-wifi & impair & D & blackout\_2x & agent d crashed (and b in one repeat) \\
+		wifi-r5-wifi & impair & D & blackout\_2x & agent e crashed \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.90\linewidth]{src/img/main/eval_robustness_matrix.pdf}
+	\caption{Robustness matrix summarising which configurations are supported (all repeats ok) vs.\ unsupported (at least one repeat fails) across the three studies: baseline, QoS, and impairments. This view complements the per-table \texttt{fail} annotations by providing a compact support-status overview.}
+	\label{fig:eval_robustness_matrix}
+\end{figure}
+
+\subsection{Failure mode analysis (decentralised crashes)}
+\label{subsec:eval_failure_modes}
+Across the failed decentralised runs in Table~\ref{tab:eval_excluded_runs}, the observed crash signature is consistent: an out-of-range index in GTSAM iSAM2 factor removal (e.g., \texttt{IndexError: vector::\_M\_range\_check ... removeFactorIndices ...}). The stack traces in the exported artefacts (\texttt{kpi\_metrics/agent\_error\_<rid>.txt}) indicate that the exception is raised in \texttt{c\_slam\_common/isam2.py} during \texttt{isam.update(..., removeFactorIndices=...)} and is triggered from the decentralised agent update loop (\texttt{c\_slam\_decentral/agents.py} via \texttt{c\_slam\_decentral/mp\_runner.py}). This points to an implementation-level bug: the removal index list becomes inconsistent with the internal factor container size.
+
+While the immediate failure is not an out-of-memory event, the resource traces provide supporting context for why these crashes are more likely under constrained conditions. In representative impairment failures, one or more agents exhibit monotonic RSS growth and high CPU bursts during prolonged intermittency (e.g., in a WiFi r5 blackout run, an agent's RSS grows by $\approx$54\,MiB over the run), suggesting queue/backlog accumulation and delayed processing. These conditions can plausibly increase the likelihood of stale or invalid factor-removal indices (e.g., due to out-of-order updates or mismatched bookkeeping across rounds). For evaluation, these points are treated conservatively as unsupported configurations; robustness conclusions for decentralised operation under intermittency therefore remain conditional on resolving this stability issue.
+
+\section{Synthesis and limitations}
+\label{sec:eval_synthesis}
+This section synthesises the results by explicitly answering the research questions from Chapter~\ref{chap:introduction}, and highlights the main limitations that remain.
+
+\paragraph{RQ1: How do architectures differ in global map update latency and convergence time?}
+In the baseline, centralised operation provides a clear dissemination event, with $t_{\mathrm{global}}$ of 11.5\,s (ProRadio r3) and 16.4\,s (WiFi r3) (Table~\ref{tab:eval_baseline_r3}). Decentralised operation has no analogue of a ``last broadcast''; instead, correction propagation is captured by Corr.\ p95, which is 14.4\,s (ProRadio r3) and 4.8\,s (WiFi r3). These indicators quantify different pipeline stages and are not directly comparable. When the discussion requires a shared notion of convergence, the appropriate reference is the stabilisation proxy $T_{\mathrm{conv}}^{(\mathrm{team})}$ defined in Section~\ref{sec:eval_semantics}.
+
+\paragraph{RQ2: What is the impact on latency as the number of collaborating agents increases?}
+For the centralised backend, increasing team size increases both traffic and the dissemination tail: $t_{\mathrm{global}}$ rises from 11.5\,s (ProRadio r3) to 25.0\,s (ProRadio r5), and from 16.4\,s (WiFi r3) to 26.3\,s (WiFi r5) (Table~\ref{tab:eval_baseline_scalability}). For the decentralised backend, Corr.\ p95 does not increase monotonically with team size in these datasets and regimes; instead it shows regime-dependent behaviour (e.g., ProRadio r3: 14.4\,s, r4: 8.3\,s, r5: 6.0\,s; WiFi r3: 4.8\,s, r4: 4.9\,s, r5: 6.2\,s). This suggests that decentralised latency is dominated by interface-level correction dynamics and scheduling effects rather than by a simple ``more robots implies more latency'' rule.
+
+\paragraph{RQ3: What are the computational loads and communication bandwidth requirements under varying network constraints?}
+Under nominal conditions, centralised communication is dominated by downlink broadcast (e.g., 49.4\,MiB downlink of 55.0\,MiB total on WiFi r3), whereas decentralised traffic is almost entirely uplink (e.g., 28.7\,MiB uplink on WiFi r3) (Table~\ref{tab:eval_baseline_r3}). QoS changes do not measurably affect the centralised pipeline at r3, but they modulate decentralised bandwidth through buffering depth (Table~\ref{tab:eval_qos_r3}). Under severe bandwidth caps (0.25\,Mbps), centralised runs retain essentially constant traffic but exhibit strongly delayed dissemination ($t_{\mathrm{global}}$ increases by roughly 8--10$\times$), whereas decentralised ProRadio r3 exhibits increased correction latency and degraded ATE (Table~\ref{tab:eval_impair_decentralised}). Together, these results indicate that centralised operation is mainly sensitive to uplink throughput in terms of \emph{when} information can be disseminated (timing), while decentralised operation is sensitive to throughput in terms of \emph{whether and how quickly} interface consistency can be restored (timing and accuracy), and in some blackout cases, whether it remains stable at all.
+\emph{Note.} Because the impairment sweep presented here is publisher-impaired (uplink-only), these ``network constraints'' should be interpreted as constraints on factor-stream availability. A complementary solver-impaired sweep would be required to directly quantify sensitivity to impairments on decentralised peer-to-peer exchange and on centralised downlink dissemination.
+
+\paragraph{RQ4: How does the choice of architecture affect robustness to common real-world challenges?}
+Under blackouts, centralised runs complete with reduced delivery and, in some scenarios, increased ATE (Table~\ref{tab:eval_impair_centralised}). In contrast, decentralised operation exhibits agent failures under several blackout configurations (notably WiFi r3/r5 and ProRadio r4/r5) (Table~\ref{tab:eval_excluded_runs}). These failures indicate that robustness conclusions for decentralised operation under intermittent connectivity are conditional on the stability/supportability of the current implementation. Treating these points as unsupported is conservative, but it also highlights a concrete engineering requirement for decentralised deployment: robustness mechanisms must include not only estimator-level resilience to missing factors, but also software-level stability under prolonged queueing, delayed delivery, or intermittent connectivity.
+\emph{Note.} In this implementation, blackouts are applied at factor publication time and therefore primarily model temporary loss of a robot's outgoing constraint stream. They do not directly impair peer-to-peer interface exchange unless the solver-side injection mode is enabled; robustness interpretations are scoped accordingly.
+
+\paragraph{Limitations and practical implications.}
+Two limitations are most relevant for interpreting the results. First, while repeats were increased to $R=5$, asynchronous scheduling and ROS\,2 buffering can still introduce dispersion and non-Gaussian timing variability; this is addressed by reporting run-level CIs, but additional repeats for a small subset of key configurations would further strengthen quantitative claims. Second, several decentralised configurations remain unsupported due to agent crashes (notably WiFi r4 under QoS variants and multiple blackout impairment conditions), which bounds conclusions about intermediate team-size behaviour and about robustness under severe intermittency. For the final submission, these points should either be complemented by a focused failure analysis (logs, memory growth, deadlock conditions) or clearly stated as implementation limitations of the evaluated decentralised backend.
+
+\paragraph{Note on RPE.}
+Relative pose error (RPE) is defined in Section~\ref{sec:metrics} as a drift-oriented metric; this chapter focuses on ATE to keep tables compact. RPE values are available in the KPI exports and can be reported in an appendix if required by the final write-up.

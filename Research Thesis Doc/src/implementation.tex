@@ -241,6 +241,7 @@ Algorithm~\ref{alg:ddf_coordination} describes the per-agent coordination loop.
 \paragraph{Convergence monitoring (runtime stop condition).}
 After each round, an agent compares successive outbound interface states by the maximum translation delta $\Delta t_{\max}$ and maximum rotation delta $\Delta R_{\max}$. Convergence is declared when both fall below thresholds for $S$ consecutive rounds (\texttt{--ddf-convergence}, \texttt{--ddf-rot-convergence}, \texttt{--ddf-stable-rounds}). These checks are local to each agent and may trigger at different round indices due to asynchronous message arrivals.
 Here, $\Delta t_{\max}$ is computed as the Euclidean norm of the translation difference, and $\Delta R_{\max}$ as the angle (in radians) of the relative rotation between successive quaternion estimates.
+Independently of this early-stopping rule, each agent enforces a hard maximum of $R$ rounds to bound runtime and ensure experimental reproducibility. A run is marked \emph{converged} only if the stability condition is satisfied before reaching the round budget; otherwise it is treated as not converged within the allocated coordination horizon.
 
 \subsection{Communication Transport and Message Schema}
 \label{subsec:ddf_transport}
@@ -253,7 +254,7 @@ Each interface message contains:
 \section{Network Impairment and Quality-of-Service Implementation}
 \label{sec:network_impairment_qos}
 
-This section describes how the network conditions from the methodology are realised: impairments are injected at the message level inside the ROS~2 publish paths and are applied consistently across architectures.
+This section describes how the network conditions from the methodology are realised: impairments are injected at the message level inside the ROS~2 publish paths and are applied consistently across architectures for any chosen impairment \emph{application mode}.
 
 \subsection{Impairment Injection Points}
 \label{subsec:impairment_injection_points}
