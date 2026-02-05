@@ -1,0 +1,28 @@
+{
+  "seed": 42,
+  "warmup_s": 0.0,
+  "random_loss_p": 0.0,
+  "random_warmup_messages": 50,
+  "burst_period_s": 0.0,
+  "burst_duration_s": 0.0,
+  "bw_caps_mbps": {
+    "default": 0.0,
+    "a": 10.0,
+    "b": 10.0,
+    "c": 10.0
+  },
+  "blackouts": [
+    {
+      "rid": "b",
+      "start_s": 100.0,
+      "end_s": 115.0,
+      "mode": "sender"
+    },
+    {
+      "rid": "b",
+      "start_s": 205.0,
+      "end_s": 215.0,
+      "mode": "receiver"
+    }
+  ]
+}

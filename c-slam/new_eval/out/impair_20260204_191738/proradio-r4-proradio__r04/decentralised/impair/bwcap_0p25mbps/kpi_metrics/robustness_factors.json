@@ -1,0 +1,98 @@
+{
+  "stats": {
+    "topics": {
+      "/c_slam/factor_batch/a": {
+        "attempts": 228,
+        "drops": 0,
+        "published": 228,
+        "delivered": 228,
+        "delivery_rate": 1.0,
+        "bytes_attempted": 2698457,
+        "bytes_published": 2698457,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 228,
+          "min": 0.21036937204189599,
+          "max": 0.36250288103474304,
+          "mean": 0.29726093245609947,
+          "median": 0.2868076894956175,
+          "p90": 0.34264880058472047,
+          "p95": 0.3505150300974492,
+          "stdev": 0.023662310107105646
+        }
+      },
+      "/c_slam/factor_batch/b": {
+        "attempts": 89,
+        "drops": 0,
+        "published": 89,
+        "delivered": 88,
+        "delivery_rate": 0.9887640449438202,
+        "bytes_attempted": 1046976,
+        "bytes_published": 1046976,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 88,
+          "min": 0.28151010599685833,
+          "max": 0.36276576400268823,
+          "mean": 0.28892174673687393,
+          "median": 0.2862339459825307,
+          "p90": 0.28725859738187864,
+          "p95": 0.3138443371513855,
+          "stdev": 0.012320188960534747
+        }
+      },
+      "/c_slam/factor_batch/c": {
+        "attempts": 180,
+        "drops": 0,
+        "published": 180,
+        "delivered": 180,
+        "delivery_rate": 1.0,
+        "bytes_attempted": 2129916,
+        "bytes_published": 2129916,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 180,
+          "min": 0.21110079798381776,
+          "max": 0.3863479240098968,
+          "mean": 0.2951098917385227,
+          "median": 0.2865814694960136,
+          "p90": 0.34028488320182076,
+          "p95": 0.3560553264862392,
+          "stdev": 0.02376036412920053
+        }
+      },
+      "/c_slam/factor_batch/d": {
+        "attempts": 87,
+        "drops": 0,
+        "published": 87,
+        "delivered": 85,
+        "delivery_rate": 0.9770114942528736,
+        "bytes_attempted": 1024372,
+        "bytes_published": 1024372,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 85,
+          "min": 0.28390385600505397,
+          "max": 0.36200094601372257,
+          "mean": 0.29029437623890664,
+          "median": 0.28652025398332626,
+          "p90": 0.2875985632184893,
+          "p95": 0.3301956924027762,
+          "stdev": 0.015962857237670706
+        }
+      }
+    },
+    "generated_by": {
+      "component": "ros2_factor_publisher",
+      "pid": 497841
+    }
+  }
+}

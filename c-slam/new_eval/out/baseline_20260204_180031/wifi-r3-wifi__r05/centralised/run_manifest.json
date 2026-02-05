@@ -1,0 +1,57 @@
+{
+  "backend": "centralised",
+  "dataset": {
+    "jrl_path": "/home/gabruuu/Desktop/Test_Env/c-slam/dataset/wifi/r3_wifi.jrl",
+    "jrl_sha256": "77f22aee84979625421f9aac2ecb37baebed645c7b2922452e3aeb3bdda0080a",
+    "quat_order": "wxyz",
+    "include_potential_outliers": true
+  },
+  "factors": {
+    "robust_kind": "cauchy",
+    "robust_k": 1.0
+  },
+  "ros2": {
+    "factor_topic_prefix": "/c_slam/factor_batch",
+    "iface_topic_prefix": "/c_slam/iface",
+    "qos": {
+      "reliability": "reliable",
+      "durability": "volatile",
+      "depth": 20
+    },
+    "use_sim_time": true
+  },
+  "solver": {
+    "relin_th": 0.06,
+    "relin_skip": 6,
+    "central_batch_size": 20,
+    "central_idle_timeout": 60.0,
+    "ddf_rounds": 100,
+    "ddf_convergence": 0.005,
+    "ddf_rot_convergence": 0.005,
+    "ddf_factor_idle_timeout": 20.0,
+    "ddf_stable_rounds": 15,
+    "emit_factor_acks": true
+  },
+  "robots": [
+    "a",
+    "b",
+    "c"
+  ],
+  "kpi": {
+    "enabled": true,
+    "kpi_dir": "/home/gabruuu/Desktop/Test_Env/c-slam/new_eval/out/baseline_20260204_180031/wifi-r3-wifi__r05/centralised/kpi_metrics"
+  },
+  "env": {
+    "python": "3.10.12 (main, Jan  8 2026, 06:52:19) [GCC 11.4.0]",
+    "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+    "git_sha": null,
+    "RMW_IMPLEMENTATION": null,
+    "ROS_DOMAIN_ID": "99",
+    "C_SLAM_IMPAIR": null,
+    "C_SLAM_IMPAIR_FILE": null,
+    "C_SLAM_RESOURCE_INTERVAL": null
+  },
+  "timestamps": {
+    "start_wall": 1770224893.439505
+  }
+}

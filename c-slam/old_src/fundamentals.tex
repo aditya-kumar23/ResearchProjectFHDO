@@ -1,0 +1,360 @@
+\chapter{Fundamentals of SLAM and Collaborative SLAM}\label{ch:fundamentals}
+
+\section{Single-Agent SLAM}
+\label{sec:single_robot_slam}
+
+Simultaneous Localisation and Mapping (SLAM) is a state estimation problem in which an agent or a mobile robot is tasked to build a map of an unknown environment while simultaneously localising itself within that map based on on-board sensor measurements \cite{gslamC,ppf}. At the start of a mission, the robot has no prior knowledge of its environment, and its initial pose defines the coordinate frame of reference. As the robot moves, it measures and maps the environment with reference to this initial position, therefore making the process of mapping incremental in nature. However, inaccuracies in the robot’s movement lead to an increasing deviation from the true position, potentially degrading the map quality. To counteract this, the robot needs to consistently optimise its estimated trajectory and map representation through techniques such as sensor fusion, loop closure detection, and nonlinear optimisation, thereby minimising accumulated error and improving overall accuracy.
+
+Modern SLAM systems address this challenge by fusing heterogeneous sensor data (e.g., wheel odometry, inertial measurements, cameras, and LiDAR) into a consistent probabilistic estimate of the robot's pose and the surrounding environment. A central idea is to formulate SLAM as an optimisation problem over a set of latent variables (poses and possibly landmarks) that best explain the observed measurements. This section introduces the standard graph-based formulation that underpins the rest of this research thesis and briefly outlines the typical system architecture of a single-agent SLAM pipeline.
+
+\subsection{Problem Definition}
+
+Let $x_t \in SE(d)$ denote the robot pose at discrete time (or keyframe) index $t$, where $d\in\{2,3\}$ is the operational dimension and $SE(d)$ is the special Euclidean group. We write a pose as $x_t=(t_t,r_t)$ with translation $t_t\in\mathbb{R}^d$ and orientation $r_t\in SO(d)$, where
+\begin{equation}
+	SO(d) \triangleq \left\{ R\in\mathbb{R}^{d\times d} \ \middle|\ R^\top R = I,\ \det(R)=1 \right\}.
+\end{equation}
+
+Let $m$ denote a map of the environment (e.g., a set of landmarks or a continuous representation). Over a horizon $t=0,\dots,T$, the robot receives control inputs $u_{0:T-1}$ and sensor measurements $z_{0:T}$. The probabilistic SLAM problem is to estimate the joint posterior
+\begin{equation}
+	p(x_{0:T}, m \mid z_{0:T}, u_{0:T-1}),
+	\label{eq:slam_posterior}
+\end{equation}
+where $x_{0:T}=\{x_0,\dots,x_T\}$ denotes the trajectory.
+
+In practice, SLAM backends typically seek a maximum a posteriori (MAP) estimate under modelling assumptions (motion and measurement models, priors, and conditional independence), which yields a sparse optimisation problem (Section~\ref{subsec:graph_slam}).
+While Eq.~\eqref{eq:slam_posterior} includes an explicit map variable $m$, this thesis focuses on \emph{pose-graph} formulations where the environment is represented implicitly through relative constraints and the backend optimises over poses only. This choice matches the backend-centric scope of the thesis and the experimental setup introduced in Chapter~\ref{ch:methodology}.
+
+\subsection{Graph-Based SLAM Framework}
+\label{subsec:graph_slam}
+
+Graph-based SLAM represents the estimation problem as a sparse graphical model where nodes correspond to unknown variables (robot poses and, optionally, landmarks), and edges correspond to probabilistic constraints derived from sensor measurements. In the SLAM literature, such edges are commonly referred to as \emph{factors} ~\cite{gslamC}. Throughout this thesis, the terms \emph{factor} and \emph{constraint} are used interchangeably, both denote a measurement-derived relationship between a subset of state variables.
+
+In the remainder, discrete keyframes/poses are indexed by $i,j$, and reserve $t$ for time.
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[
+		>=Latex,
+		node distance=1.9cm and 1.7cm,
+		pose/.style     ={circle,draw,thick,minimum size=7mm,inner sep=0pt},
+		landmark/.style ={rectangle,draw,thick,minimum width=7mm, minimum height=6mm,inner sep=0pt},
+		factor/.style   ={rectangle,draw,thick,fill=black,minimum width=2mm,minimum height=2mm,inner sep=0pt},
+		odom/.style     ={thick},
+		meas/.style     ={thick},
+		loop/.style     ={thick,dashed},
+		prior/.style    ={thick, densely dash dot},
+		]
+		% --- Poses ---
+		\node[pose]                    (x0) {$\mathbf{x}_0$};
+		\node[pose, right=of x0]       (x1) {$\mathbf{x}_1$};
+		\node[pose, right=of x1]       (x2) {$\mathbf{x}_2$};
+		\node[pose, right=of x2]       (x3) {$\mathbf{x}_3$};
+		\node[pose, right=of x3]       (x4) {$\mathbf{x}_4$};
+		% --- Landmarks ---
+		\node[landmark, above=1.45cm of x1] (l1) {$\mathbf{l}_1$};
+		\node[landmark, above=1.25cm of x3] (l2) {$\mathbf{l}_2$};
+		\node[landmark, below=1.20cm of x2] (l3) {$\mathbf{l}_3$};
+		% --- Prior on x0 ---
+		\node[factor, above=7mm of x0] (fprior) {};
+		\draw[prior] (fprior) -- (x0);
+		% --- Odometry/IMU between consecutive poses ---
+		\foreach \a/\b in {x0/x1,x1/x2,x2/x3,x3/x4}{
+			\path let \p1=(\a), \p2=(\b) in
+			node[factor] (f-\a-\b) at ($(\p1)!.5!(\p2)$) {};
+			\draw[odom] (\a) -- (f-\a-\b) -- (\b);
+		}
+		% --- Loop-closure between x1 and x4 (arched) ---
+		\path let \p1=(x1), \p2=(x4) in
+		node[factor] (f-loop) at ($(\p1)!.5!(\p2) + (0,1.20)$) {};
+		\draw[loop] (x1) -- (f-loop) -- (x4);
+		% --- Landmark observation factors ---
+		\node[factor] (f-x1-l1) at ($(x1)!0.50!(l1)$) {};
+		\draw[meas] (x1) -- (f-x1-l1) -- (l1);
+		\node[factor] (f-x2-l1) at ($(x2)!0.45!(l1)$) {};
+		\draw[meas] (x2) -- (f-x2-l1) -- (l1);
+		\node[factor] (f-x2-l3) at ($(x2)!0.50!(l3)$) {};
+		\draw[meas] (x2) -- (f-x2-l3) -- (l3);
+		\node[factor] (f-x3-l2) at ($(x3)!0.50!(l2)$) {};
+		\draw[meas] (x3) -- (f-x3-l2) -- (l2);
+	\end{tikzpicture}
+	\caption{Bipartite factor-graph representation of SLAM: circular pose nodes
+		$\mathbf{x}_t$, rectangular landmark nodes $\mathbf{l}_i$, and square factor
+		nodes (black) encoding constraints through different edge types (odometry,
+		landmark observations, loop closures, prior).}
+	\label{fig:slam_factor_graph}
+\end{figure}
+\subsubsection{\textbf{Constraints as pairwise factors}}
+\label{subsubsec:pairwise_factors}
+
+The pose-graph setting used here is naturally expressed in terms of pairwise constraints between poses. Let $\mathcal{Z}$ denote the set of relative-pose measurements and let $\mathcal{E}$ denote the set of constrained pose index pairs $(i,j)$. Each measurement $z_{ij}\in\mathcal{Z}$ induces a likelihood term (factor) connecting two pose variables $x_i$ and $x_j$:
+\begin{equation}
+	f_{ij}(x_i,x_j) \propto
+	\exp\!\left(
+	-\frac{1}{2}
+	\left\|
+	z_{ij} - h(x_i,x_j)
+	\right\|_{\Omega_{ij}}^2
+	\right),
+	\label{eq:relative_constraint_fund}
+\end{equation}
+where $h(x_i,x_j)$ predicts the relative transformation implied by the current pose estimates and $\Omega_{ij}$ is the information matrix (inverse covariance) weighting the residual. The Mahalanobis norm is
+\begin{equation}
+	\|e\|_{\Omega_{ij}}^2 \triangleq e^\top \Omega_{ij} e.
+\end{equation}
+
+Conceptually, $z_{ij}$ encodes ``what the sensors say'' about the relative pose between two states (e.g.\ odometry between consecutive keyframes, or a loop closure between revisited places). The function $h(\cdot)$ encodes ``what the current state estimate predicts'' for the same relative relation.
+
+Typical constraint types in pose-graph SLAM include:
+\begin{itemize}
+	\item \textbf{Motion constraints} between consecutive keyframes (short-horizon odometry / scan matching / IMU-derived relations),
+	\item \textbf{Intra-robot loop closures} between non-consecutive poses when the robot revisits a place, and
+	\item \textbf{Prior constraints} that anchor otherwise unobservable degrees of freedom (to resolve gauge freedom).
+\end{itemize}
+
+\subsubsection{Nonlinear least-squares optimisation template}
+\label{subsubsec:nlls_template}
+
+Under standard conditional-independence assumptions, the posterior over the unknown variables can be factorised into a product of likelihood and prior terms, which is naturally represented as a factor graph (Section~\ref{subsec:graph_slam}). For a generic set of factors $\{\phi_k\}$, each involving a subset of variables $X_k\subseteq X$, we write
+\begin{equation}
+	p(X\mid \mathcal{Z}) \propto \prod_{k} \phi_k(X_k).
+\end{equation}
+Assuming independent, zero-mean Gaussian noise models, each factor can be expressed in exponential form and MAP estimation reduces to a nonlinear least-squares (NLLS) problem:
+\begin{equation}
+	X^\star
+	= \arg\min_{X}\;
+	\sum_{k}
+	\left\|
+	e_k(X_k)
+	\right\|_{\Omega_k}^2,
+	\label{eq:nlls_general}
+\end{equation}
+where $e_k(\cdot)$ is the residual induced by factor $k$ and $\Omega_k$ is the corresponding information matrix.
+
+A particularly important special case for this thesis is \emph{pose-graph SLAM}, in which all factors are (typically) pairwise relative-pose constraints between pose variables. Let $\mathcal{E}$ denote the set of constrained index pairs $(i,j)$ and let $z_{ij}$ be the corresponding relative measurement. The canonical pose-graph objective becomes
+\begin{equation}
+	X^\star
+	= \arg\min_{X}\;
+	\sum_{(i,j)\in\mathcal{E}}
+	\left\|
+	z_{ij} - h(x_i,x_j)
+	\right\|_{\Omega_{ij}}^2.
+	\label{eq:graph_slam_cost}
+\end{equation}
+Equation~\eqref{eq:graph_slam_cost} is the \emph{reference optimisation template} used throughout this thesis. Later chapters specialise it to multi-robot pose graphs, and the implementation chapters show how different backends solve the same objective under different communication and computation constraints.
+
+\subsubsection{Solving the optimisation problem}
+\label{subsubsec:solving_nlls}
+
+The objective in Eq.~\eqref{eq:graph_slam_cost} is nonlinear because poses live on a manifold and relative-pose prediction involves nonlinear composition. Backends therefore solve it iteratively by linearising residuals around a current estimate and computing an incremental update.
+
+Let $\delta$ denote a local perturbation in a tangent space and let $\oplus$ denote a retraction operator that maps a perturbation back to the manifold. Linearising a residual term yields
+\begin{equation}
+	\left(z_{ij} - h\big((x_i \oplus \delta_i),(x_j \oplus \delta_j)\big)\right)
+	\approx
+	\left(z_{ij} - h(x_i,x_j)\right)
+	+ J_{ij}\,\delta,
+\end{equation}
+with Jacobian $J_{ij}$ evaluated at the current estimate. Stacking all terms produces a sparse linear least-squares problem in $\delta$, which can be solved efficiently using sparse factorisation. In practice, Gauss--Newton or Levenberg--Marquardt variants are used.
+
+Two solver styles are common:
+\begin{itemize}
+	\item \textbf{Batch optimisation}, which periodically relinearises and solves the full problem, and
+	\item \textbf{Incremental optimisation}, which updates the solution efficiently as new factors arrive.
+\end{itemize}
+
+Incremental smoothing and mapping methods (e.g.\ iSAM2) exploit the sparsity structure to update factorisations efficiently and are well suited to the streaming factor setting used in this thesis (see Chapter~\ref{ch:implementation}, centralised backend).
+
+\subsection{SLAM System Architecture}
+\label{sec:slam_architecture}
+
+While the graph-based formulation defines the underlying estimation problem, practical SLAM systems are organised as modular pipelines that process sensor data in real time. A widely adopted abstraction is the division into a \emph{frontend}, which processes raw sensor data and proposes constraints, and a \emph{backend}, which maintains and optimises the factor graph~\cite{gslamC}. Figure~\ref{fig:slam_frontend_backend} conceptually illustrates this split.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/Frontend-backend.drawio.png}
+	\caption{Generic SLAM pipeline with frontend and backend. 
+		%The frontend converts raw sensor data into a set of factors, while the backend maintains and optimises the factor graph to estimate the robot trajectory and map.
+	}
+	\label{fig:slam_frontend_backend}
+\end{figure}
+
+\subsubsection{\textbf{Frontend}}
+
+The frontend converts raw sensor streams into a compact set of geometric and topological constraints. Its typical responsibilities include:
+\begin{itemize}
+	\item \textbf{Preprocessing and calibration:} Synchronisation of multi-sensor data, undistortion of images, and application of extrinsic and intrinsic calibration.
+	\item \textbf{Motion estimation:} Computation of relative pose estimates between consecutive frames or scans using visual odometry, LiDAR odometry, or IMU preintegration.
+	\item \textbf{Feature extraction and matching:} Detection and description of salient features (e.g.\ keypoints, edges) and data association across observations.
+	\item \textbf{Keyframe selection:} Sub-sampling of frames or scans to maintain a tractable problem size while preserving geometric coverage.
+	\item \textbf{Outlier rejection and place recognition:} Application of geometric consistency tests (e.g.\ RANSAC, epipolar constraints) and appearance-based retrieval (e.g.\ bag-of-words, deep embeddings) to filter spurious matches and propose candidate loop closures.
+\end{itemize}
+The primary output of the frontend is a set of candidate factors that can be added to the factor graph for the backend optimisation. The frontend does not guarantee long-term global consistency and its estimates are prone to drift.
+
+\subsubsection{\textbf{Backend}}
+
+The backend maintains the current factor graph and computes the robot trajectory and map estimates by solving Eq.~\eqref{eq:graph_slam_cost}. Its responsibilities typically include:
+\begin{itemize}
+	\item \textbf{Graph management:} Inserting new nodes and factors as they are proposed by the frontend, and optionally marginalising or pruning variables to control computational complexity.
+	\item \textbf{Optimisation scheduling:} Deciding when to trigger incremental updates versus more expensive batch re-optimisations, trading off accuracy and latency.
+	\item \textbf{Linearisation and solving:} Building and solving the linearised normal equations using sparse matrix factorisation or incremental factorisation updates.
+	\item \textbf{State dissemination:} Providing updated pose and map estimates to downstream components such as control, planning, or visualisation.
+\end{itemize}
+
+\subsubsection{\textbf{Intra-Robot Loop Closure}}
+
+As the robot explores, its trajectory may revisit previously mapped areas. Detecting such events is known as \emph{loop closure detection}. A constraint is added between non-consecutive poses $(i,j)$. In the single-robot setting, such a constraint is called an \emph{intra-robot loop closure}. Loop closures are crucial as they introduce long-range information that corrects accumulated drift and improves global consistency.
+
+\section{Collaborative SLAM}
+\label{sec:collaborative_slam}
+
+Collaborative SLAM \emph{(C-SLAM)} generalises SLAM to a team of robots that exchange information to jointly estimate their trajectories and (implicitly or explicitly) a shared map \cite{ppf,cieslewski2018data}. From an estimation perspective, the extension is rather simple, the variable set grows from one trajectory to multiple trajectories, and additional inter-robot constraints couple those trajectories but from a systems perspective, the extension becomes tedious as communication bandwidth, latency, temporary partitions, and compute limitations constrain how the global optimisation problem can be represented and solved in practice.
+
+
+\subsection{Multi-robot state and pose graph}
+\label{subsec:multi_robot_factor_graph}
+
+Consider a team of $N$ robots. For each robot $r\in\{1,\dots,N\}$, let $T_r$ denote the index set of keyframes (pose nodes) associated with that robot, and let $x_i^{(r)}$ denote the pose of robot $r$ at keyframe $i\in T_r$. The global multi-robot state is the set of all poses across all robots:
+\begin{equation}
+	X = \left\{ x_i^{(r)} \;\middle|\; r \in \{1,\dots,N\},\, i \in T_r \right\}.
+\end{equation}
+
+The measurement set $\mathcal{Z}$ contains relative pose constraints within each robot and across robots. The corresponding edge set $\mathcal{E}$ can be conceptually decomposed into:
+\begin{itemize}
+	\item \textbf{Local edges} (within a robot): odometry and intra-robot loop closures, and
+	\item \textbf{Inter-robot edges} (across robots): constraints connecting $x_i^{(r)}$ and $x_j^{(s)}$ with $r\neq s$.
+\end{itemize}
+
+while the optimisation objective remains the same as in the single-robot case that is to estimate $X$ so that all relative constraints are satisfied as well as possible. The difference is that the graph now consists of multiple per-robot subgraphs connected by a set of inter-robot edges.
+
+
+\subsection{Inter-robot loop closures}
+\label{subsec:inter_robot_loop_closures}
+
+In addition to intra-robot loop closures, multi-robot systems form \emph{inter-robot loop closures} when different robots observe common structure or each other. These events introduce constraints between poses belonging to different robots, i.e.\ factors connecting $(x_i^{(r)},x_j^{(s)})$ with $r\neq s$. Inter-robot loop closures are particularly valuable because they align local frames and correct drift between agents, enabling a globally consistent multi-robot estimate.
+
+\subsection{Architectural Classes for Collaborative SLAM}
+\label{sec:cs_architectures}
+
+The factor-graph formulation above describes a conceptually centralised optimisation problem over all robots and landmarks. However, implementing a fully centralised solution is often impractical due to communication bandwidth limits, latency constraints, and the desire for robustness to node failures. Consequently, a wide range of C-SLAM architectures has been proposed, which can be broadly classified into \emph{centralised}, \emph{decentralised}, and \emph{hybrid or hierarchical} designs~\cite{ppf,cieslewski2018data}. Figure~\ref{fig:cs_architectures_row} illustrates these high-level classes.
+
+\begin{figure}[htbp]
+	\centering
+	\tikzset{
+		font=\small,
+		agent/.style={circle, draw, thick, minimum size=8mm, align=center, fill=white},
+		leader/.style={rectangle, draw, thick, rounded corners=2pt, minimum width=12mm, minimum height=8mm, align=center, fill=white},
+		server/.style={rectangle, draw, thick, rounded corners=2pt, minimum width=20mm, minimum height=10mm, align=center, fill=white},
+		link/.style={-{Latex[length=2mm]}, thick},
+		uplink/.style={-{Latex[length=2mm]}, thick},
+		downlink/.style={-{Latex[length=2mm]}, thick, dashed},
+		p2p/.style={-{Latex[length=2mm]}, thick},
+		lc/.style={-{Latex[length=2mm]}, thick, dashed},
+		intra/.style={-{Latex[length=2mm]}, thick},
+		inter/.style={-{Latex[length=2mm]}, thick, dashed},
+		groupbox/.style={draw, rounded corners=3pt, inner sep=6pt, dashed}
+	}
+	
+	% ---------- Row 1: Centralised + Decentralised ----------
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+			\begin{tikzpicture}
+				\node[agent] (r1) {R1};
+				\node[agent, right=0.9cm of r1] (r2) {R2};
+				\node[agent, right=0.9cm of r2] (r3) {R3};
+				\node[server, above=1.2cm of r2, minimum width=20mm] (srv) {Central\\Backend};
+				\foreach \n in {r1,r2,r3} {
+					\draw[uplink] (\n) -- (srv);
+					\draw[downlink] (srv) -- (\n);
+				}
+			\end{tikzpicture}
+		}
+		\caption{Centralised}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+			\begin{tikzpicture}
+				\node[agent] (r1) {R1};
+				\node[agent, right=1.3cm of r1] (r2) {R2};
+				\node[agent, below=0.9cm of r1] (r3) {R3};
+				\node[agent, right=1.3cm of r3] (r4) {R4};
+				\node[agent, above right=0.6cm and 0.7cm of r4] (r5) {R5};
+				
+				\draw[p2p] (r1) -- (r2);
+				\draw[p2p] (r1) -- (r3);
+				\draw[p2p] (r2) -- (r4);
+				\draw[p2p] (r3) -- (r4);
+				\draw[p2p] (r4) -- (r5);
+				
+				\draw[lc] (r2) to[bend left=12] (r3);
+				\draw[lc] (r1) to[bend left=10] (r4);
+				\draw[lc] (r3) to[bend right=10] (r5);
+			\end{tikzpicture}
+		}
+		\caption{Decentralised}
+	\end{subfigure}
+	
+	\vspace{0.8em}
+	
+	% ---------- Row 2: Hybrid/Hierarchical (centred) ----------
+	\begin{subfigure}[t]{0.66\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+			\begin{tikzpicture}
+				% Cluster A
+				\node[agent] (a1) {A1};
+				\node[agent, right=0.8cm of a1] (a2) {A2};
+				\node[agent, below=0.7cm of a1] (a3) {A3};
+				\node[leader, right=0.8cm of a2] (al) {A-Lead};
+				\begin{scope}[on background layer]
+					\node[groupbox, fit=(a1)(a2)(a3)(al), label={[align=center]above:{Cluster A}}] (Abox) {};
+				\end{scope}
+				
+				% Cluster B
+				\node[agent, right=2.6cm of al] (b1) {B1};
+				\node[agent, right=0.8cm of b1] (b2) {B2};
+				\node[agent, below=0.7cm of b1] (b3) {B3};
+				\node[leader, right=0.8cm of b2] (bl) {B-Lead};
+				\begin{scope}[on background layer]
+					\node[groupbox, fit=(b1)(b2)(b3)(bl), label={[align=center]above:{Cluster B}}] (Bbox) {};
+				\end{scope}
+				
+				\node[server, above=1.2cm of $(al)!0.55!(bl)$, minimum width=18mm] (srv2) {Edge/Central};
+				
+				\draw[intra] (a1) -- (a2);
+				\draw[intra] (a1) -- (a3);
+				\draw[intra] (a2) -- (al);
+				\draw[intra] (a3) -- (al);
+				
+				\draw[intra] (b1) -- (b2);
+				\draw[intra] (b1) -- (b3);
+				\draw[intra] (b2) -- (bl);
+				\draw[intra] (b3) -- (bl);
+				
+				\draw[uplink] (al) -- (srv2);
+				\draw[uplink] (bl) -- (srv2);
+				\draw[inter] (srv2) -- (al);
+				\draw[inter] (srv2) -- (bl);
+			\end{tikzpicture}
+		}
+		\caption{Hybrid/Hierarchical}
+	\end{subfigure}
+	
+	\caption{Collaborative SLAM architectures: centralised, decentralised, and hybrid/hierarchical.}
+	\label{fig:cs_architectures_row}
+\end{figure}
+
+
+\subsubsection{\textbf{Centralised Architectures}}
+
+In a centralised C-SLAM architecture, a dedicated server (or backend node) collects information from all robots and performs the global optimisation. Each robot typically runs a lightweight local frontend that estimates its own motion and detects intra-robot loop closures. The robots then transmit summarised information (e.g.\ pose graph constraints, keyframes, or local maps) to the central server, which maintains a global factor graph and periodically computes a joint estimate of all robot trajectories and the environment.
+
+\subsubsection{\textbf{Decentralised Architectures}}
+
+Decentralised C-SLAM architectures avoid a dedicated central server. Instead, each robot maintains its own local factor graph and collaborates with other robots by exchanging selected information with peers. Inter-robot loop closures are discovered through communication (e.g.\ exchange of descriptors or keyframes), and the corresponding constraints are incorporated into each robot's local optimisation. Some systems employ consensus or distributed optimisation algorithms to ensure that the local estimates converge to a consistent global solution.
+
+\subsubsection{\textbf{Hybrid and Hierarchical Architectures}}
+
+Hybrid or hierarchical architectures combine elements of centralised and decentralised designs. For example, robots may form clusters, each with a cluster head that aggregates local information and communicates with other cluster heads or a higher-level server. Alternatively, certain tasks (such as place recognition or map compression) may be centralised, while local trajectory optimisation remains on-board.
+

@@ -1,0 +1,9 @@
+2026-02-05 02:27:39,894 502725 ERROR c_slam.decentral.agent: Agent e crashed
+Traceback (most recent call last):
+  File "/home/gabruuu/Desktop/Test_Env/c-slam/c_slam_decentral/mp_runner.py", line 235, in _agent_loop
+    agent.solve_round(iteration=iteration, kpi=kpi_logger)
+  File "/home/gabruuu/Desktop/Test_Env/c-slam/c_slam_decentral/agents.py", line 271, in solve_round
+    res = self._isam.update(bg, bv, remove_factor_indices=remove_indices if remove_indices else None)
+  File "/home/gabruuu/Desktop/Test_Env/c-slam/c_slam_common/isam2.py", line 84, in update
+    res = self.isam.update(graph, initial, removeFactorIndices=list(remove_factor_indices))
+IndexError: vector::_M_range_check: __n (which is 658) >= this->size() (which is 345)

@@ -1,0 +1,76 @@
+{
+  "stats": {
+    "topics": {
+      "/c_slam/factor_batch/a": {
+        "attempts": 221,
+        "drops": 0,
+        "published": 221,
+        "delivered": 221,
+        "delivery_rate": 1.0,
+        "bytes_attempted": 2614028,
+        "bytes_published": 2614028,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 221,
+          "min": 0.005908590974286199,
+          "max": 2.45406424801331,
+          "mean": 0.8344874503196331,
+          "median": 0.3352151209837757,
+          "p90": 2.3083238379913382,
+          "p95": 2.379586059018038,
+          "stdev": 0.9432314031362805
+        }
+      },
+      "/c_slam/factor_batch/c": {
+        "attempts": 182,
+        "drops": 0,
+        "published": 182,
+        "delivered": 182,
+        "delivery_rate": 1.0,
+        "bytes_attempted": 2149968,
+        "bytes_published": 2149968,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 182,
+          "min": 0.007819989987183362,
+          "max": 2.4177386850351468,
+          "mean": 0.45882945884675413,
+          "median": 0.14260420203208923,
+          "p90": 1.5337674377136863,
+          "p95": 1.8885416235745647,
+          "stdev": 0.616378965559811
+        }
+      },
+      "/c_slam/factor_batch/b": {
+        "attempts": 94,
+        "drops": 0,
+        "published": 94,
+        "delivered": 94,
+        "delivery_rate": 1.0,
+        "bytes_attempted": 1107424,
+        "bytes_published": 1107424,
+        "bytes_delivered": null,
+        "drop_reasons": {},
+        "delivery_method": "ack",
+        "ack_latency_s": {
+          "count": 94,
+          "min": 0.007293589995242655,
+          "max": 2.2976097989594564,
+          "mean": 0.10537955657445251,
+          "median": 0.04056365002179518,
+          "p90": 0.26683114967308946,
+          "p95": 0.3299688682949635,
+          "stdev": 0.24741100546680214
+        }
+      }
+    },
+    "generated_by": {
+      "component": "ros2_factor_publisher",
+      "pid": 512793
+    }
+  }
+}

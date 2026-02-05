@@ -1,0 +1,925 @@
+{"event": "input_end", "ingested_factors": 2278, "last_factor_stamp": 1.6448237033655363e+18, "robot": "a", "role": "agent", "solver": "ddf_sam", "ts": 1770249854.6863618}
+{"event": "input_end", "ingested_factors": 1798, "last_factor_stamp": 1.6448237033655363e+18, "robot": "c", "role": "agent", "solver": "ddf_sam", "ts": 1770249854.6883512}
+{"event": "input_end", "ingested_factors": 885, "last_factor_stamp": 1.6448234140270205e+18, "robot": "b", "role": "agent", "solver": "ddf_sam", "ts": 1770249854.6909075}
+{"event": "input_end", "ingested_factors": 375, "last_factor_stamp": 1.6448236405696102e+18, "robot": "d", "role": "agent", "solver": "ddf_sam", "ts": 1770249854.6941497}
+{"batch_id": 0, "event": "optimization_start", "factor_count": 894, "pending_factors": 894, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.767801}
+{"batch_id": 0, "duration_s": 0.00909658899763599, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.779101, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 0, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.779171}
+{"batch_id": 0, "event": "optimization_start", "factor_count": 1815, "pending_factors": 1815, "robot": "c", "solver": "ddf_sam", "ts": 1770249854.820877}
+{"batch_id": 0, "event": "optimization_start", "factor_count": 375, "pending_factors": 375, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.841664}
+{"error": "\nIndeterminant linear system detected while working near variable\n7133701809754866449 (Symbol: c785).\n\nThrown when a linear system is ill-posed.  The most common cause for this\nerror is having underconstrained variables.  Mathematically, the system is\nunderdetermined.  See the GTSAM Doxygen documentation at\nhttp://borg.cc.gatech.edu/ on gtsam::IndeterminantLinearSystemException for\nmore information.", "event": "optimization_failed", "iteration": 0, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.843565}
+{"batch_id": 1, "event": "optimization_start", "factor_count": 375, "pending_factors": 375, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.8436918}
+{"error": "Attempting to add a key-value pair with key \"a43\", key already exists.", "event": "optimization_failed", "iteration": 1, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.8437614}
+{"batch_id": 0, "event": "optimization_start", "factor_count": 2335, "pending_factors": 2335, "robot": "a", "solver": "ddf_sam", "ts": 1770249854.8463721}
+{"batch_id": 0, "duration_s": 0.01960294699529186, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249854.8478577, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 0, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249854.8479373}
+{"batch_id": 1, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.8493803}
+{"batch_id": 1, "duration_s": 0.004279915010556579, "event": "optimization_end", "max_translation_delta": 1.900803136634122e-05, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.856107, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 1, "max_translation_delta": 1.900803136634122e-05, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.85619}
+{"error": "\nIndeterminant linear system detected while working near variable\n7133701809754866449 (Symbol: c785).\n\nThrown when a linear system is ill-posed.  The most common cause for this\nerror is having underconstrained variables.  Mathematically, the system is\nunderdetermined.  See the GTSAM Doxygen documentation at\nhttp://borg.cc.gatech.edu/ on gtsam::IndeterminantLinearSystemException for\nmore information.", "event": "full_rebuild_failed", "iteration": 1, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.8754663}
+{"batch_id": 0, "duration_s": 0.025528997008223087, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249854.8768737, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 0, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249854.8769488}
+{"batch_id": 3, "event": "optimization_start", "factor_count": 15, "pending_factors": 15, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.8986542}
+{"batch_id": 3, "duration_s": 0.0003028089995495975, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.9003487, "updated_keys": 280}
+{"event": "ddf_round_delta", "iteration": 3, "max_translation_delta": 0.0, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.9004004}
+{"batch_id": 2, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.9294567}
+{"batch_id": 4, "event": "optimization_start", "factor_count": 15, "pending_factors": 15, "robot": "d", "solver": "ddf_sam", "ts": 1770249854.9331396}
+{"batch_id": 2, "duration_s": 0.0007935510366223752, "event": "optimization_end", "max_translation_delta": 1.0024125233950044e-06, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.9339433, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 2, "max_translation_delta": 1.0024125233950044e-06, "robot": "b", "solver": "ddf_sam", "ts": 1770249854.9339921}
+{"batch_id": 3, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.0236409}
+{"batch_id": 3, "duration_s": 0.0014710749965161085, "event": "optimization_end", "max_translation_delta": 104.94251523325457, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.0275168, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 3, "max_translation_delta": 104.94251523325457, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.0275915}
+{"batch_id": 1, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.0373087}
+{"batch_id": 1, "duration_s": 0.006615084013901651, "event": "optimization_end", "max_translation_delta": 1.7857223849797097e-07, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.0483637, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 1, "max_translation_delta": 1.7857223849797097e-07, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.0484576}
+{"batch_id": 1, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.1313019}
+{"batch_id": 1, "duration_s": 0.016147743037436157, "event": "optimization_end", "max_translation_delta": 54.7112555453486, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.1538348, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 1, "max_translation_delta": 54.7112555453486, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.1539335}
+{"batch_id": 4, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.167931}
+{"batch_id": 4, "duration_s": 0.0009151800186373293, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.1713555, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 4, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.1714308}
+{"batch_id": 2, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.246544}
+{"batch_id": 5, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.250287}
+{"batch_id": 2, "duration_s": 0.0019390250090509653, "event": "optimization_end", "max_translation_delta": 9.055030239266737, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.2526546, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 2, "max_translation_delta": 9.055030239266737, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.2542372}
+{"batch_id": 5, "duration_s": 0.008772699977271259, "event": "optimization_end", "max_translation_delta": 25.255487326154338, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.2614095, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 5, "max_translation_delta": 25.255487326154338, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.2614794}
+{"batch_id": 6, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.3334408}
+{"batch_id": 6, "duration_s": 0.0008387059788219631, "event": "optimization_end", "max_translation_delta": 1.8242749778829786e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.3365977, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 6, "max_translation_delta": 1.8242749778829786e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.336668}
+{"batch_id": 2, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.4035745}
+{"batch_id": 2, "duration_s": 0.0047835419536568224, "event": "optimization_end", "max_translation_delta": 5.178752110460034e-08, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.4135938, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 2, "max_translation_delta": 5.178752110460034e-08, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.4136806}
+{"batch_id": 7, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.437905}
+{"batch_id": 7, "duration_s": 0.0014214219991117716, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.4428031, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 7, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.442939}
+{"batch_id": 3, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.4614704}
+{"batch_id": 3, "duration_s": 0.0018467410118319094, "event": "optimization_end", "max_translation_delta": 6.4429850853664, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.4674494, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 3, "max_translation_delta": 6.4429850853664, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.4675202}
+{"batch_id": 8, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.5191581}
+{"batch_id": 8, "duration_s": 0.0009225840331055224, "event": "optimization_end", "max_translation_delta": 4.0098069536211464e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.5224695, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 8, "max_translation_delta": 4.0098069536211464e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.522541}
+{"batch_id": 9, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.5945091}
+{"batch_id": 9, "duration_s": 0.0010021839989349246, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.5982156, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 9, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.5982988}
+{"batch_id": 4, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.6467524}
+{"batch_id": 4, "duration_s": 0.0020167410257272422, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.6534321, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 4, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.6539612}
+{"batch_id": 10, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.6984477}
+{"batch_id": 10, "duration_s": 0.001979229971766472, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.7032533, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 10, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.7033446}
+{"batch_id": 3, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.7090986}
+{"batch_id": 3, "duration_s": 0.005051895976066589, "event": "optimization_end", "max_translation_delta": 7.850122986644018e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.7194617, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 3, "max_translation_delta": 7.850122986644018e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.7195354}
+{"batch_id": 11, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.7837198}
+{"batch_id": 11, "duration_s": 0.010178792988881469, "event": "optimization_end", "max_translation_delta": 9.98782829594646, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.7963145, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 11, "max_translation_delta": 9.98782829594646, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.7963855}
+{"batch_id": 12, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.8743916}
+{"batch_id": 5, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.8758893}
+{"batch_id": 12, "duration_s": 0.0008756250026635826, "event": "optimization_end", "max_translation_delta": 3.541642555265842e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.8776476, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 12, "max_translation_delta": 3.541642555265842e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.8777242}
+{"batch_id": 5, "duration_s": 0.018328050966374576, "event": "optimization_end", "max_translation_delta": 10.09082547102144, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.8989716, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 5, "max_translation_delta": 10.09082547102144, "robot": "c", "solver": "ddf_sam", "ts": 1770249855.8995295}
+{"batch_id": 13, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.9628365}
+{"batch_id": 13, "duration_s": 0.0009776880033314228, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.9663134, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 13, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249855.966381}
+{"batch_id": 4, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.986928}
+{"batch_id": 4, "duration_s": 0.00541537901153788, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.9996336, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 4, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249855.999723}
+{"batch_id": 14, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.0466616}
+{"batch_id": 14, "duration_s": 0.0009311100002378225, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.05003, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 14, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.0501015}
+{"batch_id": 15, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.1270385}
+{"batch_id": 15, "duration_s": 0.001524916966445744, "event": "optimization_end", "max_translation_delta": 6.010019963949229, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.130936, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 15, "max_translation_delta": 6.010019963949229, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.131222}
+{"batch_id": 6, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.138075}
+{"batch_id": 6, "duration_s": 0.0019152809982188046, "event": "optimization_end", "max_translation_delta": 2.978047804677961e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.1442413, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 6, "max_translation_delta": 2.978047804677961e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.1443226}
+{"batch_id": 16, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.2045228}
+{"batch_id": 16, "duration_s": 0.0009371109772473574, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.2078614, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 16, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.2079284}
+{"batch_id": 5, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.2508838}
+{"batch_id": 5, "duration_s": 0.027792420994956046, "event": "optimization_end", "max_translation_delta": 24.562951457814105, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.284777, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 5, "max_translation_delta": 24.562951457814105, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.2848551}
+{"batch_id": 17, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.3415194}
+{"batch_id": 7, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.3451982}
+{"batch_id": 7, "duration_s": 0.003799761994741857, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.3533483, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 7, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.3534312}
+{"batch_id": 17, "duration_s": 0.016781703976448625, "event": "optimization_end", "max_translation_delta": 4.651372707682899, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.361069, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 17, "max_translation_delta": 4.651372707682899, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.3611438}
+{"batch_id": 18, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.4343288}
+{"batch_id": 18, "duration_s": 0.0009140879847109318, "event": "optimization_end", "max_translation_delta": 1.135962605444658e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.437644, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 18, "max_translation_delta": 1.135962605444658e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.437715}
+{"batch_id": 19, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.5197601}
+{"batch_id": 19, "duration_s": 0.0010257179965265095, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.5232031, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 19, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.523272}
+{"batch_id": 8, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.5407703}
+{"batch_id": 6, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.5485451}
+{"batch_id": 8, "duration_s": 0.003135003033094108, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.551737, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 8, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.5518343}
+{"batch_id": 6, "duration_s": 0.004954111995175481, "event": "optimization_end", "max_translation_delta": 1.9354133910666927e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.559043, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 6, "max_translation_delta": 1.9354133910666927e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.5591233}
+{"batch_id": 20, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.6119647}
+{"batch_id": 20, "duration_s": 0.0008406909764744341, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.615947, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 20, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.6160219}
+{"batch_id": 21, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.7152932}
+{"batch_id": 21, "duration_s": 0.00137563596945256, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.7190065, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 21, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.7190669}
+{"batch_id": 9, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.738237}
+{"batch_id": 9, "duration_s": 0.002002554014325142, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.7445724, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 9, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.744648}
+{"batch_id": 7, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.8112416}
+{"batch_id": 22, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.8188784}
+{"batch_id": 7, "duration_s": 0.005333615990821272, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.822135, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 7, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249856.8221998}
+{"batch_id": 22, "duration_s": 0.0011291520204395056, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.823294, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 22, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.8238356}
+{"batch_id": 23, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.911888}
+{"batch_id": 23, "duration_s": 0.009843893989454955, "event": "optimization_end", "max_translation_delta": 1.9733577626441563, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.9246593, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 23, "max_translation_delta": 1.9733577626441563, "robot": "b", "solver": "ddf_sam", "ts": 1770249856.9247308}
+{"batch_id": 10, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.9544272}
+{"batch_id": 10, "duration_s": 0.002041908970568329, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.960849, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 10, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249856.9609177}
+{"batch_id": 24, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.0025053}
+{"batch_id": 24, "duration_s": 0.0009049009531736374, "event": "optimization_end", "max_translation_delta": 4.515197192833303e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.0057619, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 24, "max_translation_delta": 4.515197192833303e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.0058515}
+{"batch_id": 25, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.0976381}
+{"batch_id": 25, "duration_s": 0.004458401002921164, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.1045353, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 25, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.104612}
+{"batch_id": 8, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.1209948}
+{"batch_id": 8, "duration_s": 0.0065619139932096004, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.134172, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 8, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.1342506}
+{"batch_id": 11, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.1652303}
+{"batch_id": 26, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.1890442}
+{"batch_id": 26, "duration_s": 0.0009065840276889503, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.1923842, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 26, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.192451}
+{"batch_id": 11, "duration_s": 0.021293536003213376, "event": "optimization_end", "max_translation_delta": 8.382614587394226, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.1946, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 11, "max_translation_delta": 8.382614587394226, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.1969745}
+{"batch_id": 27, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.2656484}
+{"batch_id": 27, "duration_s": 0.0008913149940781295, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.2688637, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 27, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.268933}
+{"batch_id": 28, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.3431494}
+{"batch_id": 28, "duration_s": 0.0008636830025352538, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.346379, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 28, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.347345}
+{"batch_id": 9, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.394439}
+{"batch_id": 12, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.3968277}
+{"batch_id": 12, "duration_s": 0.002136385999619961, "event": "optimization_end", "max_translation_delta": 1.6721453594557307, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.405999, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 12, "max_translation_delta": 1.6721453594557307, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.4060702}
+{"batch_id": 9, "duration_s": 0.007902333978563547, "event": "optimization_end", "max_translation_delta": 1.348839537364117, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.4079018, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 9, "max_translation_delta": 1.348839537364117, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.4079733}
+{"batch_id": 29, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.444451}
+{"batch_id": 29, "duration_s": 0.00981127197155729, "event": "optimization_end", "max_translation_delta": 5.3215072863364075, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.4570084, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 29, "max_translation_delta": 5.3215072863364075, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.4570854}
+{"batch_id": 30, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.5309982}
+{"batch_id": 30, "duration_s": 0.001104456023313105, "event": "optimization_end", "max_translation_delta": 6.621776607362108e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.534508, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 30, "max_translation_delta": 6.621776607362108e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.5345957}
+{"batch_id": 13, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.5784268}
+{"batch_id": 13, "duration_s": 0.002166403050068766, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.5850523, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 13, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.585126}
+{"batch_id": 31, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.6211426}
+{"batch_id": 31, "duration_s": 0.0009280649828724563, "event": "optimization_end", "max_translation_delta": 1.0510793355980763e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.6246035, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 31, "max_translation_delta": 1.0510793355980763e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.6262183}
+{"batch_id": 10, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.6624606}
+{"batch_id": 10, "duration_s": 0.004719089949503541, "event": "optimization_end", "max_translation_delta": 6.642821411272577e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.6726248, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 10, "max_translation_delta": 6.642821411272577e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.6727026}
+{"batch_id": 32, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.751669}
+{"batch_id": 32, "duration_s": 0.0009541030158288777, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.7550838, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 32, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.7551653}
+{"batch_id": 14, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.7718105}
+{"batch_id": 14, "duration_s": 0.0021709310240112245, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.7784145, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 14, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.7784839}
+{"batch_id": 33, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.8331003}
+{"batch_id": 33, "duration_s": 0.0009783490095287561, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.836494, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 33, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.8365633}
+{"batch_id": 34, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.9132404}
+{"batch_id": 34, "duration_s": 0.004435997980181128, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.9203231, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 34, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249857.9204037}
+{"batch_id": 11, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.943838}
+{"batch_id": 15, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.974134}
+{"batch_id": 15, "duration_s": 0.0019430419779382646, "event": "optimization_end", "max_translation_delta": 0.21616034804092837, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.9802997, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 15, "max_translation_delta": 0.21616034804092837, "robot": "c", "solver": "ddf_sam", "ts": 1770249857.9803727}
+{"batch_id": 11, "duration_s": 0.03242125199176371, "event": "optimization_end", "max_translation_delta": 32.23120209540978, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.983291, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 11, "max_translation_delta": 32.23120209540978, "robot": "a", "solver": "ddf_sam", "ts": 1770249857.983361}
+{"batch_id": 35, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.0129316}
+{"batch_id": 35, "duration_s": 0.009603673010133207, "event": "optimization_end", "max_translation_delta": 0.45674381779466444, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.0252707, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 35, "max_translation_delta": 0.45674381779466444, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.0256896}
+{"batch_id": 36, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.0981703}
+{"batch_id": 36, "duration_s": 0.0009542930056340992, "event": "optimization_end", "max_translation_delta": 1.3837169877017864e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.101559, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 36, "max_translation_delta": 1.3837169877017864e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.1016307}
+{"batch_id": 16, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.1497285}
+{"batch_id": 16, "duration_s": 0.002506932010874152, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.1571953, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 16, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.1572692}
+{"batch_id": 37, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.1842926}
+{"batch_id": 37, "duration_s": 0.0012681540101766586, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.189092, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 37, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.1891828}
+{"batch_id": 12, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.26234}
+{"batch_id": 12, "duration_s": 0.005002052988857031, "event": "optimization_end", "max_translation_delta": 1.4985809962098415e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.2726836, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 12, "max_translation_delta": 1.4985809962098415e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.2727637}
+{"batch_id": 38, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3081043}
+{"batch_id": 38, "duration_s": 0.0008996009710244834, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3114285, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 38, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3114965}
+{"batch_id": 17, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.3741393}
+{"batch_id": 39, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3957577}
+{"batch_id": 39, "duration_s": 0.0008922980050556362, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3989532, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 39, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.3990116}
+{"batch_id": 17, "duration_s": 0.032445938035380095, "event": "optimization_end", "max_translation_delta": 8.538727464158235, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.4120443, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 17, "max_translation_delta": 8.538727464158235, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.41212}
+{"batch_id": 40, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.4682426}
+{"batch_id": 40, "duration_s": 0.0008596359984949231, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.4714036, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 40, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.4714594}
+{"batch_id": 13, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.5386493}
+{"batch_id": 13, "duration_s": 0.004659608006477356, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.5488002, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 13, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.5488787}
+{"batch_id": 41, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.5622542}
+{"batch_id": 41, "duration_s": 0.011554769007489085, "event": "optimization_end", "max_translation_delta": 0.88074885456781, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.5774632, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 41, "max_translation_delta": 0.88074885456781, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.5775669}
+{"batch_id": 18, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.6170118}
+{"batch_id": 18, "duration_s": 0.0020831250003539026, "event": "optimization_end", "max_translation_delta": 7.914262813082993e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.6233485, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 18, "max_translation_delta": 7.914262813082993e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.6234224}
+{"batch_id": 42, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.6549823}
+{"batch_id": 42, "duration_s": 0.0015887270565144718, "event": "optimization_end", "max_translation_delta": 0.7951924413567201, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.6590426, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 42, "max_translation_delta": 0.7951924413567201, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.65911}
+{"batch_id": 43, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.7393446}
+{"batch_id": 43, "duration_s": 0.000949603971093893, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.7427273, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 43, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.7428014}
+{"batch_id": 19, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.8116066}
+{"batch_id": 19, "duration_s": 0.0065104669774882495, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.8255353, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 19, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.8256085}
+{"batch_id": 14, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.8502839}
+{"batch_id": 44, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.856745}
+{"batch_id": 44, "duration_s": 0.0011784550151787698, "event": "optimization_end", "max_translation_delta": 1.4393500801570546e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.860423, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 44, "max_translation_delta": 1.4393500801570546e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.8604953}
+{"batch_id": 14, "duration_s": 0.006303579022642225, "event": "optimization_end", "max_translation_delta": 0.5523946322577951, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.8621452, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 14, "max_translation_delta": 0.5523946322577951, "robot": "a", "solver": "ddf_sam", "ts": 1770249858.8622038}
+{"batch_id": 45, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.9329808}
+{"batch_id": 45, "duration_s": 0.0009150200057774782, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.9362926, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 45, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249858.936361}
+{"batch_id": 20, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249858.999647}
+{"batch_id": 20, "duration_s": 0.0020252959802746773, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.005915, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 20, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.005992}
+{"batch_id": 46, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.021585}
+{"batch_id": 46, "duration_s": 0.0008708469686098397, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.0247467, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 46, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.024803}
+{"batch_id": 47, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.1174462}
+{"batch_id": 47, "duration_s": 0.0156382349669002, "event": "optimization_end", "max_translation_delta": 0.8243013283357212, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.13638, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 47, "max_translation_delta": 0.8243013283357212, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.1364744}
+{"batch_id": 15, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.1389947}
+{"batch_id": 15, "duration_s": 0.004856439016293734, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.1493568, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 15, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.149436}
+{"batch_id": 21, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.2035182}
+{"batch_id": 21, "duration_s": 0.002382278034929186, "event": "optimization_end", "max_translation_delta": 37.90150846554896, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.2103503, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 21, "max_translation_delta": 37.90150846554896, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.210419}
+{"batch_id": 48, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.230321}
+{"batch_id": 48, "duration_s": 0.0008639639709144831, "event": "optimization_end", "max_translation_delta": 3.42185349611248e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.2334576, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 48, "max_translation_delta": 3.42185349611248e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.2335162}
+{"batch_id": 49, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.3119845}
+{"batch_id": 49, "duration_s": 0.0008942310232669115, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.3152196, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 49, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.315313}
+{"batch_id": 50, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.3975208}
+{"batch_id": 50, "duration_s": 0.001497383986134082, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.4016376, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 50, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.4021003}
+{"batch_id": 16, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.4220364}
+{"batch_id": 22, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.4236448}
+{"batch_id": 22, "duration_s": 0.0019492639694362879, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.4301136, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 22, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.4301848}
+{"batch_id": 16, "duration_s": 0.004805903998203576, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.4322336, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 16, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.4323}
+{"batch_id": 51, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.4894824}
+{"batch_id": 51, "duration_s": 0.0009356989758089185, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.4928699, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 51, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.4929366}
+{"batch_id": 52, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.5651553}
+{"batch_id": 52, "duration_s": 0.000944035011343658, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.5685441, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 52, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.5686183}
+{"batch_id": 23, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.600531}
+{"batch_id": 23, "duration_s": 0.021424141013994813, "event": "optimization_end", "max_translation_delta": 1.6812757573945893, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.6267765, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 23, "max_translation_delta": 1.6812757573945893, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.626852}
+{"batch_id": 53, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.6474042}
+{"batch_id": 53, "duration_s": 0.008527748985216022, "event": "optimization_end", "max_translation_delta": 0.6146083118629749, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.6591372, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 53, "max_translation_delta": 0.6146083118629749, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.6596725}
+{"batch_id": 17, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.7022164}
+{"batch_id": 17, "duration_s": 0.027587225020397455, "event": "optimization_end", "max_translation_delta": 14.145598520966029, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.73525, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 17, "max_translation_delta": 14.145598520966029, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.7353265}
+{"batch_id": 54, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.7675643}
+{"batch_id": 54, "duration_s": 0.0009641919750720263, "event": "optimization_end", "max_translation_delta": 1.3991062800506414e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.7709825, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 54, "max_translation_delta": 1.3991062800506414e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.77106}
+{"batch_id": 55, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.8591902}
+{"batch_id": 55, "duration_s": 0.004663286032155156, "event": "optimization_end", "max_translation_delta": 1.2624304988370207, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.8689759, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 55, "max_translation_delta": 1.2624304988370207, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.8690813}
+{"batch_id": 24, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.8701391}
+{"batch_id": 24, "duration_s": 0.0019597040372900665, "event": "optimization_end", "max_translation_delta": 2.479672624711814e-13, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.8763301, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 24, "max_translation_delta": 2.479672624711814e-13, "robot": "c", "solver": "ddf_sam", "ts": 1770249859.8764265}
+{"batch_id": 56, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.9433856}
+{"batch_id": 56, "duration_s": 0.0009813739452511072, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.946943, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 56, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249859.947003}
+{"batch_id": 18, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249859.9911633}
+{"batch_id": 18, "duration_s": 0.006123610015492886, "event": "optimization_end", "max_translation_delta": 1.4618027068979635, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.0031242, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 18, "max_translation_delta": 1.4618027068979635, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.0031965}
+{"batch_id": 57, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.056955}
+{"batch_id": 57, "duration_s": 0.0009217530023306608, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.060331, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 57, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.0604196}
+{"batch_id": 25, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.090179}
+{"batch_id": 25, "duration_s": 0.002100387995596975, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.0966263, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 25, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.0966947}
+{"batch_id": 58, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.1413376}
+{"batch_id": 58, "duration_s": 0.000916202028747648, "event": "optimization_end", "max_translation_delta": 1.6704294402282465e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.1447027, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 58, "max_translation_delta": 1.6704294402282465e-10, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.1447744}
+{"batch_id": 59, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.2192543}
+{"batch_id": 59, "duration_s": 0.010284290998242795, "event": "optimization_end", "max_translation_delta": 0.770390889640846, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.2357502, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 59, "max_translation_delta": 0.770390889640846, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.236282}
+{"batch_id": 26, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.283432}
+{"batch_id": 19, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.2882922}
+{"batch_id": 26, "duration_s": 0.002107109990902245, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.2990606, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 26, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.2991316}
+{"batch_id": 19, "duration_s": 0.007596039038617164, "event": "optimization_end", "max_translation_delta": 1.446153978097822e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.3029282, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 19, "max_translation_delta": 1.446153978097822e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.3030057}
+{"batch_id": 60, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.3388703}
+{"batch_id": 60, "duration_s": 0.0009610960260033607, "event": "optimization_end", "max_translation_delta": 3.675127327703365e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.3423135, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 60, "max_translation_delta": 3.675127327703365e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.342388}
+{"batch_id": 61, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.4179473}
+{"batch_id": 61, "duration_s": 0.000919599027838558, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.4212937, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 61, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.4213614}
+{"batch_id": 27, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.4879386}
+{"batch_id": 27, "duration_s": 0.001923715986777097, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.494129, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 27, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.4942038}
+{"batch_id": 62, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.5013876}
+{"batch_id": 62, "duration_s": 0.0009197589824907482, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.5047827, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 62, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.5048523}
+{"batch_id": 63, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.5887506}
+{"batch_id": 63, "duration_s": 0.0012223870144225657, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.592657, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 63, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.5944278}
+{"batch_id": 20, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.6101394}
+{"batch_id": 20, "duration_s": 0.005737314000725746, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.6227732, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 20, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.6228638}
+{"batch_id": 64, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.6775684}
+{"batch_id": 64, "duration_s": 0.0009652349981479347, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.681109, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 64, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.6811705}
+{"batch_id": 28, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.6977925}
+{"batch_id": 28, "duration_s": 0.002107781998347491, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.704259, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 28, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.7043304}
+{"batch_id": 65, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.7576706}
+{"batch_id": 65, "duration_s": 0.006532930012326688, "event": "optimization_end", "max_translation_delta": 0.5851320499468056, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.7666905, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 65, "max_translation_delta": 0.5851320499468056, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.7667696}
+{"batch_id": 66, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.8406308}
+{"batch_id": 66, "duration_s": 0.0009139479952864349, "event": "optimization_end", "max_translation_delta": 6.397671907778113e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.8439434, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 66, "max_translation_delta": 6.397671907778113e-13, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.8440115}
+{"batch_id": 29, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.8928099}
+{"batch_id": 21, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.8942122}
+{"batch_id": 21, "duration_s": 0.007247753033880144, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.9068334, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 21, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249860.9069204}
+{"batch_id": 29, "duration_s": 0.024107644974719733, "event": "optimization_end", "max_translation_delta": 0.6142149747266853, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.923015, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 29, "max_translation_delta": 0.6142149747266853, "robot": "c", "solver": "ddf_sam", "ts": 1770249860.923101}
+{"batch_id": 67, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.9552004}
+{"batch_id": 67, "duration_s": 0.0009001420112326741, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.9585211, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 67, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249860.958585}
+{"batch_id": 68, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.0307171}
+{"batch_id": 68, "duration_s": 0.0009108210215345025, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.0341077, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 68, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.034177}
+{"batch_id": 69, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.1066723}
+{"batch_id": 69, "duration_s": 0.0009103210177272558, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.1100464, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 69, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.11011}
+{"batch_id": 30, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.1457078}
+{"batch_id": 30, "duration_s": 0.00464157504029572, "event": "optimization_end", "max_translation_delta": 1.6997423861519232e-13, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.1571999, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 30, "max_translation_delta": 1.6997423861519232e-13, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.1575441}
+{"batch_id": 22, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.166464}
+{"batch_id": 22, "duration_s": 0.006108503032010049, "event": "optimization_end", "max_translation_delta": 0.20049139305297906, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.1781828, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 22, "max_translation_delta": 0.20049139305297906, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.1782594}
+{"batch_id": 70, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.2272935}
+{"batch_id": 70, "duration_s": 0.0015108099905773997, "event": "optimization_end", "max_translation_delta": 0.5145916672205114, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.2313457, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 70, "max_translation_delta": 0.5145916672205114, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.2314157}
+{"batch_id": 71, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.3079584}
+{"batch_id": 71, "duration_s": 0.010111597017385066, "event": "optimization_end", "max_translation_delta": 0.2664673230571856, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.3213131, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 71, "max_translation_delta": 0.2664673230571856, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.3218255}
+{"batch_id": 31, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.3376684}
+{"batch_id": 31, "duration_s": 0.0022443689522333443, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.3444254, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 31, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.3444943}
+{"batch_id": 72, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.4008045}
+{"batch_id": 72, "duration_s": 0.0009277639910578728, "event": "optimization_end", "max_translation_delta": 7.167996428584287e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.4041758, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 72, "max_translation_delta": 7.167996428584287e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.4042478}
+{"batch_id": 23, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.459434}
+{"batch_id": 23, "duration_s": 0.027657367987558246, "event": "optimization_end", "max_translation_delta": 6.470221341870705, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.4925716, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 23, "max_translation_delta": 6.470221341870705, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.4926538}
+{"batch_id": 73, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.508565}
+{"batch_id": 73, "duration_s": 0.0011192139936611056, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.5128846, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 73, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.5133026}
+{"batch_id": 32, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.552091}
+{"batch_id": 32, "duration_s": 0.0020006700069643557, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.5583575, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 32, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.5584464}
+{"batch_id": 74, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.5960627}
+{"batch_id": 74, "duration_s": 0.0008781900396570563, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.6019616, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 74, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.6050563}
+{"batch_id": 75, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.681813}
+{"batch_id": 75, "duration_s": 0.0008508800528943539, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.685004, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 75, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.6850696}
+{"batch_id": 24, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.7604074}
+{"batch_id": 33, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.7607224}
+{"batch_id": 76, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.7674181}
+{"batch_id": 33, "duration_s": 0.0028836000128649175, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.768955, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 33, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.7709951}
+{"batch_id": 76, "duration_s": 0.0008960750419646502, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.7712462, "updated_keys": 616}
+{"batch_id": 24, "duration_s": 0.006829958001617342, "event": "optimization_end", "max_translation_delta": 1.5093013219907729e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.772937, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 24, "max_translation_delta": 1.5093013219907729e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249861.7730048}
+{"event": "ddf_round_delta", "iteration": 76, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.773036}
+{"batch_id": 77, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.853243}
+{"batch_id": 77, "duration_s": 0.006689052970614284, "event": "optimization_end", "max_translation_delta": 0.1754459399675513, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.8626037, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 77, "max_translation_delta": 0.1754459399675513, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.8626714}
+{"batch_id": 78, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.9412184}
+{"batch_id": 78, "duration_s": 0.0010271510109305382, "event": "optimization_end", "max_translation_delta": 7.034014214903312e-14, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.944761, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 78, "max_translation_delta": 7.034014214903312e-14, "robot": "b", "solver": "ddf_sam", "ts": 1770249861.9455888}
+{"batch_id": 34, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.946846}
+{"batch_id": 34, "duration_s": 0.0022488170070573688, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.953915, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 34, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249861.9544246}
+{"batch_id": 79, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.0288706}
+{"batch_id": 79, "duration_s": 0.0009734100312925875, "event": "optimization_end", "max_translation_delta": 7.531339272510156e-14, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.0322907, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 79, "max_translation_delta": 7.531339272510156e-14, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.0323684}
+{"batch_id": 25, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.061388}
+{"batch_id": 25, "duration_s": 0.005932250991463661, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.0731568, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 25, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.0732298}
+{"batch_id": 80, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.1193328}
+{"batch_id": 80, "duration_s": 0.0009749529999680817, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.1228595, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 80, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.1229281}
+{"batch_id": 35, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.1691146}
+{"batch_id": 81, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.2008157}
+{"batch_id": 35, "duration_s": 0.028231567004695535, "event": "optimization_end", "max_translation_delta": 13.471993386215463, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.202684, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 35, "max_translation_delta": 13.471993386215463, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.2027628}
+{"batch_id": 81, "duration_s": 0.000930098001845181, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.20416, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 81, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.2042248}
+{"batch_id": 82, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.2782242}
+{"batch_id": 82, "duration_s": 0.0009871450020000339, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.281691, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 82, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.281773}
+{"batch_id": 26, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.3271456}
+{"batch_id": 26, "duration_s": 0.0050383409834466875, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.3377612, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 26, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.3378334}
+{"batch_id": 83, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.3866441}
+{"batch_id": 83, "duration_s": 0.005641254014335573, "event": "optimization_end", "max_translation_delta": 0.39899199942810787, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.395013, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 83, "max_translation_delta": 0.39899199942810787, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.3968647}
+{"batch_id": 36, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.4097059}
+{"batch_id": 36, "duration_s": 0.002087805012706667, "event": "optimization_end", "max_translation_delta": 6.56050691554078e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.4161482, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 36, "max_translation_delta": 6.56050691554078e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.4162254}
+{"batch_id": 84, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.4736755}
+{"batch_id": 84, "duration_s": 0.0015950980014167726, "event": "optimization_end", "max_translation_delta": 0.5886920677105241, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.4777737, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 84, "max_translation_delta": 0.5886920677105241, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.4778423}
+{"batch_id": 85, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.5521188}
+{"batch_id": 85, "duration_s": 0.0011024819687008858, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.5559518, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 85, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.5569293}
+{"batch_id": 27, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.6032588}
+{"batch_id": 37, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.6114206}
+{"batch_id": 27, "duration_s": 0.0064250880386680365, "event": "optimization_end", "max_translation_delta": 0.6216222859633066, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.6154506, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 27, "max_translation_delta": 0.6216222859633066, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.6155272}
+{"batch_id": 37, "duration_s": 0.0023106730077415705, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.6213982, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 37, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.6214697}
+{"batch_id": 86, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.6529317}
+{"batch_id": 86, "duration_s": 0.0014522799756377935, "event": "optimization_end", "max_translation_delta": 8.310612343559557e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.6587203, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 86, "max_translation_delta": 8.310612343559557e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.6593347}
+{"batch_id": 87, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.7365797}
+{"batch_id": 87, "duration_s": 0.0012515719863586128, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.7415025, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 87, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.7415905}
+{"batch_id": 38, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.7940679}
+{"batch_id": 38, "duration_s": 0.0021579769672825933, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.8006976, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 38, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.8007712}
+{"batch_id": 88, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.8315587}
+{"batch_id": 88, "duration_s": 0.0010194870410487056, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.8353481, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 88, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.8368394}
+{"batch_id": 28, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.8703895}
+{"batch_id": 28, "duration_s": 0.004803458985406905, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.8809202, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 28, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249862.8809915}
+{"batch_id": 89, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.9250588}
+{"batch_id": 89, "duration_s": 0.009688111022114754, "event": "optimization_end", "max_translation_delta": 0.2749616198042737, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.9374413, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 89, "max_translation_delta": 0.2749616198042737, "robot": "b", "solver": "ddf_sam", "ts": 1770249862.9375126}
+{"batch_id": 39, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.9786918}
+{"batch_id": 39, "duration_s": 0.002117018972057849, "event": "optimization_end", "max_translation_delta": 0.08421444584699074, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.9852011, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 39, "max_translation_delta": 0.08421444584699074, "robot": "c", "solver": "ddf_sam", "ts": 1770249862.9852734}
+{"batch_id": 90, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.026665}
+{"batch_id": 90, "duration_s": 0.0009002320002764463, "event": "optimization_end", "max_translation_delta": 1.1971867586751405e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.0300117, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 90, "max_translation_delta": 1.1971867586751405e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.0301216}
+{"batch_id": 91, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.1118095}
+{"batch_id": 91, "duration_s": 0.0013410410028882325, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.1161418, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 91, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.1166523}
+{"batch_id": 29, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.132476}
+{"batch_id": 40, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.1710753}
+{"batch_id": 40, "duration_s": 0.0020567960455082357, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.1778107, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 40, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.1778798}
+{"batch_id": 29, "duration_s": 0.03238575597060844, "event": "optimization_end", "max_translation_delta": 1.1560569160655179, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.1794608, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 29, "max_translation_delta": 1.1560569160655179, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.1795373}
+{"batch_id": 92, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.2077434}
+{"batch_id": 92, "duration_s": 0.0008833809988573194, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.2110214, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 92, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.2110882}
+{"batch_id": 93, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.2849643}
+{"batch_id": 93, "duration_s": 0.0008861150126904249, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.288292, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 93, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.2883599}
+{"batch_id": 94, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.366095}
+{"batch_id": 94, "duration_s": 0.0010347049683332443, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.3698435, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 94, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.3699086}
+{"batch_id": 41, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.373616}
+{"batch_id": 41, "duration_s": 0.027569631987717003, "event": "optimization_end", "max_translation_delta": 0.6406254020428563, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.4069796, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 41, "max_translation_delta": 0.6406254020428563, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.4075172}
+{"batch_id": 30, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.4534092}
+{"batch_id": 95, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.4619064}
+{"batch_id": 30, "duration_s": 0.005434324964880943, "event": "optimization_end", "max_translation_delta": 2.3191048202819375e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.4646423, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 30, "max_translation_delta": 2.3191048202819375e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.4647248}
+{"batch_id": 95, "duration_s": 0.006469729996751994, "event": "optimization_end", "max_translation_delta": 0.16861703157148436, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.470756, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 95, "max_translation_delta": 0.16861703157148436, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.470831}
+{"batch_id": 96, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.5453618}
+{"batch_id": 96, "duration_s": 0.0009067339706234634, "event": "optimization_end", "max_translation_delta": 1.930170083834814e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.548655, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 96, "max_translation_delta": 1.930170083834814e-12, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.5487332}
+{"batch_id": 42, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.598228}
+{"batch_id": 42, "duration_s": 0.002161613025236875, "event": "optimization_end", "max_translation_delta": 0.6030403482859578, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.6048996, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 42, "max_translation_delta": 0.6030403482859578, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.6049852}
+{"batch_id": 97, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.631614}
+{"batch_id": 97, "duration_s": 0.0015533599653281271, "event": "optimization_end", "max_translation_delta": 0.4472174413795371, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.635587, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 97, "max_translation_delta": 0.4472174413795371, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.6356614}
+{"batch_id": 31, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.7253854}
+{"batch_id": 98, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.7327087}
+{"batch_id": 98, "duration_s": 0.0013380749733187258, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.7364166, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 98, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.7369258}
+{"batch_id": 31, "duration_s": 0.006458338990341872, "event": "optimization_end", "max_translation_delta": 0.22844541911973226, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.737725, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 31, "max_translation_delta": 0.22844541911973226, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.7377923}
+{"batch_id": 43, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.8019009}
+{"batch_id": 43, "duration_s": 0.002199804992415011, "event": "optimization_end", "max_translation_delta": 12.736227549815174, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.8084192, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 43, "max_translation_delta": 12.736227549815174, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.8084927}
+{"batch_id": 99, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.8183496}
+{"batch_id": 99, "duration_s": 0.0008797129848971963, "event": "optimization_end", "max_translation_delta": 9.276239752764298e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.8221338, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 99, "max_translation_delta": 9.276239752764298e-11, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.8222153}
+{"batch_id": 100, "event": "optimization_start", "factor_count": 9, "pending_factors": 9, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.9228754}
+{"batch_id": 100, "duration_s": 0.0008799339993856847, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.926081, "updated_keys": 616}
+{"event": "ddf_round_delta", "iteration": 100, "max_translation_delta": 0.0, "robot": "b", "solver": "ddf_sam", "ts": 1770249863.9261594}
+{"batch_id": 44, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.985647}
+{"batch_id": 44, "duration_s": 0.001967689022421837, "event": "optimization_end", "max_translation_delta": 0.09138070449168374, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.9926171, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 44, "max_translation_delta": 0.09138070449168374, "robot": "c", "solver": "ddf_sam", "ts": 1770249863.9931874}
+{"batch_id": 32, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249863.9950945}
+{"batch_id": 32, "duration_s": 0.005093154031783342, "event": "optimization_end", "max_translation_delta": 3.489964183966979e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.0063148, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 32, "max_translation_delta": 3.489964183966979e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.0064516}
+{"converged": false, "convergence_tol": 0.005, "ddf_rounds": 100, "event": "ddf_stop", "iteration": 100, "reason": "round_limit", "robot": "b", "rotation_tol": 0.005, "solver": "ddf_sam", "stable_rounds": 15, "ts": 1770249864.0268426}
+{"batch_id": 45, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.1736557}
+{"batch_id": 45, "duration_s": 0.0023425029939971864, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.1804643, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 45, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.1805506}
+{"batch_id": 33, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.2801836}
+{"batch_id": 33, "duration_s": 0.0048119849525392056, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.2904756, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 33, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.2905512}
+{"batch_id": 46, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.3585298}
+{"batch_id": 46, "duration_s": 0.0019296969985589385, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.3646703, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 46, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.3647432}
+{"batch_id": 47, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.5376134}
+{"batch_id": 34, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.544927}
+{"batch_id": 34, "duration_s": 0.0053654449875466526, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.5568597, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 34, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.557688}
+{"batch_id": 47, "duration_s": 0.02593813498970121, "event": "optimization_end", "max_translation_delta": 0.4403568408176083, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.5680068, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 47, "max_translation_delta": 0.4403568408176083, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.5680947}
+{"batch_id": 48, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.7214427}
+{"batch_id": 48, "duration_s": 0.0019414789858274162, "event": "optimization_end", "max_translation_delta": 5.685035733124713e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.7275846, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 48, "max_translation_delta": 5.685035733124713e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.7276642}
+{"batch_id": 35, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.8159962}
+{"batch_id": 35, "duration_s": 0.027912416961044073, "event": "optimization_end", "max_translation_delta": 1.2337619666469914, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.8493862, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 35, "max_translation_delta": 1.2337619666469914, "robot": "a", "solver": "ddf_sam", "ts": 1770249864.849468}
+{"batch_id": 49, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.904386}
+{"batch_id": 49, "duration_s": 0.0022108860430307686, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.9108684, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 49, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249864.9109411}
+{"batch_id": 50, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.0806744}
+{"batch_id": 50, "duration_s": 0.002452510001603514, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.0881495, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 50, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.088626}
+{"batch_id": 36, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.103008}
+{"batch_id": 36, "duration_s": 0.005172853998374194, "event": "optimization_end", "max_translation_delta": 3.7194466295153606e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.1135159, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 36, "max_translation_delta": 3.7194466295153606e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.1135936}
+{"batch_id": 51, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.2519166}
+{"batch_id": 51, "duration_s": 0.002197540015913546, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.2586105, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 51, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.2586985}
+{"batch_id": 37, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.3679245}
+{"batch_id": 37, "duration_s": 0.005119282985106111, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.3785915, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 37, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.378682}
+{"batch_id": 52, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.4272628}
+{"batch_id": 52, "duration_s": 0.003735141013748944, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.4362388, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 52, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.4363208}
+{"batch_id": 53, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.6211467}
+{"batch_id": 38, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.6377494}
+{"batch_id": 53, "duration_s": 0.022654874017462134, "event": "optimization_end", "max_translation_delta": 0.40075825620627414, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.6489222, "updated_keys": 1118}
+{"batch_id": 38, "duration_s": 0.0055961390025913715, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.6526623, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 38, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.652726}
+{"event": "ddf_round_delta", "iteration": 53, "max_translation_delta": 0.40075825620627414, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.6531556}
+{"batch_id": 54, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.8076055}
+{"batch_id": 54, "duration_s": 0.0022031919797882438, "event": "optimization_end", "max_translation_delta": 2.847716647714797e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.8143513, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 54, "max_translation_delta": 2.847716647714797e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.814436}
+{"batch_id": 39, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.9145405}
+{"batch_id": 39, "duration_s": 0.006272992002777755, "event": "optimization_end", "max_translation_delta": 0.0857285298625275, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.926347, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 39, "max_translation_delta": 0.0857285298625275, "robot": "a", "solver": "ddf_sam", "ts": 1770249865.9264164}
+{"batch_id": 55, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249865.9960494}
+{"batch_id": 55, "duration_s": 0.002230363024864346, "event": "optimization_end", "max_translation_delta": 0.8283809081929359, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.0025642, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 55, "max_translation_delta": 0.8283809081929359, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.0026355}
+{"batch_id": 56, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.176357}
+{"batch_id": 56, "duration_s": 0.00246353104012087, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.183698, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 56, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.1841037}
+{"batch_id": 40, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.1879756}
+{"batch_id": 40, "duration_s": 0.004878239997196943, "event": "optimization_end", "max_translation_delta": 1.047349303918542e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.1982183, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 40, "max_translation_delta": 1.047349303918542e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.1983066}
+{"batch_id": 57, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.3470898}
+{"batch_id": 57, "duration_s": 0.0021417049574665725, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.353712, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 57, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.3537917}
+{"batch_id": 41, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.4598289}
+{"batch_id": 41, "duration_s": 0.030303261999506503, "event": "optimization_end", "max_translation_delta": 1.3311295230185876, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.496236, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 41, "max_translation_delta": 1.3311295230185876, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.4963279}
+{"batch_id": 58, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.5291271}
+{"batch_id": 58, "duration_s": 0.002201208029873669, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.5356596, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 58, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.5357332}
+{"batch_id": 59, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.6955135}
+{"batch_id": 59, "duration_s": 0.02117236703634262, "event": "optimization_end", "max_translation_delta": 0.738344055512955, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.7214203, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 59, "max_translation_delta": 0.738344055512955, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.7243257}
+{"batch_id": 42, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.7675302}
+{"batch_id": 42, "duration_s": 0.004845858959015459, "event": "optimization_end", "max_translation_delta": 9.92699422055959e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.777789, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 42, "max_translation_delta": 9.92699422055959e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249866.7778711}
+{"batch_id": 60, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.9080133}
+{"batch_id": 60, "duration_s": 0.0019311000360175967, "event": "optimization_end", "max_translation_delta": 1.1425039846867122, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.9141605, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 60, "max_translation_delta": 1.1425039846867122, "robot": "c", "solver": "ddf_sam", "ts": 1770249866.914236}
+{"batch_id": 43, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.0237923}
+{"batch_id": 43, "duration_s": 0.0067049539647996426, "event": "optimization_end", "max_translation_delta": 0.38599105623340296, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.0359595, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 43, "max_translation_delta": 0.38599105623340296, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.0360446}
+{"batch_id": 61, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.0944026}
+{"batch_id": 61, "duration_s": 0.0020083250128664076, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.100711, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 61, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.1007805}
+{"batch_id": 62, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.265976}
+{"batch_id": 62, "duration_s": 0.0037147230468690395, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.2753618, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 62, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.2762306}
+{"batch_id": 44, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.29857}
+{"batch_id": 44, "duration_s": 0.004878890991676599, "event": "optimization_end", "max_translation_delta": 9.63812783126981e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.3089087, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 44, "max_translation_delta": 9.63812783126981e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.3089874}
+{"batch_id": 63, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.4475517}
+{"batch_id": 63, "duration_s": 0.002098714991007, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.454148, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 63, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.4542198}
+{"batch_id": 45, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.5717108}
+{"batch_id": 45, "duration_s": 0.005063017015345395, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.5825326, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 45, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.5826035}
+{"batch_id": 64, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.6255455}
+{"batch_id": 64, "duration_s": 0.002233948966022581, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.63196, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 64, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.6320393}
+{"batch_id": 65, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.7875667}
+{"batch_id": 65, "duration_s": 0.020210510003380477, "event": "optimization_end", "max_translation_delta": 0.536949650408733, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.8126628, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 65, "max_translation_delta": 0.536949650408733, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.8131905}
+{"batch_id": 46, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.834722}
+{"batch_id": 46, "duration_s": 0.004698261036537588, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.8449945, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 46, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249867.8450723}
+{"batch_id": 66, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.977681}
+{"batch_id": 66, "duration_s": 0.001927754026837647, "event": "optimization_end", "max_translation_delta": 8.989488924896701e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.9838147, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 66, "max_translation_delta": 8.989488924896701e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249867.9838953}
+{"batch_id": 47, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.0949786}
+{"batch_id": 47, "duration_s": 0.028568920970428735, "event": "optimization_end", "max_translation_delta": 0.7730095960314844, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.1292763, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 47, "max_translation_delta": 0.7730095960314844, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.129351}
+{"batch_id": 67, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.1486194}
+{"batch_id": 67, "duration_s": 0.0025535699678584933, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.157166, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 67, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.1578007}
+{"batch_id": 68, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.3117027}
+{"batch_id": 68, "duration_s": 0.0019029279937967658, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.3178177, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 68, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.3178906}
+{"batch_id": 48, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.395947}
+{"batch_id": 48, "duration_s": 0.0047206730232574046, "event": "optimization_end", "max_translation_delta": 1.3304282844285122e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.406037, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 48, "max_translation_delta": 1.3304282844285122e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.4061308}
+{"batch_id": 69, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.4842584}
+{"batch_id": 69, "duration_s": 0.0018907739431597292, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.4903388, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 69, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.4904122}
+{"batch_id": 70, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.6536381}
+{"batch_id": 70, "duration_s": 0.0019041289924643934, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.6598067, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 70, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.661187}
+{"batch_id": 49, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.6686802}
+{"batch_id": 49, "duration_s": 0.0050139749655500054, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.6790764, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 49, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.67915}
+{"batch_id": 71, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.831178}
+{"batch_id": 71, "duration_s": 0.0190835110261105, "event": "optimization_end", "max_translation_delta": 0.4197739633929429, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.8555572, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 71, "max_translation_delta": 0.4197739633929429, "robot": "c", "solver": "ddf_sam", "ts": 1770249868.855635}
+{"batch_id": 50, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.9331808}
+{"batch_id": 50, "duration_s": 0.004590839962475002, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.9430535, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 50, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249868.943129}
+{"batch_id": 72, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.029887}
+{"batch_id": 72, "duration_s": 0.0025470679975114763, "event": "optimization_end", "max_translation_delta": 9.970173652795608e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.0373852, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 72, "max_translation_delta": 9.970173652795608e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.0386205}
+{"batch_id": 51, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.1948411}
+{"batch_id": 51, "duration_s": 0.008083013992290944, "event": "optimization_end", "max_translation_delta": 0.23356248357723644, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.2092948, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 51, "max_translation_delta": 0.23356248357723644, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.2093713}
+{"batch_id": 73, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.213377}
+{"batch_id": 73, "duration_s": 0.003086031007114798, "event": "optimization_end", "max_translation_delta": 0.40103575593856416, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.222236, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 73, "max_translation_delta": 0.40103575593856416, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.222685}
+{"batch_id": 74, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.3847501}
+{"batch_id": 74, "duration_s": 0.001920279988553375, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.3908496, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 74, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.3909361}
+{"batch_id": 52, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.458503}
+{"batch_id": 52, "duration_s": 0.004656152043025941, "event": "optimization_end", "max_translation_delta": 3.7664746496172667e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.4685643, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 52, "max_translation_delta": 3.7664746496172667e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.4686453}
+{"batch_id": 75, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.5659187}
+{"batch_id": 75, "duration_s": 0.0019030870171263814, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.572153, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 75, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.5722258}
+{"batch_id": 53, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.7091968}
+{"batch_id": 53, "duration_s": 0.031433034979272634, "event": "optimization_end", "max_translation_delta": 0.700252736690738, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.747103, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 53, "max_translation_delta": 0.700252736690738, "robot": "a", "solver": "ddf_sam", "ts": 1770249869.7471833}
+{"batch_id": 76, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.759477}
+{"batch_id": 76, "duration_s": 0.0019997190102003515, "event": "optimization_end", "max_translation_delta": 0.6790301431383696, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.7658482, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 76, "max_translation_delta": 0.6790301431383696, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.765921}
+{"batch_id": 77, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.922922}
+{"batch_id": 77, "duration_s": 0.020677487016655505, "event": "optimization_end", "max_translation_delta": 0.31315927666139415, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.9481966, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 77, "max_translation_delta": 0.31315927666139415, "robot": "c", "solver": "ddf_sam", "ts": 1770249869.948273}
+{"batch_id": 54, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.0137293}
+{"batch_id": 54, "duration_s": 0.004963049024809152, "event": "optimization_end", "max_translation_delta": 1.58785337458371e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.0241196, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 54, "max_translation_delta": 1.58785337458371e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.0242028}
+{"batch_id": 78, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.1537838}
+{"batch_id": 78, "duration_s": 0.002163096040021628, "event": "optimization_end", "max_translation_delta": 5.734256244873857e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.1604636, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 78, "max_translation_delta": 5.734256244873857e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.1605532}
+{"batch_id": 55, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.2802482}
+{"batch_id": 55, "duration_s": 0.00643090798985213, "event": "optimization_end", "max_translation_delta": 0.10760685455020028, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.2923572, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 55, "max_translation_delta": 0.10760685455020028, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.2924438}
+{"batch_id": 79, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.327835}
+{"batch_id": 79, "duration_s": 0.001975803985260427, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.3341238, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 79, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.3341937}
+{"batch_id": 80, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.4920943}
+{"batch_id": 80, "duration_s": 0.002098364057019353, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.4986546, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 80, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.498825}
+{"batch_id": 56, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.5572631}
+{"batch_id": 56, "duration_s": 0.004959041019901633, "event": "optimization_end", "max_translation_delta": 3.43477885421619e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.5681803, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 56, "max_translation_delta": 3.43477885421619e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.5683923}
+{"batch_id": 81, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.6979237}
+{"batch_id": 81, "duration_s": 0.002139391959644854, "event": "optimization_end", "max_translation_delta": 0.2616621709484981, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.7045557, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 81, "max_translation_delta": 0.2616621709484981, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.7046423}
+{"batch_id": 57, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.8252864}
+{"batch_id": 57, "duration_s": 0.005020557029638439, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.8360317, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 57, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249870.8361087}
+{"batch_id": 82, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.8832219}
+{"batch_id": 82, "duration_s": 0.002062816987745464, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.8896806, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 82, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249870.8897529}
+{"batch_id": 83, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.0732298}
+{"batch_id": 58, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.0949414}
+{"batch_id": 83, "duration_s": 0.01461117499275133, "event": "optimization_end", "max_translation_delta": 0.3745880503245927, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.0974553, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 83, "max_translation_delta": 0.3745880503245927, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.0975406}
+{"batch_id": 58, "duration_s": 0.005186229012906551, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.1056564, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 58, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.105729}
+{"batch_id": 84, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.2515895}
+{"batch_id": 84, "duration_s": 0.001957298954948783, "event": "optimization_end", "max_translation_delta": 0.21497784166201642, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.2579978, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 84, "max_translation_delta": 0.21497784166201642, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.2580903}
+{"batch_id": 59, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.3561375}
+{"batch_id": 59, "duration_s": 0.030118102964479476, "event": "optimization_end", "max_translation_delta": 0.6783427303511308, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.3922179, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 59, "max_translation_delta": 0.6783427303511308, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.392296}
+{"batch_id": 85, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.4507854}
+{"batch_id": 85, "duration_s": 0.002001132001169026, "event": "optimization_end", "max_translation_delta": 2.2323838256130288e-11, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.4571924, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 85, "max_translation_delta": 2.2323838256130288e-11, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.4572692}
+{"batch_id": 86, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.6271045}
+{"batch_id": 86, "duration_s": 0.002833896956872195, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.63501, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 86, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.636026}
+{"batch_id": 60, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.6619637}
+{"batch_id": 60, "duration_s": 0.005176861013751477, "event": "optimization_end", "max_translation_delta": 2.7534095084175117e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.6725516, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 60, "max_translation_delta": 2.7534095084175117e-11, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.672633}
+{"batch_id": 87, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.811475}
+{"batch_id": 87, "duration_s": 0.002016689977608621, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.8179338, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 87, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.8180203}
+{"batch_id": 61, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.928985}
+{"batch_id": 61, "duration_s": 0.004926730995066464, "event": "optimization_end", "max_translation_delta": 3.5425838843421333e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.939499, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 61, "max_translation_delta": 3.5425838843421333e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249871.939595}
+{"batch_id": 88, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.9823773}
+{"batch_id": 88, "duration_s": 0.0026809900300577283, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.9900272, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 88, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249871.9907823}
+{"batch_id": 89, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.1620722}
+{"batch_id": 89, "duration_s": 0.023176384973339736, "event": "optimization_end", "max_translation_delta": 0.28522726110882063, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.1971755, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 89, "max_translation_delta": 0.28522726110882063, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.1976647}
+{"batch_id": 62, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.2152784}
+{"batch_id": 62, "duration_s": 0.004942250030580908, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.2254918, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 62, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.2255647}
+{"batch_id": 90, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.3747432}
+{"batch_id": 90, "duration_s": 0.0021909790229983628, "event": "optimization_end", "max_translation_delta": 2.4099768494094916e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.3811154, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 90, "max_translation_delta": 2.4099768494094916e-14, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.381199}
+{"batch_id": 63, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.475215}
+{"batch_id": 63, "duration_s": 0.00624335597967729, "event": "optimization_end", "max_translation_delta": 0.15162562627070936, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.4868143, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 63, "max_translation_delta": 0.15162562627070936, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.486891}
+{"batch_id": 91, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.5529597}
+{"batch_id": 91, "duration_s": 0.002553880971390754, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.5603428, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 91, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.5609474}
+{"batch_id": 64, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.7418573}
+{"batch_id": 92, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.742786}
+{"batch_id": 92, "duration_s": 0.00196824996965006, "event": "optimization_end", "max_translation_delta": 0.18162257098956114, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.7498727, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 92, "max_translation_delta": 0.18162257098956114, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.749942}
+{"batch_id": 64, "duration_s": 0.006241441995371133, "event": "optimization_end", "max_translation_delta": 1.4992053586171694e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.75487, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 64, "max_translation_delta": 1.4992053586171694e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249872.75718}
+{"batch_id": 93, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.9053755}
+{"batch_id": 93, "duration_s": 0.0019266309682279825, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.9115272, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 93, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249872.9116018}
+{"batch_id": 65, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.008562}
+{"batch_id": 65, "duration_s": 0.028146888012997806, "event": "optimization_end", "max_translation_delta": 0.690837819147032, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.0421546, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 65, "max_translation_delta": 0.690837819147032, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.0422466}
+{"batch_id": 94, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.0773034}
+{"batch_id": 94, "duration_s": 0.0018822980346158147, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.0834177, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 94, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.08349}
+{"batch_id": 95, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.2372782}
+{"batch_id": 95, "duration_s": 0.025750152010004967, "event": "optimization_end", "max_translation_delta": 0.5287399550397958, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.2692516, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 95, "max_translation_delta": 0.5287399550397958, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.2701569}
+{"batch_id": 66, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.2977877}
+{"batch_id": 66, "duration_s": 0.005138218984939158, "event": "optimization_end", "max_translation_delta": 2.629983137411408e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.3084192, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 66, "max_translation_delta": 2.629983137411408e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.308724}
+{"batch_id": 96, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.4417636}
+{"batch_id": 96, "duration_s": 0.002144510974176228, "event": "optimization_end", "max_translation_delta": 0.3112406305652727, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.4484336, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 96, "max_translation_delta": 0.3112406305652727, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.448518}
+{"batch_id": 67, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.600076}
+{"batch_id": 67, "duration_s": 0.011307995009701699, "event": "optimization_end", "max_translation_delta": 0.2022746735921118, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.6186857, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 67, "max_translation_delta": 0.2022746735921118, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.6187615}
+{"batch_id": 97, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.6233644}
+{"batch_id": 97, "duration_s": 0.002089757996145636, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.6299186, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 97, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.629988}
+{"batch_id": 98, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.8004427}
+{"batch_id": 98, "duration_s": 0.0019509079866111279, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.8067434, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 98, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249873.8068218}
+{"batch_id": 68, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.882727}
+{"batch_id": 68, "duration_s": 0.004913115000817925, "event": "optimization_end", "max_translation_delta": 1.585515261126788e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.8931665, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 68, "max_translation_delta": 1.585515261126788e-10, "robot": "a", "solver": "ddf_sam", "ts": 1770249873.893239}
+{"batch_id": 99, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.0126379}
+{"batch_id": 99, "duration_s": 0.0026809890405274928, "event": "optimization_end", "max_translation_delta": 0.1375631865655387, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.0215192, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 99, "max_translation_delta": 0.1375631865655387, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.021614}
+{"batch_id": 69, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.1397903}
+{"batch_id": 69, "duration_s": 0.004867370007559657, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.1501179, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 69, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.1501937}
+{"batch_id": 100, "event": "optimization_start", "factor_count": 56, "pending_factors": 56, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.211197}
+{"batch_id": 100, "duration_s": 0.0021495010005310178, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.2176826, "updated_keys": 1118}
+{"event": "ddf_round_delta", "iteration": 100, "max_translation_delta": 0.0, "robot": "c", "solver": "ddf_sam", "ts": 1770249874.2177503}
+{"converged": false, "convergence_tol": 0.005, "ddf_rounds": 100, "event": "ddf_stop", "iteration": 100, "reason": "round_limit", "robot": "c", "rotation_tol": 0.005, "solver": "ddf_sam", "stable_rounds": 15, "ts": 1770249874.3931205}
+{"batch_id": 70, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.410742}
+{"batch_id": 70, "duration_s": 0.005322955024894327, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.4215074, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 70, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.421581}
+{"batch_id": 71, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.6613998}
+{"batch_id": 71, "duration_s": 0.02845024800626561, "event": "optimization_end", "max_translation_delta": 0.7169014091791255, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.695764, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 71, "max_translation_delta": 0.7169014091791255, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.6958416}
+{"batch_id": 72, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.9303572}
+{"batch_id": 72, "duration_s": 0.005257071985397488, "event": "optimization_end", "max_translation_delta": 2.3843382514440075e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.9409661, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 72, "max_translation_delta": 2.3843382514440075e-12, "robot": "a", "solver": "ddf_sam", "ts": 1770249874.9410477}
+{"batch_id": 73, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.1760094}
+{"batch_id": 73, "duration_s": 0.004706476989667863, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.186124, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 73, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.1862023}
+{"batch_id": 74, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.4211047}
+{"batch_id": 74, "duration_s": 0.00520314002642408, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.431799, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 74, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.431872}
+{"batch_id": 75, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.6922884}
+{"batch_id": 75, "duration_s": 0.004663817002438009, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.702316, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 75, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.7023945}
+{"batch_id": 76, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.939377}
+{"batch_id": 76, "duration_s": 0.005269764980766922, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.950221, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 76, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249875.950291}
+{"batch_id": 77, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.18815}
+{"batch_id": 77, "duration_s": 0.028928987972903997, "event": "optimization_end", "max_translation_delta": 0.7107934059043585, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.2225614, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 77, "max_translation_delta": 0.7107934059043585, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.2226434}
+{"batch_id": 78, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.4722388}
+{"batch_id": 78, "duration_s": 0.005021899996791035, "event": "optimization_end", "max_translation_delta": 2.0743102278679259e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.482877, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 78, "max_translation_delta": 2.0743102278679259e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.4829555}
+{"batch_id": 79, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.7202961}
+{"batch_id": 79, "duration_s": 0.004794912994839251, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.7304218, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 79, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.730503}
+{"batch_id": 80, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.9698217}
+{"batch_id": 80, "duration_s": 0.004986863990779966, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.9802341, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 80, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249876.9803123}
+{"batch_id": 81, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.214484}
+{"batch_id": 81, "duration_s": 0.0052740239771083, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.2252202, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 81, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.2252939}
+{"batch_id": 82, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.4593658}
+{"batch_id": 82, "duration_s": 0.00507705396739766, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.4699016, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 82, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.4699733}
+{"batch_id": 83, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.7320905}
+{"batch_id": 83, "duration_s": 0.028421523980796337, "event": "optimization_end", "max_translation_delta": 0.7317530149410013, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.766444, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 83, "max_translation_delta": 0.7317530149410013, "robot": "a", "solver": "ddf_sam", "ts": 1770249877.7665193}
+{"batch_id": 84, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.0011992}
+{"batch_id": 84, "duration_s": 0.004798891022801399, "event": "optimization_end", "max_translation_delta": 4.464852685743123e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.0115144, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 84, "max_translation_delta": 4.464852685743123e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.011589}
+{"batch_id": 85, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.2509272}
+{"batch_id": 85, "duration_s": 0.0050174210336990654, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.2614164, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 85, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.2614877}
+{"batch_id": 86, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.5003703}
+{"batch_id": 86, "duration_s": 0.004785476019605994, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.5107167, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 86, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.5107863}
+{"batch_id": 87, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.7461286}
+{"batch_id": 87, "duration_s": 0.004748976964037865, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.7564135, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 87, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249878.7564845}
+{"batch_id": 88, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.0035598}
+{"batch_id": 88, "duration_s": 0.004852460988331586, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.0140018, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 88, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.0140727}
+{"batch_id": 89, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.2498064}
+{"batch_id": 89, "duration_s": 0.029108555987477303, "event": "optimization_end", "max_translation_delta": 0.6862492581145913, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.2844164, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 89, "max_translation_delta": 0.6862492581145913, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.2845137}
+{"batch_id": 90, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.5223258}
+{"batch_id": 90, "duration_s": 0.0050078529748134315, "event": "optimization_end", "max_translation_delta": 5.6362881577872e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.5326807, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 90, "max_translation_delta": 5.6362881577872e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.5327644}
+{"batch_id": 91, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.7715573}
+{"batch_id": 91, "duration_s": 0.0050875929882749915, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.7822113, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 91, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249879.782281}
+{"batch_id": 92, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.0214915}
+{"batch_id": 92, "duration_s": 0.005144470022059977, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.0320945, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 92, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.0321748}
+{"batch_id": 93, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.2912772}
+{"batch_id": 93, "duration_s": 0.005397494998760521, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.3025222, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 93, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.302593}
+{"batch_id": 94, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.5373783}
+{"batch_id": 94, "duration_s": 0.004948541987687349, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.5479472, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 94, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.5480254}
+{"batch_id": 95, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.7862601}
+{"batch_id": 95, "duration_s": 0.02847771003143862, "event": "optimization_end", "max_translation_delta": 0.6506433515615485, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.8207204, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 95, "max_translation_delta": 0.6506433515615485, "robot": "a", "solver": "ddf_sam", "ts": 1770249880.8207934}
+{"batch_id": 96, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.0600338}
+{"batch_id": 96, "duration_s": 0.004962678998708725, "event": "optimization_end", "max_translation_delta": 5.147513105693614e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.070629, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 96, "max_translation_delta": 5.147513105693614e-13, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.0707085}
+{"batch_id": 97, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.309372}
+{"batch_id": 97, "duration_s": 0.005391223996412009, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.3203845, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 97, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.3204744}
+{"batch_id": 98, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.5822554}
+{"batch_id": 98, "duration_s": 0.004909147974103689, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.592666, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 98, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.5927398}
+{"batch_id": 99, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.8282027}
+{"batch_id": 99, "duration_s": 0.005263173952698708, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.8389864, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 99, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249881.8390594}
+{"batch_id": 100, "event": "optimization_start", "factor_count": 57, "pending_factors": 57, "robot": "a", "solver": "ddf_sam", "ts": 1770249882.0757012}
+{"batch_id": 100, "duration_s": 0.0049873050302267075, "event": "optimization_end", "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249882.086147, "updated_keys": 1412}
+{"event": "ddf_round_delta", "iteration": 100, "max_translation_delta": 0.0, "robot": "a", "solver": "ddf_sam", "ts": 1770249882.0862236}
+{"converged": false, "convergence_tol": 0.005, "ddf_rounds": 100, "event": "ddf_stop", "iteration": 100, "reason": "round_limit", "robot": "a", "rotation_tol": 0.005, "solver": "ddf_sam", "stable_rounds": 15, "ts": 1770249882.3196137}

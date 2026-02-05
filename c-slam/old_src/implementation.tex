@@ -1,0 +1,358 @@
+\chapter{Implementation}
+\label{ch:implementation}
+
+This chapter explains how the experimental methodology is realised in software. The focus is on (i) enforcing a \emph{comparability contract} between architectures by replaying an identical factor stream, (ii) implementing a centralised and a decentralised back end on top of a shared factor representation, (iii) realising controlled communication conditions via ROS~2 QoS and message-level impairments, and (iv) instrumenting the system to produce reproducible KPI logs for the evaluation chapter.
+
+\section{Dataset and Frontend}
+\label{sec:dataset_frontend}
+
+A fair architectural comparison requires that both back ends consume an identical frontend output. Although the S3E dataset~\cite{feng2024s3e} was initially considered due to its rich multimodal sensing, its computational and storage demands made it impractical for the available experimental setup. More importantly, implementing or modifying a frontend would have introduced additional degrees of freedom that are orthogonal to the architectural research questions.
+
+The \texttt{COSMO-\allowbreak{}Bench} dataset~\cite{mcgann2025cosmo} was selected because it provides a standardised collaborative SLAM frontend and a benchmark suite of 24 sequences with annotated intra-/inter-robot loop closures and communication scenarios (Wi-Fi and Pro-Radio). Each sequence is distributed in the JRL (JSON Robot Log) format, which directly encodes the factor stream consumed by both architectures.
+
+\paragraph{Frontend abstraction.}
+The ``common SLAM frontend'' referenced in the methodology (Section~\ref{sec:research_design}) is instantiated by COSMO-Bench's preprocessing pipeline. Odometry constraints, intra-robot loop closures, and inter-robot loop closures are already detected and validated. The resulting JRL files provide:
+\begin{itemize}[leftmargin=*]
+	\item initial pose estimates for all robot keyframes,
+	\item prior factors anchoring each robot's trajectory,
+	\item between-factors for odometry and loop closures (intra- and inter-robot),
+	\item ground-truth trajectories for evaluation,
+	\item optional outlier annotations (not used in the main evaluation unless stated otherwise).
+\end{itemize}
+
+\paragraph{Comparability contract (fixed frontend).}
+Both back ends ingest the same JRL factors through the shared loader \texttt{c\_slam\_common/loader.py}. As a result, any measured differences in latency, bandwidth, or estimation behaviour are attributable to the back-end architecture and the configured network conditions, not to differences in frontend processing.
+
+\section{System Overview}
+\label{sec:system_overview}
+
+The framework consists of four subsystems: (i) a shared common library for dataset parsing, factor construction, and KPI logging, (ii) a centralised back end implementing global incremental optimisation, (iii) a decentralised back end implementing DDF-SAM-style distributed coordination, and (iv) a ROS~2 middleware layer providing transport, QoS control, and message-level impairments.
+
+The reference implementation targets Ubuntu 22.04 LTS with ROS~2 Humble and Python 3.10. GTSAM ($\geq$ 4.2.0) is used via its Python bindings for factor-graph construction and iSAM2 optimisation. All experiments execute on a single physical machine, while ROS~2 multi-process execution emulates a distributed deployment and allows controlled communication conditions.
+Executing both architectures on one host introduces an architecture-induced confound: OS scheduling contention (especially in the decentralised multi-process case) can influence wall-clock solver timing; to contextualise timing KPIs, CPU and memory utilisation are sampled and exported alongside evaluation logs (Section~\ref{subsec:resource_bandwidth_instrumentation}).
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|p{0.57\linewidth}|}
+		\hline
+		\textbf{Path} & \textbf{Purpose} \\
+		\hline
+		\texttt{main.py} & CLI entry point: selects back end, dataset, configuration, and output paths \\
+		\hline
+		\texttt{c\_slam\_common/} & Shared utilities: JRL parsing, factor graph building, noise configuration, KPI/event logging, bandwidth/latency tracking, resource monitoring, helpers \\
+		\hline
+		\texttt{c\_slam\_central/} & Centralised back end: global iSAM2 optimiser, ROS~2 factor ingestion, optional downlink/ACKs, KPI hooks \\
+		\hline
+		\texttt{c\_slam\_decentral/} & Decentralised back end: per-agent iSAM2, interface summarisation/exchange, multi-process runner, KPI exports \\
+		\hline
+		\texttt{c\_slam\_ros2/} & ROS~2 middleware: factor/interface/map messages, QoS configuration, impairment policy, simulation time helpers \\
+		\hline
+		\texttt{tools/} & Orchestration scripts and KPI derivation/export utilities \\
+		\hline
+		\texttt{dataset/} & Example JRL sequences used for development (COSMO-Bench factor streams) \\
+		\hline
+	\end{tabular}
+	\caption{Repository layout of the experimental framework.}
+	\label{tab:repo-layout}
+\end{table}
+
+\section{Operationalisation of the Experimental Design Space}
+\label{sec:operationalisation_design_space}
+
+The experimental design space $\mathcal{D}$ introduced in the methodology (Section~\ref{sec:research_design}) is instantiated through runtime configuration knobs controlling: back-end architecture, team size, ROS~2 QoS, and network impairments. The implementation exposes these knobs via CLI flags and environment variables to enable reproducible sweeps.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|p{0.58\linewidth}|}
+		\hline
+		\textbf{Design variable} & \textbf{Implementation knobs} \\
+		\hline
+		Architecture $\mathcal{A}$ & \texttt{main.py --backend} with values \texttt{centralised} or \texttt{decentralised}. Orchestrated runs set the same via \texttt{tools/orchestrate.py} / \texttt{new\_eval} configs. \\
+		\hline
+		Team size $N$ & Derived from the selected JRL sequence: robot IDs are extracted from initialisation blocks (\texttt{build\_key\_robot\_map}). The decentralised runner spawns one process per robot (\texttt{c\_slam\_decentral/mp\_runner.py}). COSMO-Bench sequences \texttt{r3\_*}, \texttt{r4\_*}, \texttt{r5\_*} realise $N \in \{3,4,5\}$. \\
+		\hline
+		QoS profile $\mathcal{Q}$ & \texttt{--qos-reliability}, \texttt{--qos-durability}, \texttt{--qos-depth}, applied consistently to factor batches, interface messages, and optional downlink (Section~\ref{sec:network_impairment_qos}). \\
+		\hline
+		Impairments $\mathcal{I}$ & JSON profile via \texttt{C\_SLAM\_IMPAIR} or \texttt{C\_SLAM\_IMPAIR\_FILE}; instantiated by \texttt{ImpairmentPolicy} (\texttt{c\_slam\_ros2/impair.py}) and injected identically across processes. \\
+		\hline
+	\end{tabular}
+	\caption{Operationalisation of the design space into concrete runtime knobs.}
+	\label{tab:design_space_mapping}
+\end{table}
+
+\paragraph{End-to-end run workflow.}
+A run replays a JRL factor stream over ROS~2 (Subsection~\ref{subsec:central_ros2_streaming}) so that both back ends observe the same sequence of priors and between-factors. The selected back end then (i) performs incremental global updates (centralised) or (ii) executes a fixed number of DDF rounds (decentralised), exporting estimates and a timestamped KPI event log. Derived KPIs are computed offline from the event log by \texttt{tools/kpi\_derive.py}.
+
+\paragraph{Reproducibility artefacts.}
+Each run records resolved configuration in \path{run\_manifest.json}. Orchestrated runs additionally write the resolved orchestrator config and command list (e.g., \texttt{orchestrate\_config.json}, \path{orchestrate\_commands.json}) into the export directory, allowing exact reconstruction of command lines and environment variables.
+
+\subsection{ROS~2 Factor Streaming}
+\label{subsec:central_ros2_streaming}
+
+A ROS~2 middleware layer emulates real-time factor streaming from each agent without requiring live robots. The factor publisher \path{tools/ros2\_factor\_publisher.py} publishes per-robot batches on topics \texttt{<prefix>/<robot\_id>}.
+
+Batches are JSON-encoded (\texttt{c\_slam\_ros2/factor\_batch.py}) and transmitted as \texttt{std\_msgs/UInt8MultiArray}. Each batch includes lightweight metadata required for instrumentation:
+\texttt{message\_id} (UUID), \texttt{send\_ts\_mono} (monotonic timestamp), and \texttt{send\_ts\_wall} (wall-clock timestamp). Robot identity is implied by the topic name and not duplicated in the payload.
+
+\paragraph{Factor payload} 
+The stream supports \texttt{PriorFactorPose3} and \\
+\texttt{BetweenFactorPose3} objects (rotation, translation, covariance, keys, stamp). These are translated into GTSAM factors by the back-end-specific graph builders. Completion is signalled via \texttt{<prefix>/control} messages \texttt{DONE:<robot\_id>} and a final \texttt{DONE\_ALL} marker.
+
+\section{Centralised Back End}
+\label{sec:impl_centralised_backend}
+
+The centralised back end aggregates factors from $N$ robots into a single global factor graph and incrementally optimises the joint state using iSAM2. The reference implementation is \texttt{c\_slam\_central/central\_backend.py}. Figure~\ref{fig:central_sequence} summarises the interaction between ROS~2 streaming and the central server.
+
+\begin{figure}[htbp]
+	\centering
+	%\includegraphics[width =1\textwidth]{src/img/USCentral.png}
+	\includegraphics[width =1\textwidth]{src/img/cenF.png}
+	\caption{Sequence diagram depicting agent--central server interaction.}
+	\label{fig:central_sequence}
+\end{figure}
+
+\subsection{Input: Factor Ingestion and Batching}
+\label{subsec:central_factor_ingestion}
+
+The \texttt{ROS2FactorSource} (\path{c\_slam\_ros2/factor\_source.py}) subscribes to \texttt{<prefix>/<robot\_id>} for all robots. Incoming batches are decoded and annotated with message-level metadata used downstream for KPI logging:
+\begin{itemize}[leftmargin=*]
+	\item \texttt{\_\_ros2\_topic} (source topic),
+	\item \texttt{\_\_ros2\_msg\_bytes} (serialised payload size),
+	\item \texttt{\_\_ros2\_msg\_id} (publisher UUID),
+	\item \texttt{send\_ts\_mono}, \texttt{send\_ts\_wall} (publisher timestamps).
+\end{itemize}
+
+The publisher can bundle multiple factors per ROS~2 message (\texttt{--batch-size}). On the server, decoded factors are accumulated until a solver batch threshold is reached (\texttt{main.py --central-batch-size}). Each solver batch produces a per-batch graph and initial-value deltas, which are then applied in one iSAM2 update. Ingestion terminates when \texttt{DONE\_ALL} is received or when an idle timeout expires (\texttt{--central-idle-timeout}).
+
+\paragraph{Initial values.}
+Initial estimates are obtained from JRL initialisation blocks and stored in \texttt{init\_lookup}. If a key is missing, the implementation inserts an identity pose as a fallback and logs a warning, ensuring the graph remains well-formed without factor deferral logic.
+
+\subsection{Solve: Incremental Optimisation with iSAM2}
+\label{subsec:central_isam2}
+
+iSAM2 is configured through \texttt{ISAM2Params} in \texttt{c\_slam\_common/isam2.py}. The main exposed knobs are the relinearisation threshold (\texttt{--relin-th}) and skip interval (\texttt{--relin-skip}). Algorithm~\ref{alg:central_isam2} summarises the incremental update loop used in the experiments.
+
+\begin{algorithm}[H]
+	\caption{Centralised iSAM2 back end: incremental optimisation loop}
+	\label{alg:central_isam2}
+	\begin{algorithmic}[1]
+		\Require Stream of factors $\mathcal{F}$, initial pose lookup \texttt{init\_lookup}, batch size $B$
+		\Ensure Global estimate $\hat{X}$
+		\State Initialise \textsc{GraphBuilder} and iSAM2
+		\State Accumulate decoded factors into a solver batch of size $B$
+		\State For each completed batch: build $(G_b, V_b)$ and call iSAM2.\textsc{update}($G_b, V_b$)
+		\State On numerical/duplicate-key failure: rebuild iSAM2 from accumulated global graph and retry once
+		\State After each successful update: extract $\hat{X}$ and emit KPI events for optimisation timing and batch attribution
+		\State \Return $\hat{X}$
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Output: Optional Downlink and ACK Instrumentation}
+\label{subsec:central_output}
+
+In a deployed centralised system, the server would broadcast the updated global estimate to robots. The framework supports an optional ``map downlink'' publication (\texttt{--emit-map-downlink}) implemented in \texttt{c\_slam\_ros2/map\_broadcast.py}. When enabled, downlink traffic is subjected to the same QoS and impairment settings as other topics, and is measured from actual serialised ROS~2 payload sizes.
+
+For delivery-rate diagnostics, optional factor-batch acknowledgements can be enabled (\texttt{--emit-factor-acks}). ACK messages bind processed \texttt{message\_id}s to the solver timeline and allow distinguishing ``published'' from ``observed and processed'' traffic under impairments.
+
+\paragraph{Payload accounting.}
+For interpretability, the framework may compute a rough lower-bound estimate of the downlink payload assuming binary float64 encoding of pose means (translation + quaternion). However, all reported bandwidth statistics in the evaluation are based on measured serialised message sizes (\texttt{\_\_ros2\_msg\_bytes} and recorded publish sizes), which capture JSON overhead and key strings.
+
+\section{Decentralised Back End}
+\label{sec:impl_decentralised_backend}
+
+The decentralised back end implements a DDF-SAM-style distributed optimiser~\cite{cunningham2010ddf,cunningham2013ddf}. Each of the $N$ agents maintains a local factor graph and exchanges separator summaries with peers. There is no central coordinator; global consistency emerges through repeated local optimisation and information exchange. Figure~\ref{fig:decentral_sequence} shows the high-level interaction.
+
+\begin{figure}[htbp]
+	\centering
+	%\includegraphics[width=0.95\textwidth]{src/img/USDecentral.png}
+	\includegraphics[width=0.95\textwidth]{src/img/denF.png}	
+	\caption{Sequence diagram depicting decentralised agent interaction and interface exchange.}
+	\label{fig:decentral_sequence}
+\end{figure}
+
+\subsection{Input: Deterministic Factor Partitioning}
+\label{subsec:ddf_partitioning}
+
+To ensure reproducibility and avoid double counting, decentralised correctness depends on deterministic factor ownership.
+
+\paragraph{Key-to-robot mapping.}
+A global \texttt{robot\_map} is built once from JRL initialisation blocks using \texttt{build\_key\_robot\_map}. All agents share this map to attribute pose keys to robots consistently.
+
+\paragraph{Inter-robot ownership rule.}
+For an inter-robot between-factor whose endpoints belong to robots $r$ and $s$, ownership is assigned deterministically:
+\[
+\text{owner\_robot} = \min(r, s).
+\]
+Only the owner inserts that inter-robot between-factor into its local graph. The non-owner couples to the remote endpoint only through separator priors derived from received interface summaries. ROS~2 streaming affects transport only; it does not change the factor classification or ownership logic.
+
+\subsection{Solve: Local Optimisation and Remote-Prior Refresh}
+\label{subsec:ddf_local_opt}
+
+Each agent maintains a persistent local iSAM2 instance (\path{c_slam_decentral/agents.py}). Static factors (dataset priors, local odometry, local loop closures, and owned inter-robot between-factors) are inserted once. On each coordination round, the agent refreshes time-varying separator priors from the most recently received interface summaries, performs an iSAM2 update, and then summarises its separators for outbound communication.
+
+Algorithm~\ref{alg:ddf_local_opt} captures the round-level procedure.
+
+\begin{algorithm}[H]
+	\caption{Agent round: refresh remote priors, solve locally, and emit separator summaries}
+	\label{alg:ddf_local_opt}
+	\begin{algorithmic}[1]
+		\Require agent $r$, latest remote summaries, round index $k$
+		\Ensure updated local estimate $\hat{X}_r$ and outgoing interface messages $\mathcal{I}_{out}$
+		\State Insert static factors into persistent iSAM2 (once)
+		\State Build remote separator priors from latest interface messages
+		\State Remove previous-round remote priors using \texttt{removeFactorIndices} (if supported)
+		\State iSAM2.\textsc{update}(\textit{remote-prior batch graph}, \textit{remote-prior batch values})
+		\If{update fails (indeterminate/duplicate-key)}
+		\State Rebuild iSAM2 from scratch using static factors + owned inter-robot factors + fresh remote priors
+		\EndIf
+		\State $\hat{X}_r \gets$ iSAM2.\textsc{calculateEstimate}(); emit optimisation KPI events for this round
+		\State Compute marginals for communicated separator keys
+		\State $\mathcal{I}_{out} \gets$ \textsc{MakeInterfaceMsgs}($r$, $\hat{X}_r$, marginals)
+		\State \Return $\hat{X}_r$, $\mathcal{I}_{out}$
+	\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Remote-prior semantics.}
+Remote separator priors are treated as time-varying ``summary constraints'' and are replaced each round to avoid accumulating stale priors. If marginal extraction fails for a separator, the implementation falls back to a conservative diagonal covariance to keep communication and optimisation progressing.
+
+\subsection{Output: Interface Exchange and Coordination Loop}
+\label{subsec:ddf_coordination}
+
+Agents exchange separator summaries via a peer bus (\path{c_slam_decentral/communication.py}). Each agent runs in its own OS process via \path{c_slam_decentral/mp\_runner.py}. Synchronisation is purely message-based (no global scheduler). Each agent iterates a fixed maximum number of rounds and may stop early based on a stability condition.
+
+Algorithm~\ref{alg:ddf_coordination} describes the per-agent coordination loop.
+
+\begin{algorithm}[H]
+	\caption{Per-agent distributed coordination loop}
+	\label{alg:ddf_coordination}
+	\begin{algorithmic}[1]
+		\Require agent $r$, max rounds $R$, tolerances $(\tau_t,\tau_R)$, stable rounds $S$
+		\Ensure final estimate $\hat{X}_r$ and convergence flag
+		\State Ingest factors for $r$ from \texttt{<factor\_prefix>/<robot\_id>}
+		\State Initialise peer bus and perform round $k{=}0$
+		\For{$k=1$ \textbf{to} $R$}
+		\State Drain inbox; apply latest summaries as remote priors
+		\State Perform \textsc{AgentRound} and publish fresh interface summaries
+		\State Update stability counter from interface deltas; stop if stable for $S$ consecutive rounds
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Convergence monitoring (runtime stop condition).}
+After each round, an agent compares successive outbound interface states by the maximum translation delta $\Delta t_{\max}$ and maximum rotation delta $\Delta R_{\max}$. Convergence is declared when both fall below thresholds for $S$ consecutive rounds (\texttt{--ddf-convergence}, \texttt{--ddf-rot-convergence}, \texttt{--ddf-stable-rounds}). These checks are local to each agent and may trigger at different round indices due to asynchronous message arrivals.
+Here, $\Delta t_{\max}$ is computed as the Euclidean norm of the translation difference, and $\Delta R_{\max}$ as the angle (in radians) of the relative rotation between successive quaternion estimates.
+
+\subsection{Communication Transport and Message Schema}
+\label{subsec:ddf_transport}
+
+Interface summaries are encoded as JSON bytes (\path{c_slam_ros2/interface\_msg.py}) and exchanged via per-receiver ROS~2 topics. For run isolation, the runner appends a unique \texttt{run\_<id>} namespace to the interface prefix, so agents publish on \texttt{<iface\_prefix>/run\_<id>/<receiver\_id>} and subscribe only to their own receiver topic.
+
+Each interface message contains:
+\texttt{sender}, \texttt{receiver}, \texttt{key}, \texttt{stamp}, pose mean (\texttt{translation}, \texttt{rotation}), covariance (\texttt{covariance}), and the consensus \texttt{iteration}. Latency and bandwidth are measured from serialised ROS~2 message payload sizes at publish time (excluding DDS/RTPS and lower-layer overhead); analytical byte counts are not used for evaluation because JSON overhead and string keys are significant and run-dependent.
+
+\section{Network Impairment and Quality-of-Service Implementation}
+\label{sec:network_impairment_qos}
+
+This section describes how the network conditions from the methodology are realised: impairments are injected at the message level inside the ROS~2 publish paths and are applied consistently across architectures.
+
+\subsection{Impairment Injection Points}
+\label{subsec:impairment_injection_points}
+
+Impairments are applied in three places:
+\begin{enumerate}
+	\item \textbf{Factor publisher} (\texttt{tools/ros2\_factor\_publisher.py}): drops/throttles factor batches before publication.
+	\item \textbf{Decentralised peer bus} (\texttt{c\_slam\_decentral/communication.py}): applies the same impairment rules to interface messages.
+	\item \textbf{Central downlink} (\texttt{c\_slam\_ros2/map\_broadcast.py}): applies the same rules to optional map updates.
+\end{enumerate}
+All impairment logic is encapsulated in \texttt{ImpairmentPolicy} (\path{c_slam_ros2/impair.py}) so that a single JSON profile can be injected into all processes by the orchestrator.
+
+\subsection{Impairment Semantics Relevant to KPIs}
+\label{subsec:impairment_semantics}
+
+The impairment policy combines message drop and delay mechanisms. The details matter because they change how latency and delivery-rate KPIs should be interpreted:
+\begin{itemize}[leftmargin=*]
+	\item \textbf{Random loss and burst loss} drop messages before they enter the ROS~2 transport.
+	\item \textbf{Blackouts} disable send and/or receive for a specified robot over an interval.
+	\item \textbf{Bandwidth caps} implement a token bucket that \emph{delays} messages (sleep) to enforce an average throughput, rather than dropping by default.
+	\item \textbf{Warmup behaviour} can disable random/burst drops at startup to avoid immediate underconstraint, while still applying bandwidth caps and blackouts.
+\end{itemize}
+
+\subsection{Impairment Configuration}
+\label{subsec:impairment_config}
+
+Impairment profiles are specified as JSON and loaded via \texttt{C\_SLAM\_IMPAIR} (inline) or \texttt{C\_SLAM\_IMPAIR\_FILE}. The orchestrator injects the same profile into all processes to ensure that both architectures experience identical impairment settings in comparative runs.
+
+\begin{verbatim}
+	{
+		"seed": 42,
+		"random_loss_p": 0.05,
+		"random_warmup_messages": 50,
+		"burst_period_s": 10.0,
+		"burst_duration_s": 1.0,
+		"blackouts": [
+		{"rid": "r0", "start_s": 30.0, "end_s": 35.0, "mode": "sender"}
+		],
+		"bw_caps_mbps": {"default": 2.0, "r1": 1.0},
+		"warmup_s": 5.0
+	}
+\end{verbatim}
+
+\subsection{Quality-of-Service Configuration}
+\label{subsec:qos_config}
+
+QoS policies (reliability, durability, history depth) are applied consistently to all relevant topics. Controlled sweeps over QoS use \texttt{--qos-reliability}, \texttt{--qos-durability}, and \texttt{--qos-depth}, and the orchestrator forwards the same settings to publisher and solver processes. The baseline profile (\path{c_slam_ros2/qos.py}) is:
+\begin{itemize}[leftmargin=*]
+	\item Reliability: \texttt{RELIABLE}
+	\item Durability: \texttt{VOLATILE}
+	\item History: \texttt{KEEP\_LAST} with depth 10
+\end{itemize}
+
+\subsection{Team Size Scaling and Namespace Isolation}
+\label{subsec:team_size_scaling}
+
+Team size $N$ is determined by the dataset. Factor batches use \texttt{<factor\_prefix>\allowbreak/<robot\_id>} with completion markers on \texttt{<factor\_prefix>/control}. The decentralised peer bus uses per-receiver topics \path{<iface_prefix>/run_<id>/<robot¸_id>}. Sweep runs additionally use \texttt{ROS\_DOMAIN\_ID} isolation to avoid collisions between repeated or concurrent runs.
+
+\section{Performance Metrics Instrumentation}
+\label{sec:metrics_implementation}
+
+This section describes how the KPIs defined in the methodology are instrumented in software. The guiding principle is that both architectures emit comparable event streams so that KPI derivation can be performed offline in a back-end-agnostic way where possible.
+
+\subsection{Event Logging and Derivation Pipeline}
+\label{subsec:metrics_pipeline}
+
+All KPI-related measurements are recorded as timestamped events and exported to JSON files under \texttt{kpi\_metrics/}. The system logs:
+\begin{itemize}[leftmargin=*]
+	\item \textbf{ingest events} (factor reception and attribution to solver batches/rounds),
+	\item \textbf{solver events} (\texttt{optimization\_start}/\texttt{optimization\_end} for central batches; per-round solve events for decentralised agents),
+	\item \textbf{communication events} (publish sizes for factor batches, interface messages, and optional downlink/ACKs),
+	\item \textbf{resource samples} (CPU and memory time series).
+\end{itemize}
+Derived KPIs (e.g., stabilisation-based correction times) are computed offline from these event logs by \texttt{tools/kpi\_derive.py} and written to \path{kpi_metrics/derived_kpis.json}.
+
+\subsection{Latency Instrumentation}
+\label{subsec:latency_instrumentation}
+
+\textbf{Factor-to-solve attribution.}
+Each ingested factor is assigned to a solver batch (centralised) or to a local optimisation round (decentralised) using the internal batch/round indices emitted by the solver loop. This attribution is what enables ingest-to-optimisation and settling-time KPIs without re-running optimisation offline.
+
+\textbf{Timestamps.}
+Publisher timestamps (\texttt{send\_ts\_mono}, \texttt{send\_ts\_wall}) are carried in the message payload and recorded at reception. Solver timestamps are recorded at optimisation boundaries in the back-end processes. This allows separating transport effects (delays/loss) from solver scheduling effects (batching and compute time).
+From these event pairs, the evaluation derives explicit latency components, including publish-to-receive $\Delta t_{\mathrm{pub}\rightarrow\mathrm{recv}} = t_{\mathrm{recv}} - t_{\mathrm{send}}$, ingest-to-optimisation-start $\Delta t_{\mathrm{ingest}\rightarrow\mathrm{opt}} = t_{\mathrm{optimization\_start}} - t_{\mathrm{ingest}}$, optimisation duration $\Delta t_{\mathrm{solve}} = t_{\mathrm{optimization\_end}} - t_{\mathrm{optimization\_start}}$, and settling time as the interval from factor ingestion to the first subsequent optimisation-end event after which estimate changes remain below a stability threshold.
+
+\subsection{Accuracy Instrumentation}
+\label{subsec:accuracy_instrumentation}
+
+Trajectory accuracy is computed from exported estimates using \path{c_slam_common/metrics.py}. The implementation performs per-robot alignment against JRL ground truth and exports ATE/RPE summaries to \path{kpi_metrics/estimation_metrics.json}. The implementation fixes the similarity scale to $s=1$ (rigid alignment) because COSMO-Bench trajectories are metric, and reports per-robot RMSE values for evaluation plots.
+
+\subsection{Resource and Bandwidth Instrumentation}
+\label{subsec:resource_bandwidth_instrumentation}
+
+\textbf{CPU and memory.}
+Resource utilisation is sampled using \texttt{psutil} (\path{c_slam_common/resource_monitor.py}). For decentralised runs, the solver aggregates samples across spawned agent PIDs. Summary statistics are exported to \path{kpi_metrics/resource_profile.json}.
+
+\textbf{Bandwidth.}
+Bandwidth is computed from measured serialised message sizes at publish time. For centralised runs, uplink is the sum of factor batch payload sizes; downlink is measured when enabled. For decentralised runs, bandwidth is derived from outgoing interface message payload sizes. Aggregated bandwidth statistics are exported to \texttt{kpi\_metrics/bandwidth\_stats.json}.
+These measurements reflect application-layer payload sizes and therefore represent a lower bound on link utilisation under DDS/RTPS transport.
+
+\textbf{Delivery rate under impairments.}
+When impairments are enabled, effective delivery rate is derived by combining publisher-side send counters with receiver-side observed counters (and optionally ACKs for central factor batches). Results are exported to \texttt{kpi\_metrics/robustness\_metrics.json}.

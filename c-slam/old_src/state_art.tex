@@ -1,0 +1,106 @@
+
+\chapter{State of the Art}
+\label{ch:state_art}
+
+This chapter reviews representative C-SLAM systems with emphasis being placed on \emph{backend optimisation and communication semantics} because these are the dimensions that most clearly differentiate centralised and decentralised designs while remaining comparable across sensor modalities.Broad surveys such as \cite{ppf,lajoie2022towards,chen2023overview} cover the wider design space. The chapter is intentionally structured around the evaluation dimensions that later become first-class response variables: global consistency and accuracy, correction latency, bandwidth and communication structure, scalability with team size, and robustness under degraded networking.
+
+\section{Centralised C-SLAM}
+\label{sec:centralised}
+
+\subsection{Architectural patterns}
+
+Early work such as \emph{C$^2$TAM}~\cite{RIAZUELO2014401} demonstrated the motivation for centralisation where computationaly expensive mapping and optimisation can be offloaded to infrastructure, enabling lightweight agents to perform real-time tracking while still benefiting from global refinement. Related server-backed frameworks, such as the multi-robot pose-graph server in~\cite{MRPGS}, similarly highlight that central infrastructure can merge local maps even when robots do not share an initial global frame, provided inter-robot correspondences (e.g.\ visual loop closures) are available.
+
+A recurring pattern in modern centralised systems is the separation of \emph{local autonomy} from \emph{global consistency}. In \emph{CCM-SLAM}~\cite{schmuck2019ccm} and \emph{CVI-SLAM}~\cite{karrer2018cvi}, each robot runs its local estimation loop continuously, while the server performs map merging and optimisation and returns drift-corrected poses. This design is attractive in practice because it degrades gracefully when communication is intermittent, local tracking continues, and global corrections are incorporated when connectivity becomes available again.
+
+\emph{COVINS}~\cite{schmuck2021covins} advanced this approach; a central “map manager” receives keyframes from multiple agents and uses a unified place recognition pipeline (based on bag-of-words \emph{(BoW)}) to detect both loop closures and inter-agent map overlaps. The server performs continuous pose graph optimisation and schedules full bundle adjustment periodically, balancing global consistency with real-time responsiveness. \emph{COVINS-G}~\cite{patel2023covins} generalises the same backend concept to accept heterogeneous frontends, which is a practical requirement in multi-robot teams where sensing stacks and odometry quality may differ across agents.
+
+A second recurring pattern is \emph{communication-aware summarisation}. Centralised systems rarely stream raw sensor data; instead, they transmit sparse keyframes, compact descriptors, downsampled point clouds, or selectively offloaded subsets of observations, and the server returns comparatively small correction messages (e.g.\ optimised poses). Multi-modal systems show that the same principle extends beyond vision. \emph{LAMP 2.0}~\cite{chang2022lamp} targets GPS-denied subterranean environments and integrates heterogeneous robots with a robust centralised backend. \emph{CoLRIO}~\cite{zhong2024colrio} combines LiDAR-inertial odometry with UWB ranging and sends downsampled point clouds, IMU pre-integrations, and range measurements to a central factor-graph optimiser. \emph{AdaptSLAM}~\cite{chen2023adaptslam} makes the communication policy explicit by using an uncertainty-based rule to decide which keyframes to transmit, effectively treating bandwidth as a controllable resource.
+
+\subsection{Performance implications}
+
+Centralised optimisation over all agents' constraints tends to yield strong global consistency because the server can jointly exploit multi-view observations and inter-robot loop closures to correct drift that is unobservable from any single trajectory. This effect is visible in vision-centric systems such as \emph{COVINS}~\cite{schmuck2021covins} and in multi-modal fusion systems such as \emph{CoLRIO}~\cite{zhong2024colrio}, where additional cross-robot constraints (e.g.\ UWB ranging) directly improve localisation in degraded visual conditions. Central servers can also apply computationally intensive refinement steps (e.g.\ periodic bundle adjustment in visual(-inertial) pipelines), which may be infeasible on resource-constrained robots.
+
+Reported quantitative results illustrate these benefits, but remain difficult to compare directly across papers due to differing datasets, sensing stacks, and evaluation protocols. For instance, \emph{COVINS} reports centimetre-level trajectory errors and low scale drift on EuRoC benchmarks~\cite{schmuck2021covins}, while \emph{CoLRIO} reports that adding UWB ranging improves accuracy in degraded conditions (e.g.\ reducing ATE from 0.32\,m to 0.23\,m over 100\,m trajectories)~\cite{zhong2024colrio}. Central aggregation is also particularly attractive for dense or shared reconstructions, where exchanging raw depth or point-cloud content peer-to-peer is impractical; systems such as \emph{CCMD-SLAM} exemplify this direction~\cite{zuo2024ccmd}.
+
+At the same time, the literature converges on two limitations of the client--server paradigm. First, scalability is constrained by server computation and aggregate uplink bandwidth. As team size and map size grow, the server must ingest more keyframes, run more place recognition, and optimise a larger pose graph. Second, correction latency becomes a system-level variable, loop closures and global corrections are applied after a communication-and-optimisation cycle, so robots operate on local odometry between correction updates. This is not necessarily problematic, but it creates a trade-off between ``how often to optimise and broadcast'' and ``how much bandwidth and compute to spend'', which is precisely the kind of trade-off that motivates controlled evaluation.
+
+Reported communication characteristics in centralised systems also illustrate the typical asymmetry. For instance, \emph{COVINS} reports keyframe transmission at 5\,Hz and pose-correction return messages at 2\,Hz, with an uplink bandwidth on the order of hundreds of kB/s per agent (reported around $\sim$493\,kB/s) and a much smaller downlink for corrections (reported around $\sim$2.3\,kB/s)~\cite{schmuck2021covins}. LiDAR-centric systems such as \emph{CoLRIO} report higher per-keyframe payloads due to point-cloud components (e.g.\ $\sim$242\,kB keyframes and $\sim$600\,kB/s per robot), yet still rely on downsampling and selective transmission to keep traffic manageable~\cite{zhong2024colrio}. These figures are not directly comparable across papers because datasets, sensing stacks, and implementation details differ; nevertheless, they consistently show that centralised designs depend on sustained uplink capacity and that server-side processing time and network conditions jointly shape correction delays.
+
+\section{Decentralised/Distributed Collaborative SLAM}
+\label{sec:decentralised}
+
+\subsection{Architectural patterns}
+
+The foundational distributed factor-graph architecture was established by \emph{DDF-SAM}~\cite{cunningham2010ddf,cunningham2013ddf}, which formalised how local estimation problems can be coupled through selective factor exchange while preserving autonomy. Contemporary systems such as \emph{DCL-SLAM}~\cite{zhong2023dcl} and \emph{Swarm-SLAM}~\cite{lajoie2023swarm} build on this principle by making collaboration opportunistic where agents exchange information with neighbours when connectivity is available, without requiring persistent global communication.
+
+Because decentralised systems cannot rely on a high-capacity uplink to a server, they tend to treat bandwidth as a primary design constraint. Visual systems such as \emph{Data-Efficient Decentralised V-SLAM}~\cite{cieslewski2018data} pioneered a two-stage protocol in which robots first exchange compact descriptors to propose candidate loop closures and transmit heavier keyframe data only when a promising correspondence is detected. \emph{DOOR-SLAM}~\cite{lajoie2020door} follows the same idea and focuses on sharing only the information required for inter-robot loop closures, combined with explicit consistency filtering. \emph{Kimera-Multi}~\cite{chang2021kimera, tian2022kimera} similarly leverages compact bag-of-words descriptors and sparse representations during robot rendezvous, enabling robust place recognition without continuous large data exchange.
+
+LiDAR-centric decentralised systems adopt analogous strategies. \emph{DCL-SLAM}~\cite{zhong2023dcl} employs lightweight LiDAR descriptors such as LiDAR-Iris and shares keyframe scans and loop constraints on demand rather than continuously. \emph{Swarm-LIO2}~\cite{zhu2024swarm} is designed for UAV swarms and broadcasts minimal state packets (identity, current pose, mutual observations), enabling plug-and-play collaboration under strict bandwidth budgets. \emph{D$^2$SLAM}~\cite{xu2024d} introduces an adaptive policy that distinguishes near-field and far-field collaboration. Nearby agents exchange richer information for high-accuracy fusion, while distant agents receive compressed summaries to preserve scalability.
+
+A second cornerstone is \emph{distributed optimisation and outlier rejection}. Without central arbitration, incorrect inter-robot loop closures can corrupt the estimate unless filtered robustly. \emph{Kimera-Multi} couples collaboration with robust block coordinate descent (RBCD) for distributed pose-graph optimisation and employs a max-clique-based strategy to filter inconsistent loop closures. Several systems incorporate explicit geometric consistency checks such as PCMS (e.g.\ \emph{DOOR-SLAM}~\cite{lajoie2020door} and \emph{DCL-SLAM}~\cite{zhong2023dcl}) to validate inter-robot loop closures locally before accepting them into the distributed optimisation. These verification steps are not optional details: they are core enablers of decentralisation because communication is asynchronous and incorrect constraints cannot be ``fixed'' by a single trusted server.
+
+\subsection{Performance implications}
+
+Decentralised systems avoid a single network bottleneck and can achieve low front-end latency because odometry and local estimation remain onboard. The trade-off is that global consistency is reached through iterative exchange and distributed optimisation rather than a single joint solver step. For example, \emph{D$^2$SLAM} reports visual-inertial odometry and loop closure processing below 20\,ms per frame on standard hardware~\cite{xu2024d}, while \emph{Kimera-Multi} reports that its distributed optimiser can provide rapid approximate solutions and higher-quality solutions with longer convergence times ~\cite{chang2021kimera}. Such results illustrate a general property of decentralised backends that the time-to-global-consistency depends on both the optimisation schedule and the communication opportunities between agents.
+
+In return, decentralised architectures can drastically reduce communication requirements through selective exchange. \emph{Data-Efficient Decentralised V-SLAM} transmits compact descriptors first (reported around $\sim$200\,B) and sends full keyframes only when necessary (reported $\sim$50--100\,kB), yielding large reductions relative to naive keyframe broadcasting~\cite{cieslewski2018data}. \emph{DOOR-SLAM} reports similarly compact inter-robot exchanges when a loop closure is confirmed and filtered (reported $<20$\,kB per successful exchange)~\cite{lajoie2020door}. Swarm-scale systems emphasise minimal packet designs.  \emph{Swarm-LIO2} targets per-agent traffic below 10\,kB/s~\cite{zhu2024swarm}, and \emph{D$^2$SLAM} distinguishes near-field sharing of richer packets (reported $\sim$100\,kB keyframes) from far-field sharing of compressed summaries to preserve scalability~\cite{xu2024d}. These reported behaviours consistently indicate that decentralised systems can bound bandwidth usage, at the cost of higher onboard computation and more complex coordination and verification protocols.
+
+\section{Comparative synthesis}
+\label{sec:comparison}
+
+The state of the art portrays centralised and decentralised C-SLAM as two ends of an architectural spectrum, with hybrid methods interpolating between them~\cite{lajoie2023swarm, xu2024d, chen2023adaptslam}. From the perspective of this research thesis, the key point is that performance differences are not purely algorithmic; they are emergent properties of how optimisation, communication, and system scheduling interact. Table \ref{tab:compsum} lists key characterstics that enable comparission between the architectures.   
+
+\begin{table}[ht]
+	
+	\centering
+	
+	\begin{tabular}{|p{0.25\textwidth}|p{0.33\textwidth}|p{0.33\textwidth}|}
+		
+		\hline
+		
+		\textbf{Dimension} & \textbf{Centralised SLAM} & \textbf{Decentralised SLAM} \\
+		
+		\hline
+		
+		\textbf{Global Accuracy} & High & Moderate to High  \\
+		
+		\hline
+		
+		\textbf{Latency} & Higher (offloaded to server) & Lower (local)\\
+		
+		\hline
+		
+		\textbf{Scalability} & Limited by server capacity and bandwidth bottleneck & Scales with team size; depends on network topology \\
+		
+		\hline
+		
+		\textbf{Communication} & High uplink; asymmetric patterns & Low; bounded; peer-to-peer \\
+		
+		\hline
+		
+		\textbf{Robustness} & Central server as single point of failure & High resilience; graceful degradation with robot failures \\
+		
+		\hline
+		
+	\end{tabular}
+	
+	\caption{Comparison of centralised and decentralised C-SLAM architectures. These trends are consistent across visual, LiDAR, and multi-modal systems.}
+	
+	\label{tab:compsum}
+	
+\end{table}
+
+
+Despite extensive research, three limitations recur across published C-SLAM systems.
+
+\textbf{(1) Limited controlled comparison across architectures.}
+Most papers demonstrate a single pipeline end-to-end and compare against baselines that differ in more than one aspect (frontend, sensing, map representation, compute platform, or parameterisation). As a result, it is difficult to attribute observed performance differences to the architectural variable itself rather than to confounding factors.
+
+\textbf{(2) Networking is usually a background assumption rather than a first-class experimental factor.}
+While many systems motivate their design via bandwidth reduction or resilience to intermittent links, evaluations often assume good connectivity or report results without systematic control of packet loss, added latency, bandwidth caps, or temporary partitions. Consequently, it remains unclear how robust different backends are under realistic communication stressors and how correction latency depends on network conditions.
+
+\textbf{(3) Metrics and reporting are fragmented.}
+Accuracy is typically reported (e.g.\ ATE), but latency, bandwidth usage, CPU/memory footprints, and time-to-global-consistency are not consistently measured or defined, and reporting is often system-specific. This makes it difficult to compare approaches or to reason about architectural trade-offs.
+
+These observations motivates a controlled evaluation in which architectural choice is treated as an experimental factor and networking behaviour is explicitly modelled.

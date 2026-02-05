@@ -1,0 +1,297 @@
+\chapter{Methodology}
+\label{ch:methodology}
+\section{Experimental Design}
+\label{sec:research_design}
+This section outlines an experimental research design to evaluate the performance trade-offs between collaborative SLAM backend architectures. A central requirement is that different architectures are assessed under \emph{identical experimental conditions} to ensure a fair, reproducible comparison. The study adopts a controlled, simulation-based methodology in which all pipeline components that are independent of the architectural choice are treated as fixed. Only the \emph{backend optimisation architecture} and its associated \emph{communication semantics} are varied.
+
+In a complete C-SLAM system, each agent would run a local frontend (sensor ingestion, feature extraction/scan matching, local loop closure, and keyframe selection). In this work, frontend processing is abstracted by dataset playback so that backend effects can be isolated without conflating them with frontend design choices.
+
+\begin{enumerate}
+	
+	\item Dataset playback and constraint-stream replay
+	
+	\item Backend ingestion and optimisation
+	
+	\item Pose update dissemination 
+	
+	\item Metric logging and post-processing evaluation.
+	
+\end{enumerate}
+
+To isolate the effects of architectural selection and structure the evaluation, we define a design space over four groups of experimental variables that capture key dimensions of computation, communication, and environmental variability while remaining abstracted from implementation-specific details:
+
+\begin{itemize}
+	\item \emph{Architecture}: $\mathcal{A}$
+	\item \emph{Team Size}: $\mathcal{N}$
+	\item \emph{Communication Profile (QoS)}: $\mathcal{Q}$
+	\item \emph{Network Impairments}: $\mathcal{I}$
+\end{itemize}
+
+\medskip
+
+This yields the core experimental design space as the Cartesian product
+
+\begin{equation}
+	\mathcal{D}=\mathcal{A}\times\mathcal{N}\times\mathcal{Q}\times\mathcal{I}.
+\end{equation}
+
+A full combinatorial evaluation over $\mathcal{D}$ would comprise $|\mathcal{A}| \cdot |\mathcal{N}| \cdot |\mathcal{Q}| \cdot |\mathcal{I}|$ conditions, which is computationally expensive. To control the combinatorial growth while maintaining interpretability, a two-stage strategy is adopted:
+
+\begin{enumerate}
+	\item \textbf{Baseline Grid}: $\mathcal{Q}$ and $\mathcal{I}$ are fixed to reference settings and compare architectures under clean network conditions. This establishes baseline performance characteristics.
+	
+	\item \textbf{Targeted Sweeps}: By varying one variable group at a time (e.g., $\mathcal{Q}$, $\mathcal{I}$, $\mathcal{N}$) while holding others at baseline. This characterises:
+	\begin{itemize}
+		\item \emph{QoS sensitivity:} how delivery guarantees and history settings affect latency, reliability, and stability
+		\item \emph{Network robustness:} response to packet loss, delay, bandwidth constraints, and temporary partitions
+		\item \emph{Scalability with team size:} effects of increasing the number of agents on coordination and computational load
+	\end{itemize}
+\end{enumerate}
+
+\section{State Representation and Estimation Variables}
+\label{sec:state_representation}
+
+To compare backend architectures under a \emph{fixed} estimation problem, all systems in this thesis solve the same pose-graph maximum-likelihood objective and differ only in how optimisation and information exchange are realised. We adopt the factor-graph formulation and the generic NLLS template from Chapter~\ref{ch:fundamentals} (Section~\ref{subsec:graph_slam} and Eq.~\eqref{eq:nlls_general}) and instantiate it here to the specific multi-robot, pose-only setting used in the experiments.
+
+\subsection{Pose variables}
+
+Each robot maintains keyframe poses $x_i^{(r)} \in SE(d)$ with $d\in\{2,3\}$ depending on the dataset. A pose is written as $x=(t,r)$ with translation $t\in\mathbb{R}^d$ and orientation $r\in SO(d)$; the manifold notation and parameterisations are introduced in Section~\ref{sec:single_robot_slam}. In the implementation, orientations may be stored in an equivalent representation (e.g., quaternions for $SO(3)$), but the estimation problem is defined on $SE(d)$.
+
+\subsection{Multi-robot global state}
+
+Consider a team of $N$ robots. For robot $r\in\{1,\dots,N\}$, let $T_r$ denote the index set of keyframes (pose nodes) used by the backend, and let $x_i^{(r)}$ be the pose of robot $r$ at keyframe $i\in T_r$. The global pose-graph state is the set of all robot poses
+\begin{equation}
+	X = \left\{ x_i^{(r)} \;\middle|\; r \in \{1,\dots,N\},\, i \in T_r \right\}.
+\end{equation}
+All architectural variants considered in this work operate on the same conceptual state $X$; differences arise from how $X$ is partitioned, updated, and synchronised.
+
+\subsection{Constraint sets and pose graph}
+
+The frontend (or, in this experimental setup, dataset playback) provides relative-pose constraints between keyframes. We distinguish:
+\begin{itemize}
+	\item \textbf{Odometry / motion constraints} between successive keyframes on each robot, collected in $\mathcal{E}_{\mathrm{odo}}$,
+	\item \textbf{Intra-robot loop closures} within a robot's trajectory, collected in $\mathcal{E}_{\mathrm{intra}}$, and
+	\item \textbf{Inter-robot loop closures} coupling poses across robots, collected in $\mathcal{E}_{\mathrm{inter}}$.
+\end{itemize}
+The full edge set is their union $\mathcal{E} \triangleq \mathcal{E}_{\mathrm{odo}} \cup \mathcal{E}_{\mathrm{intra}} \cup \mathcal{E}_{\mathrm{inter}}$, optionally augmented with a unary \emph{anchoring} factor on a designated reference pose to remove gauge freedom.
+
+Each constraint $(i,j)\in\mathcal{E}$ is represented by a relative-pose measurement $z_{ij}$ with likelihood
+\begin{equation}
+	f_{ij}(x_i, x_j) \propto 
+	\exp\!\left(
+	-\frac{1}{2}
+	\left\|
+	z_{ij} - h(x_i, x_j)
+	\right\|_{\Omega_{ij}}^2
+	\right),
+	\label{eq:relative_constraint}
+\end{equation}
+where $h(\cdot)$ predicts the relative transformation implied by the current pose estimates and $\Omega_{ij}$ is the information matrix. The Mahalanobis norm is $\|e\|_{\Omega_{ij}}^2 \triangleq e^\top \Omega_{ij} e$.
+
+\subsection{Reference optimisation problem}
+
+With independent, zero-mean Gaussian noise, maximising the joint likelihood over the pose variables yields the pose-graph NLLS objective. We restate it here in full because it serves as the common reference objective across all architectures in Section~\ref{sec:architectures}:
+\begin{equation}
+	\hat{\mathcal{X}}
+	= \arg\max_{\mathcal{X}} p(\mathcal{Z} \mid \mathcal{X})
+	= \arg\min_{\mathcal{X}}
+	\sum_{(i,j) \in \mathcal{E}}
+	\left\|
+	\mathbf{z}_{ij} - h(\mathbf{x}_i, \mathbf{x}_j)
+	\right\|_{\boldsymbol{\Omega}_{ij}}^2,
+	\label{eq:ml_cost}
+\end{equation}
+where $\mathcal{X}$ denotes the set of pose variables (i.e., $X$ above) and $\mathcal{Z}$ the set of all relative-pose measurements. Compared to the generic template in Eq.~\eqref{eq:nlls_general}, the ``where we change stuff'' specialisation is explicit: (i) we estimate a pose-only state (no explicit landmark variables), (ii) we couple robots through $\mathcal{E}_{\mathrm{inter}}$, and (iii) we fix the global reference frame through an anchoring factor.
+
+Equation~\eqref{eq:ml_cost} is the estimation problem shared by all pipelines in this thesis; the remaining sections specify how centralised and decentralised backends realise this optimisation under different communication and computation constraints.
+
+\section{Collaborative SLAM Backend Architectures}
+\label{sec:architectures}
+
+Within the experimental design space of Section~\ref{sec:research_design}, the architectural variable $\mathcal{A}$ has two values: \emph{centralised} and \emph{decentralised}. Both variants aim to solve the same pose-graph objective in Equation~\eqref{eq:ml_cost} (a special case of the general template in Chapter~\ref{ch:fundamentals}, Equation~\ref{eq:graph_slam_cost}); the comparison therefore isolates \emph{where} optimisation is executed and \emph{what} information is communicated to achieve a consistent estimate. This section specifies how each variant instantiates the backend, including where optimisation is executed and how pose updates and auxiliary information are communicated.
+
+
+\subsection{Centralised Collaborative SLAM Backend}
+\label{sec:centralised_backend}
+
+In the centralised architecture, a dedicated backend server maintains a single global pose graph over the multi-robot state $X$. Each robot (or a dataset replay process) periodically sends \emph{constraint batches} to the server. These batches contain odometry constraints, intra-robot loop closure constraints, and inter-robot loop closure constraints. The server aggregates the received constraints into one global graph and runs joint pose-graph optimisation over the full state $X$. Where enabled, updated pose estimates are broadcast back to each agent as global state updates. In this work, inter-robot loop closures are treated as precomputed constraints provided by the dataset; data association and loop-closure verification are therefore outside the scope of the backend comparison.
+
+Let $\mathcal{C} \subseteq \mathcal{E}$ denote the set of all intra- and inter-robot constraints that have been received by the server. The centralised backend solves
+\begin{equation}
+	X^\star
+	= \arg\min_{X}
+	\sum_{(i,j) \in \mathcal{C}}
+	e_{ij}(X)^\top \, \Omega_{ij} \, e_{ij}(X),
+	\label{eq:centralised_cost}
+\end{equation}
+Equation~\eqref{eq:centralised_cost} is a special case of Eq.~\eqref{eq:ml_cost}, where the full edge set $\mathcal{E}$ is replaced by the subset $\mathcal{C}$ available at the server at that time.
+
+where $e_{ij}(X) = z_{ij} - h(x_i, x_j)$ is the residual associated with constraint $(i,j)$ as in Equation~\eqref{eq:relative_constraint}.
+
+\subsection{Decentralised Distributed SLAM Backend}
+\label{sec:decentralised_backend}
+
+In the decentralised architecture, no global server exists. Each robot maintains its own local pose graph and participates in a distributed optimisation process via peer-to-peer communication. The objective in Equation~\eqref{eq:ml_cost} is the same as in the centralised case, but it is approximated through local computations and information exchange between neighbouring robots.
+
+For robot $r \in \{1,\dots,N\}$, let
+\begin{equation}
+	G_r = (V_r, E_r)
+\end{equation}
+denote its local pose graph, where $V_r$ contains the local pose variables $x_i^{(r)}$ for $i \in T_r$ and $E_r$ contains odometry and intra-robot loop closure constraints generated by robot $r$. Inter-robot loop closures introduce cross-graph coupling constraints between robots $r$ and $s$ of the form
+\begin{equation}
+	f_{rs}\big(x_i^{(r)}, x_j^{(s)}\big),
+\end{equation}
+which connect poses belonging to different local graphs. Using this notation, the global optimisation problem can be written as
+\begin{equation}
+	\min_{\{x^{(r)}\}}
+	\left[
+	\sum_{r=1}^{N} f_r\big(x^{(r)}\big)
+	+
+	\sum_{(r,s)} f_{rs}\big(x^{(r)}, x^{(s)}\big)
+	\right],
+	\label{eq:decomposed_cost}
+\end{equation}
+Equation~\eqref{eq:decomposed_cost} is not a different estimation objective; it is Eq.~\eqref{eq:ml_cost} rewritten by grouping terms into per-robot local objectives $f_r(\cdot)$ and cross-robot coupling terms $f_{rs}(\cdot,\cdot)$. Thus, the methodological change from Section~\ref{sec:centralised_backend} to Section~\ref{sec:decentralised_backend} lies in the computation and communication pattern, while the underlying maximum-likelihood objective remains the same.
+
+where $f_r(\cdot)$ collects all local constraints in $E_r$ and $f_{rs}(\cdot)$ collects all cross-robot coupling constraints between robots $r$ and $s$.
+
+
+\section{Communication Model and Network Variables}
+\label{sec:communication_model}
+
+The backend architectures in Section~\ref{sec:architectures} are realised on top of a message-oriented communication layer. This section formalises the communication patterns induced by each architecture and the way network conditions are modelled in the experiments. In the design space $\mathcal{D}$ (Section~\ref{sec:research_design}), these aspects are captured by the \emph{Communication Profile (QoS)} variable $\mathcal{Q}$ and the \emph{Network Impairments} variable $\mathcal{I}$.
+
+\subsection{Communication Model}
+\label{sec:comm_model}
+
+Two distinct communication models are employed, corresponding to the centralised and decentralised backend architectures.
+
+In the centralised configuration, communication follows an asymmetric client-server pattern where all robots transmit constraint batches to the server \textbf{(Uplink)}. These batches include odometry constraints and loop closure constraints provided by the dataset (or produced by a frontend in a full system). Where enabled, the server transmits global pose corrections (or updated keyframe poses) back to each robot \textbf{(Downlink)}.
+
+In the decentralised configuration, no central server exists and communication is peer-to-peer. Robots exchange interface messages that summarise boundary state estimates (e.g.\ pose mean and covariance for poses involved in inter-robot loop closures), enabling distributed optimisation without broadcasting a full global state. The communication model is therefore local and topology-dependent.
+
+Messages exchanged in both architectures are timestamped at send and at ingestion time, enabling measurement of end-to-end delays from constraint publication to backend use, as well as message inter-arrival times and effective throughput (bytes per second) per link and per robot. These measurements are used in the evaluation to quantify communication latency and bandwidth usage under different combinations of $\mathcal{A}$, $\mathcal{Q}$, and $\mathcal{I}$.
+
+\subsection{Network Impairment Model}
+\label{sec:network_impairments}
+
+To evaluate the robustness of collaborative SLAM architectures under adverse communication conditions, controlled network impairments are introduced in the experimental setup. The Network Impairments variable $\mathcal{I}$ parameterises the following impairment types:
+
+\begin{itemize}
+	\item \textbf{Stochastic loss}: Messages are randomly dropped according to a specified loss rate, modelling unreliable links and congestion.
+	\item \textbf{Burst loss}: Messages are dropped in periodic bursts, modelling transient interference and contention.
+	\item \textbf{Blackouts / partitions}: Scheduled sender or receiver blackouts emulate temporary disconnections (including asymmetric communication failures).
+	\item \textbf{Bandwidth caps}: Per-sender throughput limits are enforced via token-bucket shaping, which introduces send delays consistent with a constrained channel.
+\end{itemize}
+
+Impairments are applied in a controlled and repeatable manner by a network emulation layer at message send time. For a given impairment configuration $\mathcal{I}$, the same impairment parameters are applied across both architectures to ensure architectural fairness.
+
+By combining the communication models of Section~\ref{sec:comm_model} with the impairment levels defined here, the experimental framework systematically explores how architectural choices ($\mathcal{A}$) interact with QoS settings ($\mathcal{Q}$) and network impairments ($\mathcal{I}$) in terms of latency, communication load, scalability, and estimation accuracy.
+
+\section{Performance Metrics}
+\label{sec:metrics}
+
+For each experimental configuration in the design space $\mathcal{D}$, a set of response variables is evaluated to capture system performance in terms of latency, estimation accuracy, and resource usage. These metrics provide the quantitative basis for comparing centralised and decentralised architectures under varying team sizes and network conditions. The metrics are grouped into three categories: \emph{Timing metrics}, \emph{Accuracy metrics} and \emph{Resource metrics}. 
+
+\subsection{Timing Metrics}
+\label{sec:timing_metrics}
+
+Timing metrics quantify (i) how quickly a backend incorporates newly ingested constraints and (ii) how quickly corrections become visible to the team. To make compute time and dissemination time comparable across architectures, we distinguish backend solve latency from (optional) update broadcast latency.
+
+\paragraph{Ingest-to-optimisation latency $L_{\text{opt}}$.}
+This metric captures backend compute latency as the elapsed time between ingestion of a constraint batch and completion of the corresponding optimisation update:
+\begin{equation}
+	L_{\text{opt}}(b) = t_{\text{optimization\_end}}(b) - t_{\text{ingest}}(b),
+\end{equation}
+where $t_{\text{ingest}}(b)$ is the timestamp at which the backend accepts batch $b$ and $t_{\text{optimization\_end}}(b)$ is the timestamp at which the optimisation update that incorporates $b$ completes.
+
+\paragraph{Ingest-to-broadcast latency $L_{\text{global}}$ (centralised runs).}
+For the centralised architecture, the server may additionally publish a global update (map downlink) to make the updated state available to robots. The corresponding dissemination latency is defined as
+\begin{equation}
+	L_{\text{global}}(b) = t_{\text{broadcast}}(b) - t_{\text{ingest}}(b),
+\end{equation}
+where $t_{\text{broadcast}}(b)$ denotes the time at which the updated state is published. In decentralised runs there is no single broadcast event; therefore $L_{\text{global}}$ is not defined and settling behaviour is characterised via stabilisation-based metrics ($T_{\text{LC}}$ and $T_{\text{conv}}$).
+
+\paragraph{Stabilisation criterion.}
+Several timing KPIs require a backend-agnostic notion of ``the estimate has settled''. Let $\mathbf{t}_i^{(u)} \in \mathbb{R}^d$ denote the translation component of pose $x_i$ at backend update/round index $u$. We define the maximum translation change between successive updates as
+\begin{equation}
+	\Delta t_{\max}^{(u)} = \max_i \left\| \mathbf{t}_i^{(u)} - \mathbf{t}_i^{(u-1)} \right\|_2.
+\end{equation}
+Unless stated otherwise, stabilisation is declared when $\Delta t_{\max}^{(u)} \le \epsilon$ for $S$ consecutive updates, with $\epsilon = 10^{-3}$ and $S = 5$.
+
+\paragraph{Loop-closure correction time $T_{\text{LC}}$.}
+This metric measures how long it takes for an inter-robot loop closure to be reflected in a stable estimate. For a loop-closure event $c$:
+\begin{equation}
+	T_{\text{LC}}(c) = t_{\text{stable}}(c) - t_{\text{det}}(c),
+\end{equation}
+where $t_{\text{det}}(c)$ is the time at which the loop-closure constraint is ingested and $t_{\text{stable}}(c)$ is the timestamp of the first update that begins a stable window according to the stabilisation criterion above. This captures both optimisation time and (where applicable) communication delays for the correction to propagate.
+
+\paragraph{Time-to-convergence $T_{\text{conv}}$.}
+For long runs, we measure the time required for the system to reach a globally stable pose graph under the same stabilisation criterion. Let $u^\star$ be the first update index at which $\Delta t_{\max}^{(u)} \le \epsilon_{\text{conv}}$ holds for $S$ consecutive updates. The time-to-convergence is then
+\begin{equation}
+	T_{\text{conv}} = t(u^\star) - t_{\text{start}},
+\end{equation}
+where $t(u^\star)$ is the timestamp of the first stable update and $t_{\text{start}}$ is the start time of the run. Unless stated otherwise, we use $\epsilon_{\text{conv}} = 10^{-3}$ and $S = 5$ to match the KPI derivation implemented in Chapter~\ref{ch:implementation}.
+
+\subsection{Accuracy Metrics}
+\label{sec:accuracy_metrics}
+
+Accuracy is evaluated in terms of both global trajectory consistency and local
+drift. Absolute Trajectory Error (ATE) and Relative Pose Error
+(RPE) follow the definitions in ~\cite{sturm2012benchmark}, for each agent, and aggregate these across the team.
+
+\paragraph{Absolute Trajectory Error (ATE).}  
+ATE measures the deviation between estimated and ground-truth trajectories after alignment. Because COSMO-Bench provides metric LiDAR trajectories, scale is fixed to $s^\ast = 1$ and alignment is performed using a rigid transform in $SE(3)$ (rotation $\mathbf{R}^\ast$ and translation $\mathbf{t}^\ast$) computed via Umeyama's method. The aligned RMSE ATE for agent $a$ is
+\begin{equation}
+	\text{ATE}_{\text{RMSE}}^{(a)}
+	= \sqrt{\frac{1}{T_a + 1}
+		\sum_{k=0}^{T_a}
+		\left\|
+		\mathbf{x}_k^{(a), \text{gt}}
+		- \left(\mathbf{R}^\ast \mathbf{x}_k^{(a)} + \mathbf{t}^\ast\right)
+		\right\|_2^2 }.
+\end{equation}
+
+\paragraph{Relative Pose Error (RPE).}  
+RPE quantifies local drift between pairs of poses separated by a fixed time interval $\Delta$. For agent $a$, let $\mathbf{t}_{k:\Delta}^{(a)}$ and $\mathbf{t}_{k:\Delta}^{(a), \text{gt}}$ denote the estimated and ground-truth relative translations between times $k$ and $k+\Delta$. The translational component of the relative error is
+\begin{equation}
+	r_k^{(a)}(\Delta)
+	= \left\|
+	\mathbf{t}_{k:\Delta}^{(a), \text{gt}}
+	- \mathbf{t}_{k:\Delta}^{(a)}
+	\right\|_2,
+\end{equation}
+and the RMSE RPE for agent $a$ is
+\begin{equation}
+	\text{RPE}_{\text{RMSE}}^{(a)}(\Delta)
+	= \sqrt{\frac{1}{T_a - \Delta}
+		\sum_{k=0}^{T_a - \Delta}
+		\left(r_k^{(a)}(\Delta)\right)^2 }.
+\end{equation}
+RPE is evaluated for multiple values of $\Delta$ to capture both short- and long-horizon drift characteristics.
+
+\subsection{Resource Metrics}
+\label{sec:resource_metrics}
+
+Resource metrics assess the computational and communication costs incurred during collaborative SLAM. They are particularly relevant for comparing architectures in terms of scalability and efficiency.
+
+\paragraph{CPU Utilisation $\rho_{\text{CPU}}$} 
+
+CPU utilisation is sampled periodically at the process level for the processes involved in each run (e.g.\ constraint publisher and backend processes). Summary statistics are computed over the evaluation window $[0, T_{\text{eval}}]$, and multi-process backends are reported either per-process or as an aggregate across processes, depending on the available logging.
+
+\paragraph{Peak Memory Usage $M_{\text{peak}}$}  
+
+Peak memory usage is defined as the maximum resident set size (RSS) observed during execution for the processes involved in the run. For multi-process backends, the peak can be reported per-process and/or as an aggregate across processes, depending on the available logging.
+
+\paragraph{Bandwidth Usage $BW$}  
+
+Bandwidth usage quantifies the total amount of data transmitted per agent over the course of a run. For each agent $a$, we compute
+\begin{equation}
+	BW^{(a)}
+	= \frac{1}{T_{\text{eval}}}
+	\int_0^{T_{\text{eval}}}
+	\sum_{c} B_c^{(a)}(t) \, dt,
+\end{equation}
+where $B_c^{(a)}(t)$ is the instantaneous byte rate on communication channel $c$ at time $t$, and $T_{\text{eval}}$ is the evaluation horizon. In practice, this integral is approximated from logged message sizes and timestamps. We additionally report an effective delivery rate, defined as the ratio of successfully received to sent messages, to account for packet loss under impaired network conditions.
+
+Together, these timing, accuracy, and resource metrics provide a multi-dimensional view of system performance, enabling a structured analysis of the trade-offs between centralised and decentralised collaborative SLAM architectures under varying team sizes, QoS settings, and network impairment levels.
