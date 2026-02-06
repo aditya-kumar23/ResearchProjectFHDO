@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.2.3)  5 FEB 2026 23:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.2.3)  6 FEB 2026 18:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1320,6 +1320,12 @@ decorations.markings.code.tex))
 \tikzuml@AC@ybrc=\skip92
 \tikzuml@AC@middleArm=\skip93
 )
+(/usr/share/texlive/texmf-dist/tex/latex/needspace/needspace.sty
+Package: needspace 2010/09/12 v1.3d reserve vertical space
+)
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -1557,7 +1563,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<assets/logo/FH_Dortmund-logo.svg.png, id=372, 2569.6pt x 925.4575pt>
+<assets/logo/FH_Dortmund-logo.svg.png, id=384, 2569.6pt x 925.4575pt>
 File: assets/logo/FH_Dortmund-logo.svg.png Graphic file (type png)
 <use assets/logo/FH_Dortmund-logo.svg.png>
 Package pdftex.def Info: assets/logo/FH_Dortmund-logo.svg.png  used on input li
@@ -1567,60 +1573,74 @@ ne 25.
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./assets/logo/FH_Dortmund-
-logo.svg.png>]pdfTeX warning (ext4): destination with the same identifier (name
-{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.38 \makedeclaration
-                      [1
+logo.svg.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
 
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 38--38
-
- []
-
-[2
-
-] (./main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 32.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [1
+)pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.38 
+      [1
+
+
+] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+
+ []
+
+[3
+
+] (./main.toc [1
 
 ] [2] [3])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
-
-[4] (./main.lof [5
-
-]
-Overfull \hbox (0.63995pt too wide) in paragraph at lines 15--15
- [][] [][]\OT1/cmr/m/n/10 (-20) Resource traces over time for the r3 base-line:
- cen-tralised CPU/RSS 
+ [4] (./main.lof
+Overfull \hbox (0.26448pt too wide) in paragraph at lines 6--6
+ [][] [][]\OT1/cmr/m/n/10 (-20) C-SLAM ar-chi-tec-tures: cen-tralised, de-cen-t
+ralised, and hy-brid/hier- 
  []
 
+[5
+
+]
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[6])
+ [6]
+Overfull \hbox (0.63995pt too wide) in paragraph at lines 23--23
+ [][] [][]\OT1/cmr/m/n/10 (-20) Resource traces over time for the r3 base-line:
+ cen-tralised CPU/RSS 
+ []
+
+)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [7] (./main.lot [8
+ [7] (./main.lot
+Overfull \hbox (30.32816pt too wide) in paragraph at lines 12--12
+ \OT1/cmr/m/n/10 (-20) Link: P=ProRadio, W=WiFi. Back-end: C=centralised, D=dec
+entralised. 
+ []
+
+[8
 
 ] [9])
 \tf@lot=\write7
@@ -1641,19 +1661,24 @@ l.10
 <to be read again> 
                    \relax 
 l.20 
-      [2]) (./src/fundamentals.tex [3]
+      [2]) (./src/fundamentals.texpdfTeX warning (ext4): destination with the s
+ame identifier (name{page.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \chapter
+            {Fundamentals of SLAM and C-SLAM}\label{ch:fundamentals} [3]
 Chapter 2.
 [4
 
 ] [5] [6] [7]
-<src/img/Frontend-backend.drawio.png, id=735, 1315.91624pt x 272.01625pt>
+<src/img/Frontend-backend.drawio.png, id=775, 1315.91624pt x 272.01625pt>
 File: src/img/Frontend-backend.drawio.png Graphic file (type png)
 <use src/img/Frontend-backend.drawio.png>
 Package pdftex.def Info: src/img/Frontend-backend.drawio.png  used on input lin
 e 173.
 (pdftex.def)             Requested size: 310.4979pt x 64.18115pt.
- [8 <./src/img/Frontend-backend.drawio.png>] [9] [10] [11])
-(./src/state_art.tex [12]
+ [8 <./src/img/Frontend-backend.drawio.png>] [9] [10])
+(./src/state_art.tex [11] [12]
 Chapter 3.
 [13
 
@@ -1727,7 +1752,7 @@ y
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [31]
-<src/img/cenF.png, id=971, 962.59625pt x 697.60625pt>
+<src/img/cenF.png, id=1012, 962.59625pt x 697.60625pt>
 File: src/img/cenF.png Graphic file (type png)
 <use src/img/cenF.png>
 Package pdftex.def Info: src/img/cenF.png  used on input line 109.
@@ -1742,7 +1767,7 @@ Overfull \hbox (0.3454pt too wide) in paragraph at lines 125--126
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 136.
  [34]
-<src/img/denF.png, id=993, 928.46875pt x 954.56625pt>
+<src/img/denF.png, id=1033, 928.46875pt x 954.56625pt>
 File: src/img/denF.png Graphic file (type png)
 <use src/img/denF.png>
 Package pdftex.def Info: src/img/denF.png  used on input line 168.
@@ -1756,147 +1781,94 @@ Overfull \hbox (4.67378pt too wide) in paragraph at lines 314--315
 t/m/n/10 <[]iface _ prefix >[] /run _ <[]id >[] /<[]robot _
  []
 
-[39] [40]) (./src/rough.tex [41]
+[39] [40]) (./src/evaluation.tex [41]
 Chapter 6.
 [42
 
-]
-Overfull \hbox (5.30936pt too wide) in paragraph at lines 26--27
-\OT1/cmr/m/n/10 (-20) base-line/s-cal-a-bil-ity \OT1/cmtt/m/n/10 baseline[]2026
-0204[]180031\OT1/cmr/m/n/10 (-20) , QoS \OT1/cmtt/m/n/10 qos[]20260205[]081932\
-OT1/cmr/m/n/10 (-20) , and
- []
-
-[43] [44] [45]
-<src/img/main/eval_efficiency_cpu_s_per_step.pdf, id=1070, 484.28616pt x 267.18
+] [43]
+<src/img/main/eval_efficiency_cpu_s_per_step.pdf, id=1088, 484.28616pt x 267.18
 947pt>
 File: src/img/main/eval_efficiency_cpu_s_per_step.pdf Graphic file (type pdf)
 <use src/img/main/eval_efficiency_cpu_s_per_step.pdf>
 Package pdftex.def Info: src/img/main/eval_efficiency_cpu_s_per_step.pdf  used 
-on input line 87.
+on input line 56.
 (pdftex.def)             Requested size: 258.75pt x 142.75537pt.
-<src/img/main/eval_r3_summary.pdf, id=1071, 701.09744pt x 252.73546pt>
+ [44]
+<src/img/main/eval_r3_summary.pdf, id=1096, 701.09744pt x 252.73546pt>
 File: src/img/main/eval_r3_summary.pdf Graphic file (type pdf)
 <use src/img/main/eval_r3_summary.pdf>
-Package pdftex.def Info: src/img/main/eval_r3_summary.pdf  used on input line 9
-4.
+Package pdftex.def Info: src/img/main/eval_r3_summary.pdf  used on input line 8
+3.
 (pdftex.def)             Requested size: 338.09853pt x 121.87852pt.
-<src/img/main/eval_resources_timeseries.pdf, id=1074, 729.99728pt x 382.89362pt
->
-File: src/img/main/eval_resources_timeseries.pdf Graphic file (type pdf)
-<use src/img/main/eval_resources_timeseries.pdf>
-Package pdftex.def Info: src/img/main/eval_resources_timeseries.pdf  used on in
-put line 101.
-(pdftex.def)             Requested size: 338.09853pt x 177.34259pt.
-
-Overfull \hbox (308.14113pt too wide) in paragraph at lines 112--122
- [][] 
- []
-
-[46] [47 <./src/img/main/eval_efficiency_cpu_s_per_step.pdf>]
-<src/img/main/eval_scalability.pdf, id=1145, 758.06963pt x 498.5256pt>
+ [45 <./src/img/main/eval_efficiency_cpu_s_per_step.pdf>]
+[46 <./src/img/main/eval_r3_summary.pdf>]
+<src/img/main/eval_scalability.pdf, id=1226, 758.06963pt x 498.5256pt>
 File: src/img/main/eval_scalability.pdf Graphic file (type pdf)
 <use src/img/main/eval_scalability.pdf>
 Package pdftex.def Info: src/img/main/eval_scalability.pdf  used on input line 
-138.
+133.
 (pdftex.def)             Requested size: 338.09853pt x 222.34145pt.
-<src/img/main/eval_pareto_ate_vs_traffic.pdf, id=1148, 469.82652pt x 303.3966pt
+ [47]
+<src/img/main/eval_pareto_ate_vs_traffic.pdf, id=1234, 469.82652pt x 303.3966pt
 >
 File: src/img/main/eval_pareto_ate_vs_traffic.pdf Graphic file (type pdf)
 <use src/img/main/eval_pareto_ate_vs_traffic.pdf>
 Package pdftex.def Info: src/img/main/eval_pareto_ate_vs_traffic.pdf  used on i
-nput line 145.
+nput line 140.
 (pdftex.def)             Requested size: 310.4979pt x 200.51088pt.
-<src/img/main/eval_ddf_ate_vs_stop_time.pdf, id=1151, 845.63052pt x 280.50922pt
+<src/img/main/eval_ddf_ate_vs_stop_time.pdf, id=1237, 845.63052pt x 280.50922pt
 >
 File: src/img/main/eval_ddf_ate_vs_stop_time.pdf Graphic file (type pdf)
 <use src/img/main/eval_ddf_ate_vs_stop_time.pdf>
 Package pdftex.def Info: src/img/main/eval_ddf_ate_vs_stop_time.pdf  used on in
-put line 152.
+put line 147.
 (pdftex.def)             Requested size: 338.09853pt x 112.15033pt.
-
-Overfull \hbox (247.95906pt too wide) in paragraph at lines 183--201
- [][] 
- []
-
+ [48 <./src/img/main/eval_scalability.pdf> <./src/img/main/eval_pareto_ate_vs_t
+raffic.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\leavevmode@ifvmode' on input line 203.
+(hyperref)                removing `\leavevmode@ifvmode' on input line 152.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern 1.66702pt
-(hyperref)                removed on input line 203.
+(hyperref)                removed on input line 152.
 
-[48 <./src/img/main/eval_r3_summary.pdf>]
-Overfull \hbox (54.99289pt too wide) in paragraph at lines 220--234
- [][] 
- []
-
-<src/img/main/eval_qos_sensitivity_slopes.pdf, id=1220, 721.61476pt x 426.2556p
+[49 <./src/img/main/eval_ddf_ate_vs_stop_time.pdf>]
+<src/img/main/eval_qos_sensitivity_slopes.pdf, id=1402, 721.61476pt x 426.2556p
 t>
 File: src/img/main/eval_qos_sensitivity_slopes.pdf Graphic file (type pdf)
 <use src/img/main/eval_qos_sensitivity_slopes.pdf>
 Package pdftex.def Info: src/img/main/eval_qos_sensitivity_slopes.pdf  used on 
-input line 240.
+input line 191.
 (pdftex.def)             Requested size: 338.09853pt x 199.71576pt.
-[49 <./src/img/main/eval_resources_timeseries.pdf>] [50 <./src/img/main/eval_sc
-alability.pdf>]
-Overfull \hbox (54.57178pt too wide) in paragraph at lines 260--278
- [][] 
+
+Overfull \hbox (4.61394pt too wide) in paragraph at lines 199--200
+\OT1/cmr/m/n/10 (-20) In the re-ported sweep, im-pair-ments are ap-plied to fac
+-tor pub-li-ca-tion (uplink/factor-
  []
 
-[51 <./src/img/main/eval_pareto_ate_vs_traffic.pdf>]
-Overfull \hbox (101.68762pt too wide) in paragraph at lines 289--307
- [][] 
- []
-
-<src/img/main/eval_impairment_degradation.pdf, id=1380, 799.94164pt x 512.90746
+[50 <./src/img/main/eval_qos_sensitivity_slopes.pdf>] [51]
+<src/img/main/eval_impairment_degradation.pdf, id=1472, 799.94164pt x 512.90746
 pt>
 File: src/img/main/eval_impairment_degradation.pdf Graphic file (type pdf)
 <use src/img/main/eval_impairment_degradation.pdf>
 Package pdftex.def Info: src/img/main/eval_impairment_degradation.pdf  used on 
-input line 311.
+input line 279.
 (pdftex.def)             Requested size: 338.09853pt x 216.78143pt.
-
-Overfull \hbox (43.17558pt too wide) in paragraph at lines 329--343
- [][] 
- []
-
-<src/img/main/eval_robustness_matrix.pdf, id=1387, 751.72409pt x 426.22443pt>
+ [52]
+<src/img/main/eval_robustness_matrix.pdf, id=1483, 751.72409pt x 426.22443pt>
 File: src/img/main/eval_robustness_matrix.pdf Graphic file (type pdf)
 <use src/img/main/eval_robustness_matrix.pdf>
 Package pdftex.def Info: src/img/main/eval_robustness_matrix.pdf  used on input
- line 347.
+ line 293.
 (pdftex.def)             Requested size: 310.4979pt x 176.04736pt.
-
-Overfull \hbox (14.07231pt too wide) in paragraph at lines 354--355
-\OT1/cmtt/m/n/10 IndexError: vector::[]M[]range[]check ... removeFactorIndices 
-...\OT1/cmr/m/n/10 (-20) ). The
- []
-
-
-Overfull \hbox (34.47466pt too wide) in paragraph at lines 354--355
-\OT1/cmr/m/n/10 (-20) di-cate that the ex-cep-tion is raised in \OT1/cmtt/m/n/1
-0 c[]slam[]common/isam2.py \OT1/cmr/m/n/10 (-20) dur-ing \OT1/cmtt/m/n/10 isam.
-update(...,
- []
-
-
-Overfull \hbox (3.24094pt too wide) in paragraph at lines 354--355
-\OT1/cmr/m/n/10 (-20) date loop (\OT1/cmtt/m/n/10 c[]slam[]decentral/agents.py 
-\OT1/cmr/m/n/10 (-20) via \OT1/cmtt/m/n/10 c[]slam[]decentral/mp[]runner.py\OT1
-/cmr/m/n/10 (-20) ).
- []
-
-[52 <./src/img/main/eval_ddf_ate_vs_stop_time.pdf>] [53] [54] [55 <./src/img/ma
-in/eval_qos_sensitivity_slopes.pdf>]) (./src/conclusion.tex [56] [57] [58 <./sr
-c/img/main/eval_impairment_degradation.pdf> <./src/img/main/eval_robustness_mat
-rix.pdf>]
+ [53 <./src/img/main/eval_impairment_degradation.pdf>] [54 <./src/img/main/eval
+_robustness_matrix.pdf>] [55]) (./src/conclusion.tex [56]
 Chapter 7.
-[59
+[57
 
-]) (./main.bbl [60] [61
+]) (./main.bbl [58] [59
 
 ]
 Underfull \hbox (badness 1163) in paragraph at lines 117--120
@@ -1904,20 +1876,45 @@ Underfull \hbox (badness 1163) in paragraph at lines 117--120
  Cosmo-
  []
 
-[62] [63]) [64] (./src/A1_Appendix.tex
+[60] [61]) [62] (./src/A1_Appendix.tex
 Appendix A.
-) [1
 
-] (./main.aux)
+Overfull \hbox (24.49794pt too wide) in paragraph at lines 20--38
+ [][] 
+ []
+
+[1
+
+
+] [2]
+Overfull \hbox (43.17558pt too wide) in paragraph at lines 106--120
+ [][] 
+ []
+
+<src/img/main/eval_resources_timeseries.pdf, id=1656, 729.99728pt x 382.89362pt
+>
+File: src/img/main/eval_resources_timeseries.pdf Graphic file (type pdf)
+<use src/img/main/eval_resources_timeseries.pdf>
+Package pdftex.def Info: src/img/main/eval_resources_timeseries.pdf  used on in
+put line 131.
+(pdftex.def)             Requested size: 338.09853pt x 177.34259pt.
+<src/img/main/eval_impairment_timing.pdf, id=1659, 785.45656pt x 534.58847pt>
+File: src/img/main/eval_impairment_timing.pdf Graphic file (type pdf)
+<use src/img/main/eval_impairment_timing.pdf>
+Package pdftex.def Info: src/img/main/eval_impairment_timing.pdf  used on input
+ line 139.
+(pdftex.def)             Requested size: 338.09853pt x 230.11327pt.
+[3] [4 <./src/img/main/eval_resources_timeseries.pdf> <./src/img/main/eval_impa
+irment_timing.pdf>]) (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4CFD73032D7C04B2988E31F3BC3A24C8;17329.
+(rerunfilecheck)             Checksum: 25F4753FE5BBBEDF054706F7B91D8758;17134.
  ) 
 Here is how much of TeX's memory you used:
- 53550 strings out of 478287
- 1241225 string characters out of 5849290
- 1842549 words of memory out of 5000000
- 70249 multiletter control sequences out of 15000+600000
- 490785 words of font info for 211 fonts, out of 8000000 for 9000
+ 53641 strings out of 478287
+ 1243636 string characters out of 5849290
+ 1826122 words of memory out of 5000000
+ 70319 multiletter control sequences out of 15000+600000
+ 491442 words of font info for 214 fonts, out of 8000000 for 9000
  1146 hyphenation exceptions out of 8191
  109i,13n,145p,1459b,1316s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
@@ -1940,14 +1937,15 @@ blic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
-are/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (78 pages, 916652 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/tex
+mf/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on main.pdf (80 pages, 947414 bytes).
 PDF statistics:
- 1844 PDF objects out of 2073 (max. 8388607)
- 1237 compressed objects within 13 object streams
- 266 named destinations out of 1000 (max. 500000)
- 46446 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 1942 PDF objects out of 2073 (max. 8388607)
+ 1279 compressed objects within 13 object streams
+ 273 named destinations out of 1000 (max. 500000)
+ 48523 words of extra memory for PDF output out of 51595 (max. 10000000)
 

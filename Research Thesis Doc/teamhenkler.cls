@@ -39,7 +39,7 @@
 							\renewcommand{\logospacedown}{4cm}
 							\renewcommand{\declaration}{\chapter*{Declaration}
 								I, \theauthor, hereby confirm, that I have written the \projecttype\space at hand independently – in case of a group work: my respectively designated part of the work -, that I have not used any sources or materials other than those stated, and that I have highlighted any citations properly.
-								. ~\\
+								 ~\\
 							Dortmund,  \thegraddate\\[.6cm] %<city>, <date>
 							\theauthor\\ % signature
 							}
@@ -123,6 +123,9 @@
 \usepackage{pgfplots}
 \usepackage[most]{tcolorbox}
 \usepackage{deps/tikz-uml}
+\usepackage{needspace}
+\usepackage{placeins}
+\usepackage{needspace}
 % ==========================
 % Tikz Libraries
 % =========================

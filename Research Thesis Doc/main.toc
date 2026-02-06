@@ -2,85 +2,85 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Problem statement}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Research goals}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Research Goals}{3}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Structure of the Thesis}{3}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Fundamentals of SLAM and Collaborative SLAM}{4}{chapter.2}%
+\contentsline {chapter}{\numberline {2}Fundamentals of SLAM and C-SLAM}{4}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Single-Agent SLAM}{4}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Problem Definition}{5}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Graph-Based SLAM Framework}{5}{subsection.2.1.2}%
-\contentsline {subsubsection}{\textbf {Constraints as pairwise factors}}{5}{figure.caption.6}%
-\contentsline {subsubsection}{Nonlinear least-squares optimisation template}{6}{equation.2.1.4}%
-\contentsline {subsubsection}{Solving the optimisation problem}{7}{equation.2.1.7}%
+\contentsline {subsubsection}{\textbf {Constraints as Pairwise Factors}}{5}{figure.caption.6}%
+\contentsline {subsubsection}{Nonlinear Least-Squares Optimisation Template}{6}{equation.2.1.4}%
+\contentsline {subsubsection}{Solving the Optimisation Problem}{7}{equation.2.1.7}%
 \contentsline {subsection}{\numberline {2.1.3}SLAM System Architecture}{8}{subsection.2.1.3}%
 \contentsline {subsubsection}{\textbf {Frontend}}{8}{figure.caption.7}%
 \contentsline {subsubsection}{\textbf {Backend}}{9}{figure.caption.7}%
 \contentsline {subsubsection}{\textbf {Intra-Robot Loop Closure}}{9}{figure.caption.7}%
-\contentsline {section}{\numberline {2.2}Collaborative SLAM}{9}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Multi-robot state and pose graph}{10}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Inter-robot loop closures}{10}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Architectural Classes for Collaborative SLAM}{10}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.2}C-SLAM}{9}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Multi-Robot State and Pose Graph}{10}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Inter-Robot Loop Closures}{10}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Architectural Classes for C-SLAM}{10}{subsection.2.2.3}%
 \contentsline {subsubsection}{\textbf {Centralised Architectures}}{10}{figure.caption.8}%
 \contentsline {subsubsection}{\textbf {Decentralised Architectures}}{11}{figure.caption.8}%
 \contentsline {subsubsection}{\textbf {Hybrid and Hierarchical Architectures}}{11}{figure.caption.8}%
 \contentsline {chapter}{\numberline {3}State of the Art}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Centralised C-SLAM}{13}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Architectural patterns}{13}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Performance implications}{14}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Decentralised/Distributed Collaborative SLAM}{15}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Architectural patterns}{15}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Performance implications}{16}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Comparative synthesis}{17}{section.3.3}%
+\contentsline {subsection}{\numberline {3.1.1}Architectural Patterns}{13}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Performance Implications}{14}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Decentralised/Distributed C-SLAM}{15}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Architectural Patterns}{15}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Performance Implications}{16}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Comparative Analysis}{17}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Methodology}{19}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Experimental Design}{19}{section.4.1}%
 \contentsline {section}{\numberline {4.2}State Representation and Estimation Variables}{20}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Pose variables}{21}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Multi-robot global state}{21}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Constraint sets and pose graph}{21}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Reference optimisation problem}{22}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Collaborative SLAM Backend Architectures}{22}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Centralised Collaborative SLAM Backend}{22}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.2.1}Pose Variables}{21}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Multi-Robot Global State}{21}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Constraint Sets and Pose Graph}{21}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Reference Optimisation Problem}{22}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}C-SLAM Backend Architectures}{22}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Centralised C-SLAM Backend}{22}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Decentralised Distributed SLAM Backend}{23}{subsection.4.3.2}%
 \contentsline {section}{\numberline {4.4}Communication Model and Network Variables}{24}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Communication Model}{24}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Network Impairment Model}{24}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Performance Metrics}{25}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Timing Metrics}{25}{subsection.4.5.1}%
+\contentsline {section}{\numberline {4.5}Performance metrics}{25}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Timing metrics}{25}{subsection.4.5.1}%
 \contentsline {paragraph}{Ingest-to-optimisation latency $L_{\text {opt}}$.}{25}{subsection.4.5.1}%
-\contentsline {paragraph}{Ingest-to-broadcast latency $L_{\text {global}}$ (centralised runs).}{26}{equation.4.5.9}%
-\contentsline {paragraph}{Stabilisation criterion.}{26}{equation.4.5.10}%
-\contentsline {paragraph}{Loop-closure correction time $T_{\text {LC}}$.}{26}{equation.4.5.11}%
-\contentsline {paragraph}{Time-to-convergence $T_{\text {conv}}$.}{26}{equation.4.5.12}%
+\contentsline {paragraph}{Ingest-to-broadcast latency $L_{\text {global}}$ (centralised)}{26}{equation.4.5.9}%
+\contentsline {paragraph}{Stabilisation criterion}{26}{equation.4.5.10}%
+\contentsline {paragraph}{Loop-closure correction time $T_{\text {LC}}$}{26}{equation.4.5.11}%
+\contentsline {paragraph}{Time-to-convergence $T_{\text {conv}}$}{26}{equation.4.5.12}%
 \contentsline {subsection}{\numberline {4.5.2}Accuracy Metrics}{27}{subsection.4.5.2}%
-\contentsline {paragraph}{Absolute Trajectory Error (ATE).}{27}{subsection.4.5.2}%
-\contentsline {paragraph}{Relative Pose Error (RPE).}{27}{equation.4.5.14}%
+\contentsline {paragraph}{Absolute Trajectory Error (ATE)}{27}{subsection.4.5.2}%
+\contentsline {paragraph}{Relative Pose Error (RPE)}{27}{equation.4.5.14}%
 \contentsline {subsection}{\numberline {4.5.3}Resource Metrics}{27}{subsection.4.5.3}%
 \contentsline {paragraph}{CPU Utilisation $\rho _{\text {CPU}}$}{27}{subsection.4.5.3}%
 \contentsline {paragraph}{Peak Memory Usage $M_{\text {peak}}$}{28}{subsection.4.5.3}%
 \contentsline {paragraph}{Bandwidth Usage $BW$}{28}{subsection.4.5.3}%
 \contentsline {chapter}{\numberline {5}Implementation}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Dataset and Frontend}{29}{section.5.1}%
-\contentsline {paragraph}{Frontend abstraction.}{30}{section.5.1}%
-\contentsline {paragraph}{Comparability contract (fixed frontend).}{30}{section.5.1}%
+\contentsline {paragraph}{Frontend Abstraction}{30}{section.5.1}%
+\contentsline {paragraph}{Comparability Contract}{30}{section.5.1}%
 \contentsline {section}{\numberline {5.2}System Overview}{30}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Operationalisation of the Experimental Design Space}{30}{section.5.3}%
-\contentsline {paragraph}{End-to-end run workflow.}{31}{table.caption.11}%
-\contentsline {paragraph}{Reproducibility artefacts.}{31}{table.caption.11}%
+\contentsline {paragraph}{End-to-end Run Workflow}{31}{table.caption.11}%
+\contentsline {paragraph}{Reproducibility Artefacts}{31}{table.caption.11}%
 \contentsline {subsection}{\numberline {5.3.1}ROS~2 Factor Streaming}{31}{subsection.5.3.1}%
 \contentsline {paragraph}{Factor payload}{32}{subsection.5.3.1}%
-\contentsline {section}{\numberline {5.4}Centralised Back End}{32}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Input: Factor Ingestion and Batching}{33}{subsection.5.4.1}%
-\contentsline {paragraph}{Initial values.}{33}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Solve: Incremental Optimisation with iSAM2}{34}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Output: Optional Downlink and ACK Instrumentation}{34}{subsection.5.4.3}%
-\contentsline {paragraph}{Payload accounting.}{34}{subsection.5.4.3}%
-\contentsline {section}{\numberline {5.5}Decentralised Back End}{35}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Input: Deterministic Factor Partitioning}{35}{subsection.5.5.1}%
-\contentsline {paragraph}{Key-to-robot mapping.}{36}{subsection.5.5.1}%
-\contentsline {paragraph}{Inter-robot ownership rule.}{36}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Solve: Local Optimisation and Remote-Prior Refresh}{36}{subsection.5.5.2}%
-\contentsline {paragraph}{Remote-prior semantics.}{36}{algorithm.2}%
-\contentsline {subsection}{\numberline {5.5.3}Output: Interface Exchange and Coordination Loop}{37}{subsection.5.5.3}%
-\contentsline {paragraph}{Convergence monitoring (runtime stop condition).}{37}{algorithm.3}%
+\contentsline {section}{\numberline {5.4}Centralised Backend}{32}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Factor Ingestion and Batching}{33}{subsection.5.4.1}%
+\contentsline {paragraph}{Initial Values}{33}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Solver: Incremental Optimisation with iSAM2}{34}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Optional Downlink and ACK Instrumentation}{34}{subsection.5.4.3}%
+\contentsline {paragraph}{Payload Accounting}{34}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Decentralised Backend}{35}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Deterministic Factor Partitioning}{35}{subsection.5.5.1}%
+\contentsline {paragraph}{Key-to-Robot Mapping}{36}{subsection.5.5.1}%
+\contentsline {paragraph}{Inter-Robot Ownership Rule}{36}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Solver: Local Optimisation and Remote-Prior Refresh}{36}{subsection.5.5.2}%
+\contentsline {paragraph}{Remote-Prior Semantics}{36}{algorithm.2}%
+\contentsline {subsection}{\numberline {5.5.3}Interface Exchange and Coordination Loop}{37}{subsection.5.5.3}%
+\contentsline {paragraph}{Convergence monitoring}{37}{algorithm.3}%
 \contentsline {subsection}{\numberline {5.5.4}Communication Transport and Message Schema}{37}{subsection.5.5.4}%
 \contentsline {section}{\numberline {5.6}Network Impairment and Quality-of-Service Implementation}{38}{section.5.6}%
 \contentsline {subsection}{\numberline {5.6.1}Impairment Injection Points}{38}{subsection.5.6.1}%
@@ -94,36 +94,30 @@
 \contentsline {subsection}{\numberline {5.7.3}Accuracy Instrumentation}{40}{subsection.5.7.3}%
 \contentsline {subsection}{\numberline {5.7.4}Resource and Bandwidth Instrumentation}{41}{subsection.5.7.4}%
 \contentsline {chapter}{\numberline {6}Evaluation}{42}{chapter.6}%
-\contentsline {paragraph}{Research-question coverage.}{42}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Experimental protocol and reporting conventions}{43}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Protocol and design-space instantiation}{43}{subsection.6.1.1}%
-\contentsline {paragraph}{Result provenance (run outputs).}{43}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Reporting conventions}{43}{subsection.6.1.2}%
-\contentsline {paragraph}{Repeats.}{43}{subsection.6.1.2}%
-\contentsline {paragraph}{Shared convergence proxy $T_{\mathrm {conv}}^{(\mathrm {team})}$.}{44}{subsection.6.1.2}%
-\contentsline {paragraph}{KPI naming convention.}{44}{subsection.6.1.2}%
-\contentsline {paragraph}{Statistical treatment (run-level uncertainty).}{44}{subsection.6.1.2}%
-\contentsline {paragraph}{Robot/team aggregation.}{44}{subsection.6.1.2}%
-\contentsline {paragraph}{Traffic and delivery.}{44}{subsection.6.1.2}%
-\contentsline {paragraph}{Compute and memory.}{44}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Timing semantics and convergence definitions}{44}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Results overview}{45}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Baseline comparison under native dataset networking}{45}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Reference r3 baseline: centralised vs.\ decentralised}{46}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Scalability trend (r3--r5)}{46}{subsection.6.3.2}%
-\contentsline {section}{\numberline {6.4}Sensitivity to ROS\,2 QoS policy}{48}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Sensitivity to synthetic network impairments}{50}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Centralised backend under impairments}{51}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Decentralised backend under impairments}{51}{subsection.6.5.2}%
-\contentsline {section}{\numberline {6.6}Robustness and unsupported configurations}{52}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}Failure mode analysis (decentralised crashes)}{52}{subsection.6.6.1}%
-\contentsline {section}{\numberline {6.7}Synthesis and limitations}{53}{section.6.7}%
-\contentsline {paragraph}{RQ1: How do architectures differ in global map update latency and convergence time?}{54}{section.6.7}%
-\contentsline {paragraph}{RQ2: What is the impact on latency as the number of collaborating agents increases?}{54}{section.6.7}%
-\contentsline {paragraph}{RQ3: What are the computational loads and communication bandwidth requirements under varying network constraints?}{54}{section.6.7}%
-\contentsline {paragraph}{RQ4: How does the choice of architecture affect robustness to common real-world challenges?}{55}{section.6.7}%
-\contentsline {paragraph}{Limitations and practical implications.}{56}{section.6.7}%
-\contentsline {paragraph}{Note on RPE.}{56}{section.6.7}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Works}{59}{chapter.7}%
+\contentsline {section}{\numberline {6.1}Experimental Protocol}{42}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Timing Semantics}{43}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}Results Overview}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Baseline Comparison Under Native Dataset Networking}{44}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Reference r3 Baseline: Centralised vs.\ Decentralised}{44}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Scalability Trend (r3--r5)}{46}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Sensitivity to ROS\,2 QoS Policy}{49}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Sensitivity to Synthetic Network Impairments}{51}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Centralised Backend Under Impairments}{51}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Decentralised Backend Under Impairments}{52}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Robustness and Unsupported Configurations}{53}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Failure Mode Analysis (decentralised crashes)}{54}{subsection.6.6.1}%
+\contentsline {section}{\numberline {6.7}Synthesis and Limitations}{55}{section.6.7}%
+\contentsline {paragraph}{RQ1 (latency and convergence): what dominates ``time to a usable update''?}{55}{section.6.7}%
+\contentsline {paragraph}{RQ2 (team size): what actually scales with more robots?}{55}{section.6.7}%
+\contentsline {paragraph}{RQ3 (bandwidth/compute under constraints): what changes under uplink degradation?}{55}{section.6.7}%
+\contentsline {paragraph}{RQ4 (robustness): where do failures come from?}{55}{section.6.7}%
+\contentsline {paragraph}{Limitations}{55}{section.6.7}%
+\contentsline {paragraph}{Note on RPE}{56}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Works}{57}{chapter.7}%
 \contentsline {chapter}{\numberline {A}Appendix}{A1}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Supplementary Evaluation Material}{A1}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Full baseline scalability tables (split)}{A1}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Decentralised diagnostic counts}{A3}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Unsupported configurations}{A3}{subsection.A.1.3}%
+\contentsline {subsection}{\numberline {A.1.4}Diagnostic figures}{A3}{subsection.A.1.4}%
 \contentsfinish 

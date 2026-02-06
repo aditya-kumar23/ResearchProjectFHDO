@@ -1,2 +1,144 @@
-\chapter{Appendix}\label{appendix:appendix_1}
- 
+\chapter{Appendix}
+\label{appendix:appendix_1}
+
+\section{Supplementary Evaluation Material}
+\label{ch:eval_appendix}
+
+This appendix collects detailed tables and diagnostic plots that support the evaluation chapter (Chapter~\ref{ch:evaluation}) but are not required for the main narrative flow.
+
+% -----------------------------
+\Needspace{10\baselineskip}
+\subsection{Full baseline scalability tables (split)}
+\label{sec:eval_appendix_scalability_full}
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Full baseline scalability trend across team sizes (r3--r5), results view. Link: P=ProRadio, W=WiFi. Backend: C=centralised, D=decentralised. ``Time'' denotes \(t_{\mathrm{global}}\) for centralised runs (dissemination proxy) and Corr.\ p95 for decentralised runs (correction-propagation proxy). The shared convergence proxy \(T_{\mathrm{conv}}^{(\mathrm{team})}\) is reported as the comparison anchor (mean $\pm$ 95\% CI across repeats; ``$\geq$'' indicates right-censoring when stabilisation is not observed).}
+	\label{tab:eval_baseline_scalability_full_a}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llllrrrr}
+		\toprule
+		Link & Team & B/E & Status & ATE RMSE (m) & Time (s) & \(T_{\mathrm{conv}}^{(\mathrm{team})}\) (s) & Traffic (MiB) \\
+		\midrule
+		P & r3 & C & ok & 2.164 $\pm$ 0.000 & 11.5 & 0.01 $\pm$ 0.00 & 30.3 \\
+		P & r4 & C & ok & 2.526 $\pm$ 0.000 & 21.6 & 0.12 $\pm$ 0.01 & 74.4 \\
+		P & r5 & C & ok & 1.985 $\pm$ 0.013 & 25.0 & 0.17 $\pm$ 0.00 & 86.8 \\
+		P & r3 & D & ok & 3.821 $\pm$ 0.072 & 14.4 & $\geq$ 21.33 $\pm$ 5.94 & 32.2 \\
+		P & r4 & D & ok & 2.721 $\pm$ 0.030 & 8.3  & 12.58 $\pm$ 1.20 & 36.1 \\
+		P & r5 & D & ok & 2.898 $\pm$ 0.028 & 6.0  & $\geq$ 20.34 $\pm$ 10.35 & 47.4 \\
+		W & r3 & C & ok & 2.270 $\pm$ 0.002 & 16.4 & 0.12 $\pm$ 0.00 & 55.0 \\
+		W & r4 & C & ok & 2.151 $\pm$ 0.000 & 20.6 & 0.13 $\pm$ 0.00 & 69.0 \\
+		W & r5 & C & ok & 1.885 $\pm$ 0.031 & 26.3 & 0.15 $\pm$ 0.01 & 91.0 \\
+		W & r3 & D & ok & 3.581 $\pm$ 0.035 & 4.8  & 15.19 $\pm$ 3.53 & 28.7 \\
+		W & r4 & D & ok & 3.274 $\pm$ 0.030 & 4.9  & 11.53 $\pm$ 0.45 & 41.4 \\
+		W & r5 & D & ok & 6.656 $\pm$ 0.635 & 6.2  & 23.85 $\pm$ 1.55 & 66.9 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Full baseline scalability trend across team sizes (r3--r5), systems view. Opt.\ p95 is the p95 optimisation-step duration. CPU and RSS are run means (server for centralised; sum over agents for decentralised).}
+	\label{tab:eval_baseline_scalability_full_b}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{llllrrr}
+		\toprule
+		Link & Team & B/E & Status & Opt.\ p95 (s) & CPU mean (\%) & RSS mean (MiB) \\
+		\midrule
+		P & r3 & C & ok & 0.030 & 32.0 & 123.9 \\
+		P & r4 & C & ok & 0.055 & 52.7 & 151.4 \\
+		P & r5 & C & ok & 0.058 & 55.8 & 155.6 \\
+		P & r3 & D & ok & 0.020 & 37.9 & 108.3 \\
+		P & r4 & D & ok & 0.026 & 35.0 & 113.7 \\
+		P & r5 & D & ok & 0.026 & 30.4 & 113.0 \\
+		W & r3 & C & ok & 0.043 & 45.4 & 136.4 \\
+		W & r4 & C & ok & 0.059 & 51.7 & 150.8 \\
+		W & r5 & C & ok & 0.062 & 57.2 & 159.2 \\
+		W & r3 & D & ok & 0.026 & 38.5 & 113.0 \\
+		W & r4 & D & ok & 0.026 & 35.4 & 114.2 \\
+		W & r5 & D & ok & 0.028 & 33.2 & 114.8 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+% -----------------------------
+\Needspace{8\baselineskip}
+\subsection{Decentralised diagnostic counts}
+\label{sec:eval_appendix_diag_counts}
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Decentralised diagnostic counts in the baseline sweep: number of inter-robot loop-closure constraints (Between factors whose endpoint keys belong to different robot symbols) and number of interface correction updates (count of stabilised interface-correction events). Values are mean $\pm$ 95\% CI over repeats ($R=5$).}
+	\label{tab:eval_diag_loops_iface_counts}
+	\small
+	\setlength{\tabcolsep}{5pt}
+	\begin{tabular}{lccc}
+		\toprule
+		Link & Team & Inter-robot loop closures (count) & Interface updates (count) \\
+		\midrule
+		WiFi & r3 & 390 & 19510 $\pm$ 1870 \\
+		WiFi & r4 & 609 & 26231 $\pm$ 3223 \\
+		WiFi & r5 & 843 & 34644 $\pm$ 2990 \\
+		ProRadio & r3 & 407 & 22858 $\pm$ 5315 \\
+		ProRadio & r4 & 480 & 24055 $\pm$ 2408 \\
+		ProRadio & r5 & 568 & 25570 $\pm$ 5564 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+% -----------------------------
+\Needspace{8\baselineskip}
+\subsection{Unsupported configurations}
+\label{sec:eval_appendix_excluded}
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Runs that did not complete successfully and were excluded from quantitative comparisons.}
+	\label{tab:eval_excluded_runs}
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{lllll}
+		\toprule
+		Scenario & Study & B/E & Condition & Failure mode \\
+		\midrule
+		proradio-r3-proradio & qos & D & best\_effort\_tl\_d10 & agent c crashed \\
+		proradio-r4-proradio & impair & D & blackout\_2x & agent d crashed \\
+		proradio-r5-proradio & impair & D & blackout\_2x & agent e crashed \\
+		wifi-r3-wifi & impair & D & blackout\_2x & agent c crashed \\
+		wifi-r3-wifi & impair & D & bwcap\_3p0mbps & agent c crashed \\
+		wifi-r4-wifi & impair & D & bwcap\_0p25mbps & agent b crashed \\
+		wifi-r4-wifi & impair & D & blackout\_2x & agent d crashed (and b in one repeat) \\
+		wifi-r5-wifi & impair & D & blackout\_2x & agent e crashed \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+% -----------------------------
+\Needspace{10\baselineskip}
+\subsection{Diagnostic figures}
+\label{sec:eval_appendix_figs}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_resources_timeseries.pdf}
+	\caption{Resource traces over time for the r3 baseline: centralised CPU/RSS of the server process vs.\ decentralised CPU/RSS aggregated across agents (sum over per-agent processes). Time is aligned to the start of each run. These traces support diagnosis of stability issues (e.g., monotonic RSS growth preceding agent crashes) and complement the aggregate means reported in Table~\ref{tab:eval_baseline_r3}.}
+	\label{fig:eval_resources_timeseries}
+\end{figure}
+
+% Optional: include if you want an absolute-time complement to the normalised slowdown plot
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.98\linewidth]{src/img/main/eval_impairment_timing.pdf}
+	\caption{Absolute timing under impairments (supplementary): centralised \(t_{\mathrm{global}}\) and decentralised interface stabilisation latency across impairment conditions. This figure complements the normalised slowdown view in Figure~\ref{fig:eval_impairment_degradation}.}
+	\label{fig:eval_impairment_timing}
+\end{figure}
+
+\FloatBarrier

@@ -5,14 +5,14 @@ This chapter evaluates the C-SLAM backends by instantiating the defined experime
 
 A comparison between centralised and decentralised backends often comes with default expectations; for example, centralised is accurate but bandwidth-heavy, whereas decentralised is scalable but slower to settle. Rather than foregrounding these obvious points, the discussion emphasises the non-obvious implications that emerge when accuracy, delivery, and semantics-aware timing are interpreted jointly: (i) \emph{what ``latency'' means} depends on the architecture's communication semantics, (ii) \emph{dataset regime and constraint structure} can dominate ``architecture'' effects, and (iii) \emph{robustness} is shaped by both estimator behaviour and software stability under backlog and intermittency.
 
-\section{Experimental protocol and how to read the results}
+\section{Experimental Protocol}
 \label{sec:eval_protocol}
 
 All experiments replay the same dataset-provided constraint stream (Section~\ref{sec:dataset_frontend}) and log metrics with the KPI pipeline described in Section~\ref{sec:metrics_implementation}. The dataset contains two native regimes (\emph{WiFi} and \emph{ProRadio}). These are treated as environmental conditions, not tunable parameters. Each configuration is repeated five times (\(R=5\)), and tables report repeat means with 95\% confidence intervals where shown.
 
 The baseline uses the reference ROS\,2 QoS profile RV-20 (reliable, volatile, depth 20). The QoS sweep varies only \(\mathcal{Q}\) at a fixed team size and regime. The impairment sweep varies only \(\mathcal{I}\) using the mechanism defined in Section~\ref{sec:network_impairment_qos}; in the runs reported here, impairments are applied at \emph{factor publication} (publisher-impaired mode), i.e., they primarily constrain \emph{constraint availability} rather than directly impairing decentralised peer exchange or centralised downlink.
 
-\subsection{Timing semantics and the ``non-obvious'' pitfall}
+\subsection{Timing Semantics}
 \label{sec:eval_semantics}
 
 Timing metrics are reported in a way that respects architectural semantics (Section~\ref{sec:timing_metrics}). The centralised backend exposes a clear dissemination event: the server broadcasts a global update. We therefore report \(t_{\mathrm{global}}\) as a \emph{dissemination-tail proxy} (time until the last broadcast observed in the run). In addition, ``Corr.\ p95'' reports loop-closure correction latency (p95), i.e., the time from loop-closure ingestion until that correction is stably reflected.
@@ -21,7 +21,7 @@ The decentralised backend has no single broadcast event. For decentralised runs,
 
 When a backend-agnostic convergence statement is required, the chapter uses the stabilisation proxy \(T_{\mathrm{conv}}^{(\mathrm{team})}=\max_r T_{\mathrm{conv}}^{(r)}\) from Section~\ref{sec:timing_metrics}. Importantly, event-style proxies (such as \(t_{\mathrm{global}}\) or ``Iface p95'') can move in counter-intuitive directions under missing constraints: for instance, a blackout may shorten \(t_{\mathrm{global}}\) simply because fewer factors arrive (less work and fewer broadcasts), even though estimation quality degrades. Throughout this chapter, timing is therefore interpreted jointly with delivery and accuracy.
 
-\section{Results overview}
+\section{Results Overview}
 \label{sec:eval_overview}
 
 Across all studies, three patterns recur and shape the interpretation.
@@ -32,12 +32,12 @@ Second, the dataset regime interacts strongly with architecture: the WiFi and Pr
 
 Third, robustness is not only about estimation under missing factors; it is also about whether the implementation remains stable under backlog, delayed delivery, or intermittency. The decentralised backend exhibits a repeatable crash signature in several blackout and QoS configurations; these cases are treated as unsupported in the quantitative comparisons and are explicitly analysed as an engineering limitation.
 
-\section{Baseline comparison under native dataset networking}
+\section{Baseline Comparison Under Native Dataset Networking}
 \label{sec:eval_baseline}
 
 The baseline establishes a common operating point for both architectures under the dataset-native regimes, using identical factor streams and the same RV-20 QoS profile. It anchors the subsequent team-size, QoS, and impairment sweeps.
 
-\subsection{Reference r3 baseline: centralised vs.\ decentralised}
+\subsection{Reference r3 Baseline: Centralised vs.\ Decentralised}
 \label{subsec:eval_r3_baseline}
 
 Table~\ref{tab:eval_baseline_r3} summarises the r3 baseline. Under both regimes, the centralised backend achieves lower ATE RMSE than the decentralised backend. The more informative observation, however, is \emph{how} this gap coexists with timing and traffic:
@@ -60,7 +60,7 @@ Figure~\ref{fig:eval_efficiency_cpu_s_per_step} reports a normalised view (CPU-s
 
 \begin{table}[H]
 	\centering
-	\caption{Baseline comparison for r3 under dataset-native networking. \(t_{\mathrm{global}}\) is a centralised dissemination proxy (time until last global map broadcast). ``Corr.\ p95'' is a correction-latency indicator: for centralised runs it reports loop-closure correction latency (p95), while for decentralised runs it reports interface correction stabilisation latency (p95). These timing indicators are architecture-specific; strict cross-architecture convergence comparisons should use the shared stabilisation proxy \(T_{\mathrm{conv}}^{(\mathrm{team})}\) (Section~\ref{sec:eval_semantics}). Link(L): ProRadio(P) \& WiFi (W); Backend(B): Centralised(C) \& Decentralised(D).}
+	\caption{Baseline comparison for r3 under dataset-native networking. \(t_{\mathrm{global}}\) is a centralised dissemination proxy (time until last global map broadcast). ``Corr.\ p95'' is a correction-latency indicator. For centralised runs it reports loop-closure correction latency (p95), while for decentralised runs it reports interface correction stabilisation latency (p95). These timing indicators are architecture-specific. Although Strict cross-architecture convergence comparisons should use the shared stabilisation proxy \(T_{\mathrm{conv}}^{(\mathrm{team})}\) (Section~\ref{sec:eval_semantics}). Link(L): ProRadio(P) \& WiFi (W); Backend(B): Centralised(C) \& Decentralised(D).}
 	\label{tab:eval_baseline_r3}
 	\small
 	\setlength{\tabcolsep}{3pt}
@@ -87,10 +87,10 @@ Figure~\ref{fig:eval_efficiency_cpu_s_per_step} reports a normalised view (CPU-s
 
 Detailed resource traces used for diagnosing stability and backlog effects are provided in Appendix Figure~\ref{fig:eval_resources_timeseries}.
 
-\subsection{Scalability trend (r3--r5)}
+\subsection{Scalability Trend (r3--r5)}
 \label{subsec:eval_scalability}
 
-Scalability is assessed by repeating the baseline protocol at r4 and r5. Table~\ref{tab:eval_baseline_scalability_condensed} reports the key trend metrics used in the main discussion; the full multi-metric table (including CPU/RSS and Opt.\ p95) is provided in Appendix Table~\ref{tab:eval_baseline_scalability_full}. For the decentralised backend, Figure~\ref{fig:eval_ddf_ate_vs_stop_time} visualises how final accuracy relates to DDF termination time as team size increases. Diagnostic counts of inter-robot loop closures and interface-update activity are provided in Appendix Table~\ref{tab:eval_diag_loops_iface_counts}.
+Scalability is assessed by repeating the baseline protocol at r4 and r5. Table~\ref{tab:eval_baseline_scalability_condensed} reports the key trend metrics used in the main discussion; the full multi-metric tables (including CPU/RSS and Opt.\ p95) are provided in Appendix Tables~\ref{tab:eval_baseline_scalability_full_a}--\ref{tab:eval_baseline_scalability_full_b}. For the decentralised backend, Figure~\ref{fig:eval_ddf_ate_vs_stop_time} visualises how final accuracy relates to DDF termination time as team size increases. Diagnostic counts of inter-robot loop closures and interface-update activity are provided in Appendix Table~\ref{tab:eval_diag_loops_iface_counts}.
 
 \emph{(i) Centralised scalability is driven by dissemination tail, not solver load.}
 For the centralised backend, total traffic grows with team size primarily because the global map broadcast must serve more robots and the map itself grows as more trajectories contribute constraints. Under WiFi, traffic increases from 55.0\,MiB (r3) to 69.0\,MiB (r4) and 91.0\,MiB (r5). Under ProRadio, the same monotonic growth is observed (30.3\,MiB to 74.4\,MiB to 86.8\,MiB), and \(t_{\mathrm{global}}\) increases accordingly. Importantly, solver stability (as measured by \(T_{\mathrm{conv}}^{(\mathrm{team})}\)) remains low across all team sizes, indicating that the centralised optimiser is not the bottleneck.
@@ -106,7 +106,7 @@ Although WiFi exhibits more inter-robot loop closures than ProRadio (Appendix Ta
 	\caption{Condensed baseline scalability trend across team sizes (r3--r5). Link: P=ProRadio, W=WiFi. Backend: C=centralised, D=decentralised. ``Time'' denotes \(t_{\mathrm{global}}\) for centralised runs (dissemination proxy) and Corr.\ p95 for decentralised runs (correction-propagation proxy). \(T_{\mathrm{conv}}^{(\mathrm{team})}\) is the shared stabilisation proxy (mean $\pm$ 95\% CI; ``$\geq$'' indicates right-censoring when stabilisation is not observed).}
 	\label{tab:eval_baseline_scalability_condensed}
 	\small
-	\setlength{\tabcolsep}{4pt}
+	\setlength{\tabcolsep}{3pt}
 	\begin{tabular}{lllc r r r r}
 		\toprule
 		Link & Team & B & Status & ATE RMSE (m) & Time (s) & \(T_{\mathrm{conv}}^{(\mathrm{team})}\) (s) & Traffic (MiB) \\
@@ -149,7 +149,7 @@ Although WiFi exhibits more inter-robot loop closures than ProRadio (Appendix Ta
 	\label{fig:eval_ddf_ate_vs_stop_time}
 \end{figure}
 
-\section{Sensitivity to ROS\,2 QoS policy}
+\section{Sensitivity to ROS\,2 QoS Policy}
 \label{sec:eval_qos}
 
 The QoS study isolates factor \(\mathcal{Q}\) by changing only the ROS\,2 communication profile while keeping the dataset regime and all other parameters fixed. Two alternate profiles are evaluated: BT-TL-10 and BT-TL-50, which use best-effort reliability and transient-local durability with history depth 10 and 50, respectively. This tests whether relaxing delivery guarantees (best-effort) and modifying buffering (depth) alter dissemination/correction timing, bandwidth, or estimation quality.
@@ -166,10 +166,10 @@ One decentralised QoS configuration (ProRadio r3 under BT-TL-10) does not comple
 \begin{table}[H]
 	\centering
 	\caption{QoS sensitivity at r3. Two alternate profiles are evaluated: BT-TL-10 and BT-TL-50, which use best-effort reliability and transient-local durability with history depth 10 and 50, respectively. Baseline (RV-20) results are reported in Table~\ref{tab:eval_baseline_r3}. ``Time'' denotes \(t_{\mathrm{global}}\) for centralised runs and Corr.\ p95 for decentralised runs. \(T_{\mathrm{conv}}^{(\mathrm{team})}\) is the shared stabilisation proxy (mean $\pm$ 95\% CI; ``$\geq$'' indicates right-censoring). Rows marked fail indicate at least one repeat crashed.
-	Link(L) = WiFi(W) \& ProRadio(P); QoS profile = BT-TL-10/50}
+		Link(L) = WiFi(W) \& ProRadio(P); QoS profile = BT-TL-10/50}
 	\label{tab:eval_qos_r3}
 	\small
-	\setlength{\tabcolsep}{4pt}
+	\setlength{\tabcolsep}{3pt}
 	\begin{tabular}{llllcccc}
 		\toprule
 		L & B/E & QoS & Status & ATE mean (m) & Traffic (MiB) & Time (s) & $T_{\mathrm{conv}}^{(\mathrm{team})}$ (s) \\
@@ -193,12 +193,12 @@ One decentralised QoS configuration (ProRadio r3 under BT-TL-10) does not comple
 	\label{fig:eval_qos_slope_chart}
 \end{figure}
 
-\section{Sensitivity to synthetic network impairments}
+\section{Sensitivity to Synthetic Network Impairments}
 \label{sec:eval_impair}
 
 The impairment study varies \(\mathcal{I}\) by injecting controlled degradations (Section~\ref{sec:network_impairment_qos}). In the reported sweep, impairments are applied to factor publication (uplink/factor-stream degradation). Two impairment families are considered: bandwidth caps (0.25--3.0\,Mbps) and periodic blackouts (\texttt{blackout\_2x}). The evaluation asks not only “does error increase?”, but also \emph{which latency proxy moves, and why}.
 
-\subsection{Centralised backend under impairments}
+\subsection{Centralised Backend Under Impairments}
 \label{subsec:eval_impair_centralised}
 
 For the centralised backend, bandwidth caps on the factor stream have an intuitive effect: they do not change the total information volume (bytes transmitted remains essentially constant), but they delay when batches arrive at the server and therefore extend the map-broadcast tail.
@@ -214,7 +214,7 @@ Blackout impairments primarily affect delivery rather than throughput. In the ce
 	\caption{Impact of representative network impairments on the centralised backend. Bandwidth caps of 1--3\,Mbps were near-identical to baseline and are omitted here; only the most restrictive cap (0.25\,Mbps) is shown. Wr3/5 = WiFi r3/5; Pr3/5 = ProRadio r3/5; bwcap = bwcap 0.25 Mbps; FDM = Factor Delivery Time}
 	\label{tab:eval_impair_centralised}
 	\small
-	\setlength{\tabcolsep}{4pt}
+	\setlength{\tabcolsep}{3pt}
 	\begin{tabular}{llcccc}
 		\toprule
 		Scenario & Impairment & $t_{\mathrm{global}}$ (s) & ATE mean (m) & FDM & Traffic (MiB) \\
@@ -235,7 +235,7 @@ Blackout impairments primarily affect delivery rather than throughput. In the ce
 	\end{tabular}
 \end{table}
 
-\subsection{Decentralised backend under impairments}
+\subsection{Decentralised Backend Under Impairments}
 \label{subsec:eval_impair_decentralised}
 
 For the decentralised backend, impairment response is more regime-dependent. Because the current sweep impairs only factor publication, the peer-to-peer interface exchange is not directly impaired; instead, bandwidth caps and blackouts change the availability and timing of new constraints at each agent.
@@ -249,11 +249,11 @@ Blackouts are survivable at ProRadio r3 but still trigger agent failures at r4 a
 \begin{table}[H]
 	\centering
 	\caption{Impact of representative network impairments on the decentralised backend (DDF-style). ``Iface p95'' is interface correction stabilisation latency (p95). Rows marked fail indicate runs where at least one agent crashed.
-	Wr3/5 = WiFi r3/5; Pr3/5 = ProRadio r3/5; bwcap = bwcap 0.25 Mbps; FDM = Factor Delivery Time}
+		Wr3/5 = WiFi r3/5; Pr3/5 = ProRadio r3/5; bwcap = bwcap 0.25 Mbps; FDM = Factor Delivery Time}
 	
 	\label{tab:eval_impair_decentralised}
 	\small
-	\setlength{\tabcolsep}{4pt}
+	\setlength{\tabcolsep}{3pt}
 	\begin{tabular}{lllcccc}
 		\toprule
 		Scenario & Impairment & Status & ATE mean (m) & Iface p95 (s) & FDM & Traffic (MiB) \\
@@ -281,28 +281,28 @@ Blackouts are survivable at ProRadio r3 but still trigger agent failures at r4 a
 	\label{fig:eval_impairment_degradation}
 \end{figure}
 
-\section{Robustness and unsupported configurations}
+\section{Robustness and Unsupported Configurations}
 \label{sec:eval_robustness}
 
 Appendix Table~\ref{tab:eval_excluded_runs} lists configurations that did not complete successfully and were excluded from quantitative comparisons. These outcomes bound the generality of conclusions about QoS and impairment sensitivity for the decentralised backend.
 
-The key robustness takeaway is not merely that ``blackouts are hard'' (which is expected), but that the observed decentralised failures are triggered by a \emph{specific implementation fragility} under intermittent or delayed delivery illustrates an engineering limitation. Figure~\ref{fig:eval_robustness_matrix} provides a compact visual summary of which configurations are supported vs.\ unsupported across the three studies.
+The key robustness takeaway is not merely that ``blackouts are hard'' (which is expected), but that the observed decentralised failures are triggered by a \emph{specific implementation fragility} under intermittent or delayed delivery illustrates an engineering limitation. Figure~\ref{fig:eval_robustness_matrix} provides a compact visual summary of which configurations are supported vs.\ unsupported across the evaluated design space.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.90\linewidth]{src/img/main/eval_robustness_matrix.pdf}
-	\caption{Robustness matrix summarising which configurations are supported (all repeats ok) vs.\ unsupported (at least one repeat fails) across the three studies: baseline, QoS, and impairments.}
+	\caption{Robustness matrix summarising which configurations are supported (all repeats ok) vs.\ unsupported (at least one repeat fails) across the three studies: baseline, QoS, and impairments. Green \texttt{ok} indicates all repeats completed successfully; red \texttt{fail} indicates at least one repeat failed; grey \texttt{n/a} indicates a configuration not evaluated in this study (QoS is evaluated at r3 only; impairments at r3 and r5 only).}
 	\label{fig:eval_robustness_matrix}
 \end{figure}
 
-\subsection{Failure mode analysis (decentralised crashes)}
+\subsection{Failure Mode Analysis (decentralised crashes)}
 \label{subsec:eval_failure_modes}
 
-Across the failed decentralised runs in Appendix Table~\ref{tab:eval_excluded_runs}, the crash signature is consistent: an out-of-range index in GTSAM iSAM2 factor removal (e.g., \texttt{IndexError: vector::\_M\_range\_check ... removeFactorIndices ...}). The exported traces indicate that the exception is raised during \texttt{isam.update(..., removeFactorIndices=...)} and is triggered from the decentralised agent update loop. This points to an implementation-level bookkeeping bug (factor-removal indices becoming inconsistent with the internal factor container), rather than an estimator-level divergence.
+Across the failed decentralised runs in Appendix Table~\ref{tab:eval_excluded_runs}, the crash signature is consistent: an out-of-range index in GTSAM iSAM2 factor removal. The exported traces indicate that the exception is raised during \texttt{isam.update(..., removeFactorIndices=...)} and is triggered from the decentralised agent update loop. This points to an implementation-level bookkeeping bug (factor-removal indices becoming inconsistent with the internal factor container), rather than an estimator-level divergence.
 
 Resource traces provide supporting context: in representative impairment failures, one or more agents exhibit monotonic RSS growth and high CPU bursts during prolonged intermittency, consistent with queue/backlog accumulation. These conditions plausibly increase the likelihood of stale or invalid factor-removal indices (e.g., through out-of-order updates or mismatched bookkeeping across rounds). In this thesis, these points are treated conservatively as unsupported configurations; claims about decentralised robustness under intermittent connectivity are therefore conditional on resolving this stability issue. Supporting time-series traces are provided in Appendix Figure~\ref{fig:eval_resources_timeseries}.
 
-\section{Synthesis and limitations}
+\section{Synthesis and Limitations}
 \label{sec:eval_synthesis}
 
 The evaluation supports four conclusions aligned with the research questions. Each answer identifies the dominant factor that shapes the observed behaviour, rather than merely reporting metric values.
@@ -319,8 +319,8 @@ In publisher-impaired mode, centralised runs retain similar traffic volume under
 \paragraph{RQ4 (robustness): where do failures come from?}
 Under intermittent factor availability, centralised runs complete (with reduced delivery and sometimes increased ATE). Several decentralised configurations fail due to a repeatable factor-removal bookkeeping error. This bounds robustness claims for the decentralised backend in the current implementation and highlights a practical requirement for deployment: robustness must include both estimator-level resilience and software-level stability under backlog and out-of-order conditions.
 
-\paragraph{Limitations.}
+\paragraph{Limitations}
 Two limitations are most relevant. First, the impairment results are scoped to publisher-impaired mode; a complementary sweep that directly impairs decentralised peer exchange and/or centralised downlink would be required to attribute sensitivity to those communication edges. Second, unsupported decentralised configurations limit generality under severe intermittency; the failure analysis identifies a concrete stability issue that should be resolved to fairly characterise decentralised robustness beyond ``does it crash?''.
 
-\paragraph{Note on RPE.}
+\paragraph{Note on RPE}
 Relative pose error (RPE) is defined in Section~\ref{sec:metrics} as a drift-oriented metric; this chapter focuses on ATE to keep tables compact. RPE values are available in the KPI exports and can be reported in an appendix if required.

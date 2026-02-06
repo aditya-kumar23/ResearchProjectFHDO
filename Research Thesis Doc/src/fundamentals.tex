@@ -1,4 +1,4 @@
-\chapter{Fundamentals of SLAM and Collaborative SLAM}\label{ch:fundamentals}
+\chapter{Fundamentals of SLAM and C-SLAM}\label{ch:fundamentals}
 
 \section{Single-Agent SLAM}
 \label{sec:single_robot_slam}
@@ -22,7 +22,7 @@ Let $m$ denote a map of the environment (e.g., a set of landmarks or a continuou
 where $x_{0:T}=\{x_0,\dots,x_T\}$ denotes the trajectory.
 
 In practice, SLAM backends typically seek a maximum a posteriori (MAP) estimate under modelling assumptions (motion and measurement models, priors, and conditional independence), which yields a sparse optimisation problem (Section~\ref{subsec:graph_slam}).
-While Eq.~\eqref{eq:slam_posterior} includes an explicit map variable $m$, this thesis focuses on \emph{pose-graph} formulations where the environment is represented implicitly through relative constraints and the backend optimises over poses only. This choice matches the backend-centric scope of the thesis and the experimental setup introduced in Chapter~\ref{ch:methodology}.
+While Eq.~\eqref{eq:slam_posterior} includes an explicit map variable $m$, this thesis focuses on \emph{pose graph} formulations where the environment is represented implicitly through relative constraints and the backend optimises over poses only. This choice matches the backend-centric scope of the thesis and the experimental setup introduced in Chapter~\ref{ch:methodology}.
 
 \subsection{Graph-Based SLAM Framework}
 \label{subsec:graph_slam}
@@ -82,10 +82,10 @@ In the remainder, discrete keyframes/poses are indexed by $i,j$, and reserve $t$
 		landmark observations, loop closures, prior).}
 	\label{fig:slam_factor_graph}
 \end{figure}
-\subsubsection{\textbf{Constraints as pairwise factors}}
+\subsubsection{\textbf{Constraints as Pairwise Factors}}
 \label{subsubsec:pairwise_factors}
 
-The pose-graph setting used here is naturally expressed in terms of pairwise constraints between poses. Let $\mathcal{Z}$ denote the set of relative-pose measurements and let $\mathcal{E}$ denote the set of constrained pose index pairs $(i,j)$. Each measurement $z_{ij}\in\mathcal{Z}$ induces a likelihood term (factor) connecting two pose variables $x_i$ and $x_j$:
+The pose graph setting used here is naturally expressed in terms of pairwise constraints between poses. Let $\mathcal{Z}$ denote the set of relative-pose measurements and let $\mathcal{E}$ denote the set of constrained pose index pairs $(i,j)$. Each measurement $z_{ij}\in\mathcal{Z}$ induces a likelihood term (factor) connecting two pose variables $x_i$ and $x_j$:
 \begin{equation}
 	f_{ij}(x_i,x_j) \propto
 	\exp\!\left(
@@ -103,14 +103,14 @@ where $h(x_i,x_j)$ predicts the relative transformation implied by the current p
 
 Conceptually, $z_{ij}$ encodes ``what the sensors say'' about the relative pose between two states (e.g.\ odometry between consecutive keyframes, or a loop closure between revisited places). The function $h(\cdot)$ encodes ``what the current state estimate predicts'' for the same relative relation.
 
-Typical constraint types in pose-graph SLAM include:
+Typical constraint types in pose graph SLAM include:
 \begin{itemize}
 	\item \textbf{Motion constraints} between consecutive keyframes (short-horizon odometry / scan matching / IMU-derived relations),
 	\item \textbf{Intra-robot loop closures} between non-consecutive poses when the robot revisits a place, and
 	\item \textbf{Prior constraints} that anchor otherwise unobservable degrees of freedom (to resolve gauge freedom).
 \end{itemize}
 
-\subsubsection{Nonlinear least-squares optimisation template}
+\subsubsection{Nonlinear Least-Squares Optimisation Template}
 \label{subsubsec:nlls_template}
 
 Under standard conditional-independence assumptions, the posterior over the unknown variables can be factorised into a product of likelihood and prior terms, which is naturally represented as a factor graph (Section~\ref{subsec:graph_slam}). For a generic set of factors $\{\phi_k\}$, each involving a subset of variables $X_k\subseteq X$, we write
@@ -129,7 +129,7 @@ Assuming independent, zero-mean Gaussian noise models, each factor can be expres
 \end{equation}
 where $e_k(\cdot)$ is the residual induced by factor $k$ and $\Omega_k$ is the corresponding information matrix.
 
-A particularly important special case for this thesis is \emph{pose-graph SLAM}, in which all factors are (typically) pairwise relative-pose constraints between pose variables. Let $\mathcal{E}$ denote the set of constrained index pairs $(i,j)$ and let $z_{ij}$ be the corresponding relative measurement. The canonical pose-graph objective becomes
+A particularly important special case for this thesis is \emph{pose graph SLAM}, in which all factors are (typically) pairwise relative-pose constraints between pose variables. Let $\mathcal{E}$ denote the set of constrained index pairs $(i,j)$ and let $z_{ij}$ be the corresponding relative measurement. The canonical pose graph objective becomes
 \begin{equation}
 	X^\star
 	= \arg\min_{X}\;
@@ -141,7 +141,7 @@ A particularly important special case for this thesis is \emph{pose-graph SLAM},
 \end{equation}
 Equation~\eqref{eq:graph_slam_cost} is the \emph{reference optimisation template} used throughout this thesis. Later chapters specialise it to multi-robot pose graphs, and the implementation chapters show how different backends solve the same objective under different communication and computation constraints.
 
-\subsubsection{Solving the optimisation problem}
+\subsubsection{Solving the Optimisation Problem}
 \label{subsubsec:solving_nlls}
 
 The objective in Eq.~\eqref{eq:graph_slam_cost} is nonlinear because poses live on a manifold and relative-pose prediction involves nonlinear composition. Backends therefore solve it iteratively by linearising residuals around a current estimate and computing an incremental update.
@@ -203,13 +203,13 @@ The backend maintains the current factor graph and computes the robot trajectory
 
 As the robot explores, its trajectory may revisit previously mapped areas. Detecting such events is known as \emph{loop closure detection}. A constraint is added between non-consecutive poses $(i,j)$. In the single-robot setting, such a constraint is called an \emph{intra-robot loop closure}. Loop closures are crucial as they introduce long-range information that corrects accumulated drift and improves global consistency.
 
-\section{Collaborative SLAM}
+\section{C-SLAM}
 \label{sec:collaborative_slam}
 
 Collaborative SLAM \emph{(C-SLAM)} generalises SLAM to a team of robots that exchange information to jointly estimate their trajectories and (implicitly or explicitly) a shared map \cite{ppf,cieslewski2018data}. From an estimation perspective, the extension is rather simple, the variable set grows from one trajectory to multiple trajectories, and additional inter-robot constraints couple those trajectories but from a systems perspective, the extension becomes tedious as communication bandwidth, latency, temporary partitions, and compute limitations constrain how the global optimisation problem can be represented and solved in practice.
 
 
-\subsection{Multi-robot state and pose graph}
+\subsection{Multi-Robot State and Pose Graph}
 \label{subsec:multi_robot_factor_graph}
 
 Consider a team of $N$ robots. For each robot $r\in\{1,\dots,N\}$, let $T_r$ denote the index set of keyframes (pose nodes) associated with that robot, and let $x_i^{(r)}$ denote the pose of robot $r$ at keyframe $i\in T_r$. The global multi-robot state is the set of all poses across all robots:
@@ -226,12 +226,12 @@ The measurement set $\mathcal{Z}$ contains relative pose constraints within each
 while the optimisation objective remains the same as in the single-robot case that is to estimate $X$ so that all relative constraints are satisfied as well as possible. The difference is that the graph now consists of multiple per-robot subgraphs connected by a set of inter-robot edges.
 
 
-\subsection{Inter-robot loop closures}
+\subsection{Inter-Robot Loop Closures}
 \label{subsec:inter_robot_loop_closures}
 
 In addition to intra-robot loop closures, multi-robot systems form \emph{inter-robot loop closures} when different robots observe common structure or each other. These events introduce constraints between poses belonging to different robots, i.e.\ factors connecting $(x_i^{(r)},x_j^{(s)})$ with $r\neq s$. Inter-robot loop closures are particularly valuable because they align local frames and correct drift between agents, enabling a globally consistent multi-robot estimate.
 
-\subsection{Architectural Classes for Collaborative SLAM}
+\subsection{Architectural Classes for C-SLAM}
 \label{sec:cs_architectures}
 
 The factor-graph formulation above describes a conceptually centralised optimisation problem over all robots and landmarks. However, implementing a fully centralised solution is often impractical due to communication bandwidth limits, latency constraints, and the desire for robustness to node failures. Consequently, a wide range of C-SLAM architectures has been proposed, which can be broadly classified into \emph{centralised}, \emph{decentralised}, and \emph{hybrid or hierarchical} designs~\cite{ppf,cieslewski2018data}. Figure~\ref{fig:cs_architectures_row} illustrates these high-level classes.
@@ -341,7 +341,7 @@ The factor-graph formulation above describes a conceptually centralised optimisa
 		\caption{Hybrid/Hierarchical}
 	\end{subfigure}
 	
-	\caption{Collaborative SLAM architectures: centralised, decentralised, and hybrid/hierarchical.}
+	\caption{ C-SLAM architectures: centralised, decentralised, and hybrid/hierarchical.}
 	\label{fig:cs_architectures_row}
 \end{figure}
 
@@ -357,4 +357,3 @@ Decentralised C-SLAM architectures avoid a dedicated central server. Instead, ea
 \subsubsection{\textbf{Hybrid and Hierarchical Architectures}}
 
 Hybrid or hierarchical architectures combine elements of centralised and decentralised designs. For example, robots may form clusters, each with a cluster head that aggregates local information and communicates with other cluster heads or a higher-level server. Alternatively, certain tasks (such as place recognition or map compression) may be centralised, while local trajectory optimisation remains on-board.
-
